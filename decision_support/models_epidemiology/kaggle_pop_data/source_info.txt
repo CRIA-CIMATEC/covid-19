@@ -1,0 +1,11 @@
+Source: https://www.kaggle.com/tanuprabhu/population-by-country-2020
+
+Web scraping from: https://www.worldometers.info/world-population/population-by-country/
+
+File Description
+Below is a sortable list of countries by their population- 2020.
+There are 235 countries along with their population.
+And there are 11 columns each representing different features of countries.
+This is dataset is pretty new i.e 2020. Feel free to use the data set and play with it.
+
+
