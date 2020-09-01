@@ -1,4 +1,8 @@
-Artificial Neural Network for chest CT image distinction
+# Artificial Neural Network for chest CT image distinction
+
+## Support for Covid diagnosis using Aritificial Intelligence in Computed Tomography imagess
+
+### Reference Center for Artificial Intelligence at SENAI CIMATEC
 
 Model was trained to distinguish 3 classes: (A) CT of the chest, (B) CT of other parts of the body and (C) any images
 
