@@ -1,6 +1,6 @@
 # Clara Classification COVID and non-COVID model and lung segmentation model
 
-## Support for Covid diagnosis using Aritificial Intelligence in Computed Tomography imagess
+## Support for Covid diagnosis using Aritificial Intelligence in Computed Tomography images
 
 ### Reference Center for Artificial Intelligence at SENAI CIMATEC
 
