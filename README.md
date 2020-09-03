@@ -17,6 +17,7 @@ Website: https://covid19.fieb.org.br
 Developed by Reference Center for Artificial Intelligence at SENAI CIMATEC
 
 Coordinator: Prof. Dr. Erick Giovani Sperandio Nascimento
+
 Contributors:
 Adhvan Novais Furtado 
 Amilton Sales Reis Junior 
@@ -44,3 +45,4 @@ Rogério Pereira
 Ruama Patricio 
 Tássio Farias de Carvalho 
 Wenisten José Dantas da Silva 
+
