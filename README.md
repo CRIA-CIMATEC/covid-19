@@ -18,31 +18,31 @@ Developed by Reference Center for Artificial Intelligence at SENAI CIMATEC
 
 Coordinator: Prof. Dr. Erick Giovani Sperandio Nascimento
 
-Contributors:
-Adhvan Novais Furtado
-Amilton Sales Reis Junior
-Ana Claudia da Silva Batista
-Andre Luis da Cunha Dantas Lima 
-Antonio Ferreira de Sousa Neto 
-Daniel Souza Santos Ribeiro 
-Diego Gervasio Frías Suárez 
-Filipe Milani
-Flávio Santos Conterato 
-Guilherme Silva da Cunha 
-Ilan Souza Figueiredo 
-Jandson Santos Nunes 
-João Marcelo Silva Souza 
-José Vinicius Dantas Paranhos 
-Leandro José Silva Andrade 
-Lucas Pimentel de Freitas 
-Lucas Vilas Boas Alves 
-Maíra Matos Araújo 
-Neilton Melgaço Lisboa Júnior 
-Patrick Silva Ferraz 
-Prabhat Kumar de Oliveira 
-Roberto Badaró 
-Rogério Pereira 
-Ruama Patricio 
-Tássio Farias de Carvalho 
-Wenisten José Dantas da Silva 
+Contributors:<br>
+Adhvan Novais Furtado<br>
+Amilton Sales Reis Junior<br>
+Ana Claudia da Silva Batista<br>
+Andre Luis da Cunha Dantas Lima<br> 
+Antonio Ferreira de Sousa Neto <br>
+Daniel Souza Santos Ribeiro <br>
+Diego Gervasio Frías Suárez <br>
+Filipe Milani<br>
+Flávio Santos Conterato <br>
+Guilherme Silva da Cunha <br>
+Ilan Souza Figueiredo <br>
+Jandson Santos Nunes <br>
+João Marcelo Silva Souza <br>
+José Vinicius Dantas Paranhos<br> 
+Leandro José Silva Andrade <br>
+Lucas Pimentel de Freitas <br>
+Lucas Vilas Boas Alves <br>
+Maíra Matos Araújo <br>
+Neilton Melgaço Lisboa Júnior <br>
+Patrick Silva Ferraz <br>
+Prabhat Kumar de Oliveira <br> 
+Roberto Badaró <br>
+Rogério Pereira <br>
+Ruama Patricio <br>
+Tássio Farias de Carvalho <br>
+Wenisten José Dantas da Silva <br>
 
