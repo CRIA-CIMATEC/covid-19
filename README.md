@@ -19,9 +19,9 @@ Developed by Reference Center for Artificial Intelligence at SENAI CIMATEC
 Coordinator: Prof. Dr. Erick Giovani Sperandio Nascimento
 
 Contributors:
-Adhvan Novais Furtado 
-Amilton Sales Reis Junior 
-Ana Claudia da Silva Batista 
+Adhvan Novais Furtado
+Amilton Sales Reis Junior
+Ana Claudia da Silva Batista
 Andre Luis da Cunha Dantas Lima 
 Antonio Ferreira de Sousa Neto 
 Daniel Souza Santos Ribeiro 
