@@ -17,3 +17,30 @@ Website: https://covid19.fieb.org.br
 Developed by Reference Center for Artificial Intelligence at SENAI CIMATEC
 
 Coordinator: Prof. Dr. Erick Giovani Sperandio Nascimento
+Contributors:
+Adhvan Novais Furtado 
+Amilton Sales Reis Junior 
+Ana Claudia da Silva Batista 
+Andre Luis da Cunha Dantas Lima 
+Antonio Ferreira de Sousa Neto 
+Daniel Souza Santos Ribeiro 
+Diego Gervasio Frías Suárez 
+Filipe Milani
+Flávio Santos Conterato 
+Guilherme Silva da Cunha 
+Ilan Souza Figueiredo 
+Jandson Santos Nunes 
+João Marcelo Silva Souza 
+José Vinicius Dantas Paranhos 
+Leandro José Silva Andrade 
+Lucas Pimentel de Freitas 
+Lucas Vilas Boas Alves 
+Maíra Matos Araújo 
+Neilton Melgaço Lisboa Júnior 
+Patrick Silva Ferraz 
+Prabhat Kumar de Oliveira 
+Roberto Badaró 
+Rogério Pereira 
+Ruama Patricio 
+Tássio Farias de Carvalho 
+Wenisten José Dantas da Silva 
