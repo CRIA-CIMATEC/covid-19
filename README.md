@@ -1,10 +1,6 @@
-# Advanced Processing and Artificial Intelligence to Fight COVID-19​
+# Advanced Processing and Artificial Intelligence to Fight COVID-19
 
-
-
-Leading AI researcher​
-
-During a 4-month period, provide a supercomputing and artificial intelligence environment, develop and operate support solutions to fight COVID-19 in the areas of biological sciences, imaging tests and pandemic evolution predictions;​
+During a 4-month period, provide a supercomputing and artificial intelligence environment, develop and operate support solutions to fight COVID-19 in the areas of biological sciences, imaging tests and pandemic evolution predictions.
 
 Specific objectives:
 
@@ -20,4 +16,4 @@ Website: https://covid19.fieb.org.br
 
 Developed by Reference Center for Artificial Intelligence at SENAI CIMATEC
 
-Coordinator: Prof. Dr. Erick Giovani Sperandio Nascimento​
+Coordinator: Prof. Dr. Erick Giovani Sperandio Nascimento
