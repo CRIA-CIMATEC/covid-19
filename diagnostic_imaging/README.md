@@ -7,7 +7,7 @@
 
 <ul>
 
-<li>[Chest X-ray diagnostic module][https://github.com/CRIA-CIMATEC/covid-19/tree/master/diagnostic_imaging/xray]</li>
+<li>[Chest X-ray diagnostic module](https://github.com/CRIA-CIMATEC/covid-19/tree/master/diagnostic_imaging/xray)</li>
 
-<li>[Lung CT diagnostic module][https://github.com/CRIA-CIMATEC/covid-19/tree/master/diagnostic_imaging/computed_tomography]</li>
+<li>[Lung CT diagnostic module](https://github.com/CRIA-CIMATEC/covid-19/tree/master/diagnostic_imaging/computed_tomography)</li>
 </ul>
