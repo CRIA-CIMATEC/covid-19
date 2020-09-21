@@ -33,16 +33,6 @@ Server:
 | 2     | Infer         | /backend/Infer/app.py             | pip_infer.txt   |
 | 3     | Clara Infer   | /backend/Clara Infer/app_clara.py | pip_infer.txt   |
 
-Equipes:
--------------
-
-+ Back-End:
-    + Flávio Conterato
-+ Front-End:
-    + Antonio Ferreira
-    + Jandson Nunes
-    + Neilton Melgaço
-
 # API - Back-End System
 
 ## Dashboard Confirmed Case Total
