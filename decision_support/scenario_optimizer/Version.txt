@@ -1,0 +1,14 @@
+Descritivo das versões dos modelos de RNA que foram utilizados
+
+Modelo utilizado para casos confirmados
+/models_epidemic_ann_stacking/confirmed_v2020.08.25
+Data - 25/08/2020
+
+Modelo utilizado para mortes confirmadas
+/models_epidemic_ann_stacking/deaths_v2020.08.25
+Data - 25/08/2020
+
+Modelo utilizado para NF
+/models_consumer_invoices
+Data - 31/07/2020
+
