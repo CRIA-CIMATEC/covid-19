@@ -41,7 +41,7 @@ Server:
 GET /api/dashboard/confirmed/total_cases/?country=<country>&state=<state>
 ```
 ### Example
-country = Brazil & state = Bahia
+country = Brazil & state = Bahia <br/>
 country = Angola & state = null
 
 ### Test
@@ -74,7 +74,7 @@ Content-Type: application/json
 GET /api/dashboard/confirmed/daily/?country=<country>&state=<state>
 ```
 ### Example
-country = Brazil & state = Bahia
+country = Brazil & state = Bahia <br/>
 country = Angola & state = null
 
 ### Test
@@ -107,7 +107,7 @@ Content-Type: application/json
 GET api/dashboard/deaths/total_cases/?country=<country>&state=<state>
 ```
 ### Example
-country = Brazil & state = Bahia
+country = Brazil & state = Bahia <br/>
 country = Angola & state = null
 
 ### Test
@@ -141,7 +141,7 @@ Content-Type: application/json
 GET api/dashboard/deaths/daily/?country=<country>&state=<state>
 ```
 ### Example
-country = Brazil & state = Bahia
+country = Brazil & state = Bahia <br/>
 country = Angola & state = null
 
 ### Test
@@ -174,7 +174,7 @@ Content-Type: application/json
 GET api/dashboard/summary/?country=<country>&state=<state>
 ```
 ### Example
-country = Brazil & state = Bahia
+country = Brazil & state = Bahia <br/>
 country = Angola & state = null
 
 ### Test
@@ -207,7 +207,7 @@ Content-Type: application/json
 GET api/dashboard/invoices/quantity/?state=<state>
 ```
 ### Example
-state = Bahia
+state = Bahia <br/>
 state = Rio de Janeiro
 
 ### Test
@@ -236,7 +236,7 @@ Content-Type: application/json
 GET api/dashboard/invoices/value/?state=<state>
 ```
 ### Example
-state = Bahia
+state = Bahia <br/>
 state = Rio de Janeiro
 
 ### Test
@@ -265,7 +265,7 @@ Content-Type: application/json
 GET api/dashboard/mobility/?country=<country>&state=<state>&category=<int>
 ```
 ### Example
-country = Brazil & state = Bahia & category = 6 (all categories)
+country = Brazil & state = Bahia & category = 6 (all categories) <br/>
 country = Angola & state = null & category = 6 (all categories)
 
 ### Test
@@ -294,7 +294,7 @@ Content-Type: application/json
 GET api/dashboard/restrictive/?country=<country>
 ```
 ### Example
-country = Brazil
+country = Brazil <br/>
 country = Angola
 
 ### Test
