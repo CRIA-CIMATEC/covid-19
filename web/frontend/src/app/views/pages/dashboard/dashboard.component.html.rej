@@ -1,0 +1,10 @@
+diff a/frontend/src/app/views/pages/dashboard/dashboard.component.html b/frontend/src/app/views/pages/dashboard/dashboard.component.html	(rejected hunks)
+@@ -2,7 +2,7 @@
+ 	<div class="col-xl-12">
+ 		<div class="row row-full-height">
+ 			<div class="col-sm-12 col-md-4 col-lg-4">
+-				<selector_coutry></selector_coutry>
++				<!-- <selector_coutry></selector_coutry> -->
+ 				<div class="kt-space-20">
+ 				</div>
+ 		    </div>

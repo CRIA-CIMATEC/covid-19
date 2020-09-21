@@ -1,0 +1,252 @@
+<kt-portlet>
+	<!-- See prop => '../../_core/models/data-sources/_base.datasource.ts' (loading$) -->
+	<kt-portlet-header [class]="'kt-portlet__head--lg'" [viewLoading$]="dataSource.loading$">
+		<!-- PORTLET LOADING | Binded to TABLE Datasource -->
+
+		<ng-container ktPortletTitle>
+			<h3 class="kt-portlet__head-title">
+				<span translate="ECOMMERCE.CUSTOMERS.CUSTOMERS_LIST">Customers list</span>
+			</h3>
+			<!-- For localisations we use @ngx-translate | See off. documentations => https://github.com/ngx-translate/core -->
+			<!-- Localization libraries (en/fr) are here => '../../../.././config/i18n/en.ts|fr.ts' -->
+		</ng-container>
+
+		<ng-container ktPortletTools>
+			<button (click)="addCustomer()" mat-raised-button matTooltip="Create new customer" color="primary" type="button">
+				<span translate="ECOMMERCE.CUSTOMERS.NEW_CUSTOMER">New Customer</span>
+			</button>
+			<!-- Buttons (Material Angular) | See off.documenations 'https://material.angular.io/components/button/overview' -->
+			<!-- mat-raised-button | Rectangular contained button w/ elevation  -->
+		</ng-container>
+	</kt-portlet-header>
+	<!-- end::Header -->
+
+	<kt-portlet-body>
+		<!-- start::FILTERS & GROUP ACTIONS -->
+		<div class="kt-form kt-margin-b-30">
+			<!-- start::FILTERS -->
+			<div class="kt-form__filtration">
+				<div class="row align-items-center">
+
+					<div class="col-md-2 kt-margin-bottom-10-mobile">
+						<!-- 'm  margin-bottom-10-mobile' for adaptive make-up  -->
+						<div class="kt-form__control">
+							<mat-form-field class="mat-form-field-fluid">
+								<mat-select [(value)]="filterStatus" (selectionChange)="loadCustomersList()">
+									<mat-option value="">All</mat-option>
+									<mat-option value="0">Suspended</mat-option>
+									<mat-option value="1">Active</mat-option>
+									<mat-option value="Pending">Pending</mat-option>
+								</mat-select>
+								<mat-hint align="start">
+									<strong>Filter</strong> by Status
+								</mat-hint>
+							</mat-form-field>
+						</div>
+					</div>
+
+					<div class="col-md-2 kt-margin-bottom-10-mobile">
+
+						<div class="kt-form__control">
+							<mat-form-field class="mat-form-field-fluid">
+								<mat-select [(value)]="filterType" (selectionChange)="loadCustomersList()">
+									<mat-option value="">All</mat-option>
+									<mat-option value="0">Business</mat-option>
+									<mat-option value="1">Individual</mat-option>
+								</mat-select>
+								<mat-hint align="start">
+									<strong>Filter</strong> by Type
+								</mat-hint>
+							</mat-form-field>
+						</div>
+					</div>
+
+					<div class="col-md-2 kt-margin-bottom-10-mobile">
+						<mat-form-field class="mat-form-field-fluid">
+							<input matInput placeholder="Search customer" #searchInput placeholder="Search">
+							<mat-hint align="start">
+								<strong>Search</strong> in all fields
+							</mat-hint>
+						</mat-form-field>
+					</div>
+
+				</div>
+			</div>
+			<!-- end::FILTERS -->
+
+			<!-- start::GROUP ACTIONS -->
+			<!-- Group actions list: 'Delete selected' | 'Fetch selected' | 'Update status for selected' -->
+			<!-- Group actions are shared for all LISTS | See '../../_shared' folder -->
+			<div class="row align-items-center collapse kt-form__group-actions kt-margin-top-20 kt-margin-bottom-20"
+				[ngClass]="{'show' : selection.selected.length > 0}"><!-- We show 'Group Actions' div if smth are selected -->
+				<div class="col-xl-12">
+					<div class="kt-form__group kt-form__group--inline">
+						<div class="kt-form__label kt-form__label-no-wrap">
+							<label class="kt--font-bold kt-font-danger-">
+								<span translate="ECOMMERCE.COMMON.SELECTED_RECORDS_COUNT"></span> {{ selection.selected.length }}
+							</label>
+							<!-- selectedCountsTitle => function from codeBehind (customer-list.component.ts file) -->
+							<!-- selectedCountsTitle => just returns title of selected items count -->
+							<!-- for example: Selected records count: 4 -->
+						</div>
+						<div class="kt-form__control kt-form__group--inline">
+							<ng-template ngxPermissionsOnly="canDeleteECommerceData">
+								<button (click)="deleteCustomers()"
+									mat-raised-button
+									color="accent"
+									matTooltip="Delete selected customers" 
+									class="mat-button-mt-4">
+									<mat-icon>delete</mat-icon>
+									Delete All
+								</button>&nbsp;<!-- Call 'delete-entity-dialog' from _shared folder -->
+							</ng-template>
+
+							<button (click)="fetchCustomers()" mat-raised-button matTooltip="Fetch selected customers" class="mat-button-mt-4">
+								<mat-icon>clear_all</mat-icon>
+								Fetch Selected
+							</button>&nbsp;<!-- Call 'fetch-entity-dialog' from _shared folder -->
+							<button (click)="updateStatusForCustomers()" mat-raised-button matTooltip="Update status for selected customers"  class="mat-button-mt-4">
+								<mat-icon>update</mat-icon>
+								Update status
+							</button><!-- Call 'update-stated-dialog' from _shared folder -->
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- end::GROUP ACTIONS -->
+		</div>
+		<!-- end::FILTERS & GROUP ACTIONS -->
+
+		<!-- MATERIAL TABLE | Binded to datasources -->
+		<!-- See off.documentations 'https://material.angular.io/components/table/overview' -->
+		<div class="mat-table__wrapper">
+			<mat-table class="lmat-elevation-z8"
+				#table
+				[dataSource]="dataSource"
+				matSort
+				#sort1="matSort"
+				matSortActive="id"
+				matSortDirection="asc"
+				matSortDisableClear>
+				<!-- Checkbox Column -->
+
+				<!-- Table with selection -->
+				<!-- https://run.stackblitz.com/api/angular/v1?file=app%2Ftable-selection-example.ts -->
+				<ng-container matColumnDef="select">
+					<mat-header-cell *matHeaderCellDef class="mat-column-checkbox">
+						<mat-checkbox (change)="$event ? masterToggle() : null"
+							[checked]="selection.hasValue() && isAllSelected()"
+							[indeterminate]="selection.hasValue() && !isAllSelected()"
+							[color]="'primary'">
+						</mat-checkbox>
+					</mat-header-cell>
+					<mat-cell *matCellDef="let row" class="mat-column-checkbox">
+						<mat-checkbox (click)="$event.stopPropagation()"
+							(change)="$event ? selection.toggle(row) : null"
+							[checked]="selection.isSelected(row)"
+							[color]="'primary'">
+						</mat-checkbox>
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="id">
+					<!-- ATTRIBUTE mat-sort-header  for sorting | https://material.angular.io/components/sort/overview -->
+					<mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+					<mat-cell *matCellDef="let customer">{{customer.id}}</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="firstName">
+					<mat-header-cell *matHeaderCellDef mat-sort-header>Firstname</mat-header-cell>
+					<mat-cell *matCellDef="let customer">{{customer.firstName}}</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="lastName">
+					<mat-header-cell *matHeaderCellDef mat-sort-header>Lastname</mat-header-cell>
+					<mat-cell *matCellDef="let customer">{{customer.lastName}}</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="email">
+					<mat-header-cell *matHeaderCellDef mat-sort-header class="email-cell">Email</mat-header-cell>
+					<mat-cell *matCellDef="let customer" class="email-cell">
+						<a href="ecommerce/customers#" class="kt-link">{{customer.email}}</a>
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="gender">
+					<mat-header-cell *matHeaderCellDef mat-sort-header>Gender</mat-header-cell>
+					<mat-cell *matCellDef="let customer">{{customer.gender}}</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="status">
+					<mat-header-cell *matHeaderCellDef mat-sort-header>Status</mat-header-cell>
+					<mat-cell *matCellDef="let customer">
+						<span class="kt-badge kt-badge--inline kt-badge--pill kt-badge--{{ getItemCssClassByStatus(customer.status) }} kt-badge--wide">{{  getItemStatusString(customer.status) }}</span>
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="type">
+					<mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
+					<mat-cell *matCellDef="let customer">
+						<span class="kt-badge kt-badge--{{ getItemCssClassByType(customer.type) }} kt-badge--dot"></span>&nbsp;
+						<span class="kt--font-bold kt-font-{{ getItemCssClassByType(customer.type) }}">{{ getItemTypeString(customer.type) }}</span>
+					</mat-cell>
+				</ng-container>
+
+				<ng-container matColumnDef="actions">
+					<mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+					<mat-cell *matCellDef="let customer">
+						<ng-template ngxPermissionsOnly="canEditECommerceData">
+							<button mat-icon-button color="primary" matTooltip="Edit customer" (click)="editCustomer(customer)">
+								<mat-icon>create</mat-icon>
+							</button>&nbsp;
+						</ng-template>
+
+						<ng-template ngxPermissionsOnly="canDeleteECommerceData">
+							<button mat-icon-button
+								color="warn"
+								matTooltip="Delete customer"
+								type="button"
+								(click)="deleteCustomer(customer)">
+								<mat-icon>delete</mat-icon>
+							</button>&nbsp;
+						</ng-template>
+
+						<button mat-icon-button [matMenuTriggerFor]="menu" matTooltip="More actions">
+							<mat-icon>more_vert</mat-icon>
+						</button>
+						<mat-menu #menu="matMenu">
+							<button mat-menu-item>
+								<mat-icon>dialpad</mat-icon>
+								<span>Redial</span></button>
+							<button mat-menu-item disabled>
+								<mat-icon>voicemail</mat-icon>
+								<span>Check voicemail</span></button>
+							<button mat-menu-item>
+								<mat-icon>notifications_off</mat-icon>
+								<span>Disable alerts</span></button>
+						</mat-menu>
+					</mat-cell>
+				</ng-container>
+
+				<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+
+				<mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+			</mat-table>
+			<!-- Message for empty data  -->
+			<div class="mat-table__message" *ngIf="!dataSource.hasItems">No records found</div>
+			<div class="mat-table__message" *ngIf="dataSource.isPreloadTextViewed$ | async">Please wait....</div>
+		</div>
+
+		<!-- start: BOTTOM -->
+		<div class="mat-table__bottom">
+			<!-- MATERIAL SPINNER | Url: 'https://material.angular.io/components/progress-spinner/overview' -->
+			<mat-spinner [diameter]="20" *ngIf="dataSource.loading$ | async"></mat-spinner>
+			<!-- MATERIAL PAGINATOR | Binded to dasources -->
+			<!-- See off.documentations 'https://material.angular.io/components/paginator/overview' -->
+			<mat-paginator [pageSize]="10" [pageSizeOptions]="[3, 5, 10]" [length]="dataSource.paginatorTotal$ | async" [showFirstLastButtons]="true"></mat-paginator>
+		</div>
+		<!-- end: BOTTOM -->
+	</kt-portlet-body>
+	<!-- end::Body -->
+
+</kt-portlet>

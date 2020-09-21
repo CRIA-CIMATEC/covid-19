@@ -1,0 +1,19 @@
+
+<div class="kt-confirmed_cases">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="kt-confirmed_cases__content">
+        <span [translate]="'DASHBOARD.CONFIRMADOSTOTAL'" class="kt-confirmed_cases__number"></span>
+        <span [translate]="'DASHBOARD.DESC_CASOSCONFIRMADOS'" [translateParams]="{value: '20'}" class="kt-confirmed_cases__desc"></span>
+      </div>
+    </div>
+</div>
+<div style="text-align:center">
+  <apx-chart 
+    #chart
+    [series]="chartOptions.series"
+    [chart]="chartOptions.chart"
+    [xaxis]="chartOptions.xaxis"
+    [title]="chartOptions.title"
+  ></apx-chart>
+</div>

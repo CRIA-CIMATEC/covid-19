@@ -1,0 +1,25 @@
+<div class="kt-confirmed_cases">
+	<div class="row">
+		<div class="col-md-6">
+			<div class="kt-confirmed_cases__content">
+				<span [translate]="'DASHBOARD.CASOSCONFIRMADOS'" class="kt-confirmed_cases__number"></span>
+				<span [translate]="'DASHBOARD.DESC_CASOSCONFIRMADOS'" [translateParams]="{value: '7'}" class="kt-confirmed_cases__desc"></span>
+			</div>
+		</div>
+		
+		
+		<button mat-flat-button color="primary" class="ml-auto mb-auto mt-auto" (click)="clickFunction()">
+			<span [translate]="'DASHBOARD.RESET_ZOOM_BTN'"></span>
+		</button>
+		
+	</div>
+	
+	<!-- <div class="kt-confirmed_cases__chart">
+		<canvas ktSparklineChart [options]="options" id="kt_chart_quick_stats_1"></canvas>
+	</div> -->
+	<div class="kt-widget12">
+		<div class="kt-widget12__chart" style="height:250px;">
+			<canvas #chart id="kt_chart_order_statistics" width="683" height="312"></canvas>
+		</div>
+	</div>
+</div>

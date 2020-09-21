@@ -1,0 +1,145 @@
+//
+// Header Menu
+//
+
+
+
+
+// Build desktop menu
+@include kt-menu-hor-build-layout(kt-get($kt-header-config, menu, desktop));
+@include kt-menu-hor-build-skin(kt-get($kt-header-config, menu, desktop), default);
+
+// Build mobile menu
+@include kt-menu-ver-build-layout(kt-get($kt-header-config, menu, tablet-and-mobile));
+@include kt-menu-ver-build-skin(kt-get($kt-header-config, menu, tablet-and-mobile), default);
+
+// Header menu mobile offcanvas
+@include kt-offcanvas-build(kt-header-menu-wrapper, tablet-and-mobile, kt-get($kt-header-config, menu, offcanvas-mobile));
+
+// General mode
+.kt-header-menu-wrapper {
+	.kt-header-toolbar {
+		.btn.btn-custom {
+			background-color: #e7e8ef;
+			border-color: #e7e8ef;
+			color: #68667f;
+			font-size: 0.95rem;
+			font-weight: 600;
+			padding: 0.75rem 2rem;
+			text-transform: uppercase;
+
+			.show > &,
+	  		&.active,
+	  		&:active,
+	  		&:hover {
+				background-color: darken(#e7e8ef, 3%);
+				border-color: darken(#e7e8ef, 3%);
+				color: lighten(#68667f, 3%);
+			}
+		}
+
+		// Search
+		.kt-quick-search {
+			width: 200px;
+			padding: 0;	
+					 
+			.kt-quick-search__form {
+				.input-group {
+					background-color: #252338;
+
+					@include kt-rounded {
+						border-radius: $kt-border-radius;
+					}
+				}
+			}
+		}		
+	}
+}
+
+// Desktop mode(1024px and above)
+@include kt-media-above(lg) {
+	// Header default mode
+	.kt-header-menu-wrapper {
+		display: flex;
+		width: 100%;
+		align-items: center;
+		justify-content: space-between;
+		box-shadow: 0px 0px 20px 0px rgba(103,92,139,0.05);
+
+		// Menu
+		.kt-header-menu {
+			.kt-menu__nav {
+				> .kt-menu__item {
+					> .kt-menu__link {
+						@include kt-rounded {
+							border-radius: $kt-border-radius;
+						}
+
+						padding: 0.75rem 1.45rem;
+					}
+
+					> .kt-menu__submenu {
+						border-top-left-radius: 0;
+						border-top-right-radius: 0;							
+					}
+				}
+			}
+		}
+
+		// Toolbar
+		.kt-header-toolbar {
+			padding-left: 1rem;
+			display: flex;
+			align-items: center;	
+		}
+
+		// Search
+		.kt-quick-search {
+			width: 200px;
+			padding: 0;
+			border-radius: 30px;
+
+			.kt-quick-search__form {
+				border-radius: 30px;
+
+				.input-group {
+					border-radius: 30px;
+					background-color: #36344d;
+				}
+
+				.form-control {
+				    color: #807da1;
+				    @include kt-input-placeholder(darken(#807da1, 6%));
+				}
+
+				i {
+					font-size: 1.3rem;
+					color: #64688d;
+				}
+			}			
+		}
+	}	
+}
+
+// Tablet and mobile mode(1024px and below)
+@include kt-media-below(lg) {
+	.kt-header-menu-wrapper {
+		// Menu
+		.kt-header-menu {
+			.kt-menu__nav {
+				margin-bottom: 0;
+				padding-bottom: 10px;
+			}
+		}
+
+		// Toolbar
+		.kt-header-toolbar {
+			padding-left: 30px;
+		}
+
+		// Search
+		.kt-quick-search {
+			display: none;
+		}
+	}
+}

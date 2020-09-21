@@ -1,0 +1,41 @@
+<!-- begin:: Content Head -->
+<div class="kt-subheader kt-grid__item" [ngClass]="{'kt-container--clear': clear}" [hidden]="subheaderService.disabled$ | async" id="kt_subheader">
+	<div class="kt-container" [ngClass]="{'kt-container--fluid': fluid}">
+		<div class="kt-subheader__main">
+			<h3 *ngIf="title" class="kt-subheader__title">{{title}}</h3>
+			<h4 *ngIf="desc" class="kt-subheader__desc">{{desc}}</h4>
+			<div class="kt-subheader__breadcrumbs" *ngIf="breadcrumbs.length > 0">
+				<span class="kt-subheader__separator" [hidden]="true"></span>
+				<a class="kt-subheader__breadcrumbs-home"><i class="flaticon2-shelter"></i></a>
+				<ng-container *ngFor="let item of breadcrumbs">
+					<span class="kt-subheader__breadcrumbs-separator"></span>
+					<a [routerLink]="item.page" [queryParams]="item.queryParams" class="kt-subheader__breadcrumbs-link">
+						{{item.title}}
+					</a>
+				</ng-container>
+				<!-- <span class="kt-subheader__breadcrumbs-link kt-subheader__breadcrumbs-link--active">Active link</span> -->
+			</div>
+		</div>
+		<div class="kt-subheader__toolbar">
+			<div class="kt-subheader__wrapper">
+				<a href="javascript:;" class="btn kt-subheader__btn-secondary">
+					Reports
+				</a>
+
+				<div ngbDropdown [placement]="'bottom-right'" class="dropdown dropdown-inline">
+					<a ngbDropdownToggle href="javascript:;" class="btn btn-danger kt-subheader__btn-options">
+						Products
+					</a>
+					<div ngbDropdownMenu class="dropdown-menu dropdown-menu-right">
+						<a class="dropdown-item" href="javascript:;"><i class="la la-plus"></i> New Product</a>
+						<a class="dropdown-item" href="javascript:;"><i class="la la-user"></i> New Order</a>
+						<a class="dropdown-item" href="javascript:;"><i class="la la-cloud-download"></i> New Download</a>
+						<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="javascript:;"><i class="la la-cog"></i> Settings</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- end:: Content Head -->

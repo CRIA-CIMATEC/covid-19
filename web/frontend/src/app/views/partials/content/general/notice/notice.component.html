@@ -1,0 +1,8 @@
+<div class="alert alert-light alert-elevate" [ngClass]="classes" role="alert">
+	<div *ngIf="icon" class="alert-icon alert-icon-top">
+		<i [ngClass]="icon"></i>
+	</div>
+	<div class="alert-text">
+		<ng-content></ng-content>
+	</div>
+</div>

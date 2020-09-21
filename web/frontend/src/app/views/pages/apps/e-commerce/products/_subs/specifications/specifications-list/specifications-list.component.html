@@ -1,0 +1,124 @@
+<!-- start::FILTERS & GROUP ACTIONS -->
+<div class="kt-form kt-margin-b-30">
+	<!-- start::FILTERS -->
+	<div class="kt-form__filtration">
+		<div class="row align-items-center">
+			<div class="col-md-2 kt-margin-bottom-10-mobile">
+				<mat-form-field class="mat-form-field-fluid">
+					<input matInput placeholder="Search product specification" #searchInput placeholder="Search">
+					<mat-hint align="start">Search in all fields</mat-hint>
+				</mat-form-field>
+			</div>
+			<div class="col-md-8 kt-margin-bottom-10-mobile"></div>
+			<div class="col-md-2 text-right kt-margin-bottom-10-mobile">
+				<button type="button"
+					(click)="addSpec()"
+					mat-raised-button
+					color="primary"
+					matTooltip="Create new specification">New specification</button>
+			</div>
+		</div>
+	</div>
+	<!-- end::FILTERS -->
+
+	<!-- start::GROUP ACTIONS -->
+	<!-- Group actions list: 'Delete selected' | 'Fetch selected' | 'Update status for selected' -->
+	<!-- Group actions are shared for all LISTS | See '../../_shared' folder -->
+	<div class="row align-items-center collapse kt-form__group-actions kt-margin-bottom-20" [ngClass]="{'show' : selection.selected.length > 0}">
+
+		<div class="col-xl-12">
+			<div class="kt-form__group kt-form__group--inline">
+				<div class="kt-form__label kt-form__label-no-wrap">
+					<label class="kt--font-bold kt-font-danger-">Selected records count: {{ selection.selected.length }}:</label>
+				</div>
+				<div class="kt-form__control kt-form__group--inline">
+					<div>
+						<button mat-raised-button
+							color="accent"
+							(click)="deleteSpecs()"
+							matTooltip="Delete selected specifications">Delete All</button>
+						&nbsp;&nbsp;&nbsp;
+						<button mat-raised-button
+							color="warn"
+							(click)="fetchSpecs()"
+							matTooltip="Fetch selected specifications">Fetch Selected Records</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- end::GROUP ACTIONS -->
+</div>
+<!-- end::FILTERS & GROUP ACTIONS -->
+
+<!-- MATERIAL TABLE | Binded to datasources -->
+<!-- See off.documentations 'https://material.angular.io/components/table/overview' -->
+<div class="mat-table__wrapper  mat-table__wrapper--sub">
+	<mat-table class="lmat-elevation-z8" [dataSource]="dataSource" matSort matSortActive="_specificationName" matSortDirection="asc" matSortDisableClear>
+		<!-- Checkbox Column -->
+		<!-- Table with selection -->
+		<!-- https://run.stackblitz.com/api/angular/v1?file=app%2Ftable-selection-example.ts -->
+		<!-- Checkbox Column -->
+		<ng-container matColumnDef="select">
+			<mat-header-cell *matHeaderCellDef class="mat-column-checkbox">
+				<mat-checkbox (change)="$event ? masterToggle() : null"
+					[checked]="selection.hasValue() && isAllSelected()"
+					[indeterminate]="selection.hasValue() && !isAllSelected()"
+					[color]="'primary'">
+				</mat-checkbox>
+			</mat-header-cell>
+			<mat-cell *matCellDef="let row" class="mat-column-checkbox">
+				<mat-checkbox (click)="$event.stopPropagation()"
+					(change)="$event ? selection.toggle(row) : null"
+					[checked]="selection.isSelected(row)"
+					[color]="'primary'">
+				</mat-checkbox>
+			</mat-cell>
+		</ng-container>
+
+		<ng-container matColumnDef="_specificationName">
+			<mat-header-cell *matHeaderCellDef mat-sort-header class="mat-column">Specification Type</mat-header-cell>
+			<mat-cell *matCellDef="let spec" class="mat-column">{{spec._specificationName}}</mat-cell>
+		</ng-container>
+
+		<ng-container matColumnDef="value">
+			<mat-header-cell *matHeaderCellDef mat-sort-header class="mat-column">Value</mat-header-cell>
+			<mat-cell *matCellDef="let spec" class="mat-column">{{spec.value}}</mat-cell>
+		</ng-container>
+
+		<ng-container matColumnDef="actions">
+			<mat-header-cell *matHeaderCellDef class="mat-column-actions">
+				Actions
+			</mat-header-cell>
+			<mat-cell *matCellDef="let spec" class="mat-column-actions">
+				<button type="button"
+					mat-icon-button
+					color="primary"
+					(click)="editSpec(spec)"
+					matTooltip="Edit specification">
+					<mat-icon>create</mat-icon>
+				</button>
+				&nbsp;
+				<button mat-icon-button
+					color="warn"
+					type="button"
+					(click)="deleteSpec(spec)"
+					matTooltip="Delete specification">
+					<mat-icon>delete</mat-icon>
+				</button>
+			</mat-cell>
+		</ng-container>
+		<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+		<mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+	</mat-table>
+
+	<div class="mat-table__message" *ngIf="!dataSource.hasItems">No records found</div>
+	<div class="mat-table__message" *ngIf="dataSource.isPreloadTextViewed$ | async">Please wait....</div>
+
+</div>
+<!-- start: BOTTOM -->
+<div class="mat-table__bottom">
+	<mat-spinner [diameter]="20" *ngIf="dataSource.loading$ | async"></mat-spinner>
+	<mat-paginator [pageSize]="10" [pageSizeOptions]="[3, 5, 10]" [length]="dataSource.paginatorTotal$ | async" [showFirstLastButtons]="true"></mat-paginator>
+</div>
+<!-- end: BOTTOM -->

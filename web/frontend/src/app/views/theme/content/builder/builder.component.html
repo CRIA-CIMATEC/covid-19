@@ -1,0 +1,277 @@
+<kt-notice [icon]="'flaticon-warning kt-font-primary'">
+	The layout builder helps to configure the layout with preferred options and preview it in real time.
+	The configured layout options will be saved until you change or reset them.
+	To use the layout builder choose the layout options and click the <code>Preview</code> button to preview the changes.
+</kt-notice>
+
+<form class="kt-form kt-form--label-right" novalidate #form="ngForm" (ngSubmit)="submitPreview($event)">
+	<kt-portlet [class]="'kt-portlet--tabs'">
+		<kt-portlet-header [noTitle]="true">
+			<ng-container ktPortletTools>
+				<ul ktTabClickEvent class="nav nav-tabs nav-tabs-line nav-tabs-bold nav-tabs-line-left nav-tabs-line-primary" role="tablist">
+					<li class="nav-item">
+						<a (click)="tab.select('tab-id-1')" class="nav-link active" href="javascript:;" role="tab">
+							Page
+						</a>
+					</li>
+					<li class="nav-item">
+						<a (click)="tab.select('tab-id-2')" class="nav-link" href="javascript:;" role="tab">
+							Header
+						</a>
+					</li>
+					<li class="nav-item">
+						<a (click)="tab.select('tab-id-3')" class="nav-link" href="javascript:;" role="tab">
+							Subheader
+						</a>
+					</li>
+					<li class="nav-item">
+						<a (click)="tab.select('tab-id-4')" class="nav-link" href="javascript:;" role="tab">
+							Content
+						</a>
+					</li>
+					<li class="nav-item">
+						<a (click)="tab.select('tab-id-5')" class="nav-link" href="javascript:;" role="tab">
+							Aside
+						</a>
+					</li>
+					<li class="nav-item">
+						<a (click)="tab.select('tab-id-6')" class="nav-link" href="javascript:;" role="tab">
+							Footer
+						</a>
+					</li>
+				</ul>
+			</ng-container>
+		</kt-portlet-header>
+		<kt-portlet-body>
+			<ngb-tabset #tab="ngbTabset">
+				<ngb-tab id="tab-id-1">
+					<ng-template ngbTabContent>
+						<div class="kt-section kt-margin-t-30">
+							<div class="kt-section__body">
+								<div class="form-group row">
+									<label class="col-lg-3 col-form-label">Page Loader:</label>
+									<div class="col-lg-9 col-xl-4">
+										<select class="form-control" name="builder[loader][type]" [(ngModel)]="model.loader.type">
+											<option value="">Disabled</option>
+											<option value="default">Spinner</option>
+											<option value="spinner-message">Spinner & Message</option>
+											<option value="spinner-logo">Spinner & Logo</option>
+										</select>
+										<div class="form-text text-muted">Select page loading indicator</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</ng-template>
+				</ngb-tab>
+				<ngb-tab id="tab-id-2">
+					<ng-template ngbTabContent>
+						<div class="kt-section kt-margin-t-30">
+							<div class="kt-section__body">
+								<div class="form-group row">
+									<label class="col-lg-3 col-form-label">Fixed Desktop Header:</label>
+									<div class="col-lg-9 col-xl-4">
+										<span class="kt-switch kt-switch--icon-check">
+											<label>
+												<input type="checkbox" name="builder[header][self][fixed][desktop][enabled]" [(ngModel)]="model.header.self.fixed.desktop.enabled" value="true"/>
+												<span></span>
+											</label>
+										</span>
+										<div class="form-text text-muted">Enable fixed header for desktop mode</div>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-lg-3 col-form-label">Minimize Desktop Header:</label>
+									<div class="col-lg-9 col-xl-6">
+										<select class="form-control" name="builder[header][self][fixed][desktop][mode]" [(ngModel)]="model.header.self.fixed.desktop.mode">
+											<option value="all">Display Topbar & Menu</option>
+											<option value="topbar">Display Topbar Only</option>
+											<option value="menu">Display Menu Only</option>
+										</select>
+										<div class="form-text text-muted">Enable desktop header minimize mode on scroll(display either <code>Topbar</code>, <code>Menu</code> or both). Works only when <code>Desktop Fixed Header</code> option
+											enabled
+										</div>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-lg-3 col-form-label">Fixed Mobile Header:</label>
+									<div class="col-lg-9 col-xl-6">
+										<span class="kt-switch kt-switch--icon-check">
+											<label>
+												<input type="checkbox" name="builder[header][self][fixed][mobile]" [(ngModel)]="model.header.self.fixed.mobile" value="true"/>
+												<span></span>
+											</label>
+										</span>
+										<div class="form-text text-muted">Enable fixed header for mobile mode</div>
+									</div>
+								</div>
+
+								<div class="kt-separator kt-separator--space-lg kt-separator--border-dashed"></div>
+
+								<div class="form-group row">
+									<label class="col-lg-3 col-form-label">Header Menu Arrows:</label>
+									<div class="col-lg-9 col-xl-4">
+										<span class="kt-switch kt-switch--icon-check">
+											<label>
+												<input type="checkbox" name="builder[header][menu][self][root-arrow]" [(ngModel)]="model.header.menu.self['root-arrow']" value="true"/>
+												<span></span>
+											</label>
+										</span>
+										<div class="form-text text-muted">Enable header menu root link arrows</div>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-lg-3 col-form-label">Width:</label>
+									<div class="col-lg-9 col-xl-4">
+										<select class="form-control" name="builder[header][self][width]" [(ngModel)]="model.header.self.width">
+											<option value="fluid">Fluid</option>
+											<option value="fixed">Fixed</option>
+										</select>
+										<div class="form-text text-muted">Select layout width type.</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</ng-template>
+				</ngb-tab>
+				<ngb-tab id="tab-id-3">
+					<ng-template ngbTabContent>
+						<div class="kt-section kt-margin-t-30">
+							<div class="kt-section__body">
+								<div class="form-group row">
+									<label class="col-lg-3 col-form-label">Display Subheader:</label>
+									<div class="col-lg-9 col-xl-4">
+										<span class="kt-switch kt-switch--icon-check">
+										<label>
+									        <input type="checkbox" name="builder[subheader][display]" [(ngModel)]="model.subheader.display" value="true"/>
+									        <span></span>
+									    </label>
+									</span>
+										<div class="form-text text-muted">Display subheader</div>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-lg-3 col-form-label">Subheader Layout:</label>
+									<div class="col-lg-9 col-xl-4">
+										<select class="form-control" name="builder[subheader][layout]" [(ngModel)]="model.subheader.layout">
+											<option value="subheader-v1">Subheader 1</option>
+											<option value="subheader-v2">Subheader 2</option>
+											<option value="subheader-v3">Subheader 3</option>
+										</select>
+										<div class="form-text text-muted">Select subheader layout</div>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-lg-3 col-form-label">Width:</label>
+									<div class="col-lg-9 col-xl-4">
+										<select class="form-control" name="builder[subheader][width]" [(ngModel)]="model.subheader.width">
+											<option value="fluid">Fluid</option>
+											<option value="fixed">Fixed</option>
+										</select>
+										<div class="form-text text-muted">Select layout width type.</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</ng-template>
+				</ngb-tab>
+				<ngb-tab id="tab-id-4">
+					<ng-template ngbTabContent>
+						<div class="kt-section kt-margin-t-30">
+							<div class="kt-section__body">
+								<div class="form-group row">
+									<label class="col-lg-3 col-form-label">Width:</label>
+									<div class="col-lg-9 col-xl-4">
+										<select class="form-control" name="builder[content][width]" [(ngModel)]="model.content.width">
+											<option value="fluid">Fluid</option>
+											<option value="fixed">Fixed</option>
+										</select>
+										<div class="form-text text-muted">Select layout width type.</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</ng-template>
+				</ngb-tab>
+				<ngb-tab id="tab-id-5">
+					<ng-template ngbTabContent>
+						<div class="kt-section kt-margin-t-30">
+							<div class="kt-section__body">
+								<div class="form-group row">
+									<label class="col-lg-3 col-form-label">Display:</label>
+									<div class="col-lg-9 col-xl-6">
+										<span class="kt-switch kt-switch--icon-check">
+											<label>
+												<input type="checkbox" name="builder[aside][self][display]" [(ngModel)]="model.aside.self.display" value="true"/>
+												<span></span>
+											</label>
+										</span>
+										<div class="form-text text-muted">Display aside menu</div>
+									</div>
+								</div>
+								<div class="form-group row">
+									<label class="col-lg-3 col-form-label">Fixed:</label>
+									<div class="col-lg-9 col-xl-4">
+										<span class="kt-switch kt-switch--icon-check">
+											<label>
+												<input type="checkbox" name="builder[aside][self][fixed]" [(ngModel)]="model.aside.self.fixed" value="true"/>
+												<span></span>
+											</label>
+										</span>
+										<div class="form-text text-muted">Set fixed aside layout</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</ng-template>
+				</ngb-tab>
+				<ngb-tab id="tab-id-6">
+					<ng-template ngbTabContent>
+						<div class="kt-section kt-margin-t-30">
+							<div class="kt-section__body">
+								<div class="form-group row">
+									<label class="col-lg-3 col-form-label">Width:</label>
+									<div class="col-lg-9 col-xl-4">
+										<select class="form-control" name="builder[footer][self][width]" [(ngModel)]="model.footer.self.width">
+											<option value="fluid">Fluid</option>
+											<option value="fixed">Fixed</option>
+										</select>
+										<div class="form-text text-muted">Select layout width type.</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</ng-template>
+				</ngb-tab>
+			</ngb-tabset>
+		</kt-portlet-body>
+		<kt-portlet-footer>
+			<div class="kt-form__actions">
+				<div class="row">
+					<div class="col-lg-4"></div>
+					<div class="col-lg-8">
+						<button type="submit" name="builder_submit" class="btn btn-primary">
+							<i class="la la-eye"></i>
+							Preview
+						</button>
+						&nbsp;
+						<button type="submit" (click)="resetPreview($event)" name="builder_reset" class="btn btn-secondary">
+							<i class="la la-recycle"></i>
+							Reset
+						</button>
+					</div>
+				</div>
+			</div>
+		</kt-portlet-footer>
+	</kt-portlet>
+</form>
+
+<kt-portlet>
+	<kt-portlet-header [title]="'Generated Config <small>can be used for layout config in <code>/src/app/core/_config/layout.config.ts</code></small>'">
+	</kt-portlet-header>
+	<kt-portlet-body>
+		<div perfectScrollbar [ngStyle]="{'max-height': '50vh', 'position': 'relative'}">
+			<pre><code [highlight]="model|json"></code></pre>
+		</div>
+	</kt-portlet-body>
+</kt-portlet>

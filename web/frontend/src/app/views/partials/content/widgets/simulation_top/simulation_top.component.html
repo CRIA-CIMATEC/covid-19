@@ -1,0 +1,108 @@
+<!-- <mat-form-field>
+    <mat-select placeholder="País" [(value)]="Country">
+        <mat-option value="global">Global</mat-option>
+        <mat-option value="Brazil">Brasil</mat-option>
+        <mat-option value="usa">Estados unidos</mat-option>
+        <mat-option value="cn">China</mat-option>
+    </mat-select>
+</mat-form-field>
+<mat-form-field *ngIf="Country=='Brazil'">
+    <mat-select placeholder="Estado" [(value)]="State">
+        <mat-option *ngIf="Country!='Brazil'" value="none">None</mat-option>
+        <mat-option value="todos">Todos</mat-option>
+        <mat-option value="Bahia">Bahia</mat-option>
+        <mat-option value="sp">São Paulo</mat-option>
+        <mat-option value="rj">Rio de Janeiro</mat-option>
+    </mat-select>
+</mat-form-field> -->
+
+<dropdown_location></dropdown_location>
+
+<div class="kt-confirmed_cases__content">
+    <span class="kt-confirmed_cases__number">
+        {{'VARIAVEIS'|translate}}
+    </span>
+</div>
+
+<form class="example-form mt-3" style="display: flex;">
+    <mat-form-field class="example-full-width">
+        <input matInput id="Populacao" placeholder="{{'DASHBOARD.SIMULATIONTOP_POPULACAO'|translate}}" value="15130000">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+        <input matInput id="Beta" placeholder="Beta" value="2">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+        <input matInput id="T_inf" placeholder="T_inf" value="70">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+        <input matInput id="N_inf" placeholder="N_inf" value="60">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+        <input matInput id="T_death" placeholder="T_death" value="8">
+    </mat-form-field>
+    <mat-form-field class="example-full-width">
+        <input matInput id="CFR" placeholder="CFR" value="0.3">
+    </mat-form-field>
+</form>           
+
+<div class="row">
+    <div class="col-md-6">
+        <div class="kt-confirmed_cases__content">
+            <span class="kt-confirmed_cases__number">
+                {{'MITIGACAO.Medidas'|translate}}
+            </span>
+        </div>
+        <!-- <table-with-selection ></table-with-selection> -->
+        <div class="modal-body">
+            <div class="">
+                <mat-checkbox id="SchoolClosure">{{'MITIGACAO.school_closure'|translate}}</mat-checkbox>
+            </div>
+            <div class="">
+                <mat-checkbox id="WorkplaceClosure">{{'MITIGACAO.workplace_closure'|translate}}</mat-checkbox>
+            </div>
+            <div class="">
+                <mat-checkbox id="CancellationOfPublicEvents">{{'MITIGACAO.cancellation_of_public_events'|translate}}</mat-checkbox>
+            </div>
+            <div class="">
+                <mat-checkbox id="RestrictionsOnGatheringSize">{{'MITIGACAO.restrictions_on_gathering_size'|translate}}</mat-checkbox>
+            </div>
+            <div class="">
+                <mat-checkbox id="PublicTransportClosures">{{'MITIGACAO.public_transport_closures'|translate}}</mat-checkbox>
+            </div>
+            <div class="">
+                <mat-checkbox id="StayAtHomeRequirements">{{'MITIGACAO.stay_at_home_requirements'|translate}}</mat-checkbox>
+            </div>
+            <div class="">
+                <mat-checkbox id="RestrictionsOnDomesticMovement">{{'MITIGACAO.restrictions_on_domestic_movement'|translate}}</mat-checkbox>
+            </div>
+            <div class="">
+                <mat-checkbox id="RestrictionsOnInternationalTravel">{{'MITIGACAO.restrictions_on_international_travel'|translate}}</mat-checkbox>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+
+            <div class="kt-confirmed_cases__content mt-4">
+                <span class="kt-confirmed_cases__number">
+                    {{'SELECIONE'|translate}}
+                </span>
+            </div>
+            <div class="mt-4"> 
+                
+                <kt-widget-csvupload></kt-widget-csvupload>
+                <!-- <kt-widget-csvupload [Type]="'cases' |translate"></kt-widget-csvupload> -->
+                
+                <!-- <kt-widget-csvupload [Title]="'DASHBOARD.OBITOSCSV' |translate"></kt-widget-csvupload> -->
+                
+                <!-- <kt-widget-csvupload [Type]="'invoices' |translate"></kt-widget-csvupload> -->
+                
+                <!-- <kt-widget-csvupload [Title]="'DASHBOARD.NFVALORCSV' |translate"></kt-widget-csvupload> -->
+                <!-- <kt-widget-csvupload [Type]="'mobility' |translate"></kt-widget-csvupload> -->
+                <!-- <kt-widget-csvupload style="cursor: pointer;" [Title]="'Mobilidade - Formato csv' |translate"></kt-widget-csvupload> -->
+            </div>
+        </div>
+</div>
+
+<div class="float-right">
+    <button mat-raised-button color="primary" class="float-right" (click)="submit()">{{'DASHBOARD.PROCESSAR_BTN' | translate}}</button>
+</div>

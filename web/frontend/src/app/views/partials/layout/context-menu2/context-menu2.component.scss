@@ -1,0 +1,6 @@
+:host {
+	// enable ng-boostrap dropdowm arrow
+	[ngbdropdowntoggle]::after {
+		display: inline-block !important;
+	}
+}

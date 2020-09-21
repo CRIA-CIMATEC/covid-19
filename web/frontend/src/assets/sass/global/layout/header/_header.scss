@@ -1,0 +1,159 @@
+//
+// Header
+//
+
+
+
+// Desktop mode(1024px and above)
+@include kt-media-above(lg) {
+	.kt-header {
+		display: flex;
+		flex-direction: column;
+		transition: all 0.3s ease;
+		background: #1f1e2e;		
+    	position: relative;
+    	z-index: 2;
+
+		.kt-header__top {
+			height: kt-get($kt-header-config, base, desktop, default, height, top);
+			display: flex;
+			align-items: stretch;
+
+			.kt-container {
+				display: flex;
+				align-items: center;
+				justify-content: space-between;
+
+				&:before,
+				&:after {
+					display: none !important;
+				}
+
+				.kt-header__brand-logo-default {
+					display: inline-block;
+				}
+
+				.kt-header__brand-logo-sticky {
+					display: none;
+				}
+			}			
+		}
+
+		.kt-header__bottom {
+			display: flex;
+			align-items: stretch;
+			height: kt-get($kt-header-config, base, desktop, default, height, bottom);
+			background-color: #181824;
+
+			.kt-container {
+				display: flex;
+				align-items: stretch;
+
+				&:before,
+				&:after {
+					display: none !important;
+				}
+			}
+		}
+
+		// Fixed
+		.kt-header--fixed.kt-header--minimize & {
+			position: fixed;
+			top: 0;
+			right: 0;
+			left: 0;
+			z-index: kt-get($kt-header-config, base, desktop, fixed, zindex);
+			box-shadow: 0px 0px 40px 0px rgba(82,63,105,0.1);
+
+			.kt-header__top {
+				height: kt-get($kt-header-config, base, desktop, fixed, height, top);
+
+				.kt-header__brand-logo-default {
+					display: none;
+				}
+
+				.kt-header__brand-logo-sticky {
+					display: inline-block;
+				}
+			}
+
+			.kt-header__bottom {
+				height: kt-get($kt-header-config, base, desktop, fixed, height, bottom);
+			}
+		}
+
+		// Animations
+		.kt-header--minimize-all.kt-header--minimize & {
+			animation: kt-header-minimize-all .5s ease 1;
+		}
+
+		.kt-header--minimize-topbar.kt-header--minimize & {
+			animation: kt-header-minimize-topbar .5s ease 1;
+		}
+
+		.kt-header--minimize-menu.kt-header--minimize & {
+			animation: kt-header-minimize-menu .5s ease 1;
+		}
+	}
+
+	// Minimize mode
+	.kt-header--fixed.kt-header--minimize {
+		padding-top: kt-get($kt-header-config, base, desktop, default, height, top) + kt-get($kt-header-config, base, desktop, default, height, bottom);
+	}
+
+	.kt-header--minimize-all.kt-header--fixed.kt-header--minimize {
+		.kt-header {
+			.kt-header__bottom {
+				border-top: 1px solid rgba(#fff, 0.075);
+			}
+		}
+	}
+
+	.kt-header--minimize-topbar.kt-header--fixed.kt-header--minimize {
+		.kt-header {
+			.kt-header__bottom {
+				display: none;
+			}
+		}
+	}
+
+	.kt-header--minimize-menu.kt-header--fixed.kt-header--minimize {
+		.kt-header {
+			.kt-header__top {
+				display: none;
+			}
+		}
+	}
+}
+
+// Mobile mode(1024px and below)
+@include kt-media-below(lg) {
+	.kt-header {
+		.kt-header__top {
+			.kt-header__brand-logo-default,
+			.kt-header__brand-logo-sticky {
+				display: none;
+			}
+		}
+	}
+}
+
+@keyframes kt-header-minimize-all {
+    from   { top: -(kt-get($kt-header-config, base, desktop, fixed, height, top) + kt-get($kt-header-config, base, desktop, fixed, height, bottom)); }
+    to { top: 0; }
+}
+
+@keyframes kt-header-minimize-topbar {
+    from   { top: -(kt-get($kt-header-config, base, desktop, fixed, height, top)); }
+    to { top: 0; }
+}
+
+@keyframes kt-header-minimize-menu {
+    from   { top: -(kt-get($kt-header-config, base, desktop, fixed, height, bottom)); }
+    to { top: 0; }
+}
+
+@keyframes kt-header-minimize-menu-exit {
+    from   { top: 0; }
+    to { top: -(kt-get($kt-header-config, base, desktop, fixed, height, bottom)); }
+}

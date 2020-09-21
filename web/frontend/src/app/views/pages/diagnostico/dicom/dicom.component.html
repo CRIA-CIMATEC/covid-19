@@ -1,0 +1,131 @@
+<div class="kt-subheader kt-grid__item" [ngClass]="{'kt-container--clear': clear}"></div>
+
+<kt-portlet [class]="'kt-portlet--height-fit-half kt-portlet--border-bottom-brand'">
+    <kt-portlet-body [class]="'kt-portlet__body--fit'">
+        <div class="row-no-padding row-col-separator-xl">
+            <div class="col-xl-12">
+                <kt-portlet-body>
+                    <div class="kt-widget14__header">
+                        <div class="col-md-12">
+                            <div class="row justify-content-between">
+                                <h3 class="kt-widget14__title" translate >
+                                    {{ title }}
+                                    <i class="flaticon-info text-info" data-toggle="tooltip" title="{{ 'TOOLTIP.DIAGNOSTICO.DICOM.TITULO' | translate }}"></i>
+                                </h3>
+                            </div>
+                        </div>
+                    </div>
+                    <ngx-dropzone [accept]="'.jpg,.jpeg,.png,.dcm'" (change)="onSelect($event)">
+                        <ngx-dropzone-label translate>{{ descricao }}</ngx-dropzone-label>
+                        <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+                            <ngx-dropzone-label>{{ f.data.name }} ({{ f.data.type }})</ngx-dropzone-label>
+                        </ngx-dropzone-preview>
+                    </ngx-dropzone>
+                </kt-portlet-body>
+            </div>
+        </div>
+    </kt-portlet-body>
+</kt-portlet>
+
+<kt-portlet 
+    [class]="'kt-portlet--height-fit-half kt-portlet--border-bottom-brand'"
+    *ngIf="images.length != 0">
+    <kt-portlet-body [class]="'kt-portlet__body--fit'">
+        <div class="row-no-padding row-col-separator-xl">
+            <div class="col-xl-12">
+                <kt-portlet-body>
+                    <div class="kt-widget14__header">
+                        <form [formGroup]="form" (ngSubmit)="sendDicomImages()" class="kt-form">
+                            <div class="col-md-12">
+                                <div class="row justify-content-between">
+                                    <h4 class="kt-widget14__title" translate>
+                                        DIAGNOSTICO.DICOM.INSTRUCAO
+                                        <i class="flaticon-info text-info" data-toggle="tooltip" title="{{ 'TOOLTIP.DIAGNOSTICO.DICOM.INSTRUCAO' | translate }}"></i>
+                                    </h4>
+                                    <div class="form-group">
+                                        <button color="primary" type="button" (click)="cleanSelection()" class="m-2 mat-flat-button mat-button-base mat-primary">
+                                            <span [translate]="'FORM.BUTTON.CLEAN_SELECTION'"></span>
+                                        </button>
+                                        <button color="primary" type="submit" class="ml-auto mat-flat-button mat-button-base mat-primary">
+                                            <span [translate]="'DASHBOARD.BTNANALISE'"></span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <label [translate]="'FORM.SELECT.AMOUNT_OF_SPACING'"></label>
+                                    <input class="form-control" type="number" min="1" max="{{maxSpacing}}" formControlName="amountOfSpacing" />
+                                </div>
+                            </div>
+                            <div class="container-fluid" style="overflow-x: scroll;">
+                                <div class="row flex-row flex-nowrap form-group">
+                                    <div formArrayName="selectedImages" *ngFor="let img of form.controls.selectedImages.controls; let i = index">
+                                        <div class="card text-center" style="width: 18rem;" *ngIf="images[i].imageUrl">
+                                            <img [src]="images[i].imageUrl" class="card-img-top" alt="...">
+                                            <div class="card-body">
+                                                <label class="checkbox">
+                                                    <input [formControlName]="i" type="checkbox" class="form-control" (change)="onCheckImgChange(i)"/>
+                                                    {{ images[i].imageName }}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </kt-portlet-body>
+            </div>
+        </div>
+    </kt-portlet-body>
+</kt-portlet>
+
+<kt-portlet [style.display]="hideElement?'none':'inherit'" [class]="'kt-portlet--height-fluid-half kt-portlet--border-bottom-brand'">
+	<kt-portlet-body>
+		<kt-widget-load-results class="ml-auto mr-auto"></kt-widget-load-results>
+	</kt-portlet-body>
+</kt-portlet>
+
+<kt-portlet [class]="'kt-portlet--height-fluid-half kt-portlet--border-bottom-brand'" *ngIf="result != null">
+    <kt-portlet-body>
+        <div class="row row-full-height">
+            <!-- <div class="col-md-3 mx-auto">
+                <kt-widget-imageWithName [pic]="item.pic" [imageUrl]="item.imageUrl" [imageName]="item.imageName"></kt-widget-imageWithName>
+            </div> -->
+            <div class="col-md-12" style="margin-bottom: auto;">
+                <div class="header">
+                    <div class="header__content">
+                        <div [translate]="'DASHBOARD.RESULTADOS'" class="header__number">
+                            Resultados
+                            <mat-chip-list>
+                                <!-- <div *ngIf="!IsDICOM">
+                                    <span *ngIf="(result.normal >= 50)" class="">
+                                        <mat-chip [translate]="'DASHBOARD.NORMAL'" [translateParams]="{value:result.normal}" color="primary" selected="true" style="font-weight: 300 !important;">
+                                        </mat-chip>
+                                    </span>
+                                    <span *ngIf="!(result.normal >= 50)" class="">
+                                        <mat-chip [translate]="'DASHBOARD.ANORMAL'" [translateParams]="{value:100 - result.normal}" class="bg-warning" selected="true" style="font-weight: 300 !important;">
+                                        </mat-chip>
+                                    </span>
+                                </div> -->
+                                <span *ngIf="(result.covid >= 50)" class="">
+                                    <mat-chip [translate]="'DASHBOARD.COVID19_TRUE'" [translateParams]="{value: result.covid}" class="bg-danger" selected="true" style="font-weight: 300 !important;"></mat-chip>
+                                </span>
+                                <span *ngIf="!(result.normal >= 50) && !(result.covid >= 50)" class="">
+                                    <mat-chip [translate]="'DASHBOARD.COVID19_FALSE'" [translateParams]="{value: 100-result.covid}" color="primary" selected="true" style="font-weight: 300 !important;"></mat-chip>
+                                </span>
+                            </mat-chip-list>
+                        </div>
+                        <span [translate]="'DASHBOARD.DESCRIPTION_RESULTS'" class="header__desc"></span>
+                    </div>
+                </div>
+
+                <div class="kt-section__content">
+                    <kt-widget27 [percentValue]="result.normal" [leftText]="'Normal'" [rightText]="'Anormal'" [type]="'warning'"></kt-widget27>
+                </div>
+                <div class="kt-section__content">
+                    <kt-widget27  *ngIf="result.normal > 90 ? false : true" [percentValue]="result.covid" [leftText]="'Com suspeita de Covid-19'" [rightText]="'Sem suspeita de Covid-19'" [type]="'danger'"></kt-widget27>
+                </div>
+            </div>
+        </div>
+    </kt-portlet-body>
+</kt-portlet>

@@ -1,0 +1,115 @@
+<!-- BEGIN: Left Aside -->
+<div ktOffcanvas [options]="menuCanvasOptions" class="kt-aside kt-aside--fixed kt-grid__item kt-grid kt-grid--desktop kt-grid--hor-desktop" id="kt_aside">
+	<!-- BEGIN: Aside Menu -->
+	<div class="kt-aside-menu-wrapper kt-grid__item kt-grid__item--fluid" id="kt_aside_menu_wrapper">
+		<div #asideMenu ktMenu [options]="menuOptions" [perfectScrollbar]="{wheelPropagation: false}" [ngStyle]="{'max-height': '100vh', 'position': 'relative'}" id="kt_aside_menu" class="kt-aside-menu"
+			(mouseenter)="mouseEnter($event)" (mouseleave)="mouseLeave($event)"
+			[ngClass]="htmlClassService.getClasses('aside_menu', true)">
+			<ul class="kt-menu__nav" [ngClass]="htmlClassService.getClasses('aside_menu_nav', true)">
+				<ng-container [ngTemplateOutlet]="menuListTemplate"></ng-container>
+			</ul>
+		</div>
+	</div>
+	<!-- END: Aside Menu -->
+</div>
+<!-- END: Left Aside -->
+
+<ng-template #menuListTemplate>
+	<ng-container *ngFor="let child of menuAsideService.menuList$ | async">
+		<ng-container *ngIf="child.section" [ngTemplateOutlet]="menuItemSectionTemplate"
+			[ngTemplateOutletContext]="{ item: child }"></ng-container>
+		<ng-container *ngIf="child.separator" [ngTemplateOutlet]="menuItemSeparatorTemplate"
+			[ngTemplateOutletContext]="{ item: child }"></ng-container>
+		<ng-container *ngIf="child.title" [ngTemplateOutlet]="menuItemTemplate"
+			[ngTemplateOutletContext]="{ item: child }"></ng-container>
+	</ng-container>
+</ng-template>
+
+<ng-template #menuItemTemplate let-item="item" let-parentItem="parentItem">
+	<ng-container *ngIf="!item.permission" [ngTemplateOutlet]="menuItemInnerTemplate" [ngTemplateOutletContext]="{ item: item, parentItem: parentItem  }"></ng-container>
+	<ng-template *ngIf="item.permission" ngxPermissionsOnly="{{ item.permission }}">
+		<ng-container [ngTemplateOutlet]="menuItemInnerTemplate" [ngTemplateOutletContext]="{ item: item, parentItem: parentItem  }"></ng-container>
+	</ng-template>
+</ng-template>
+
+<ng-template #menuItemInnerTemplate let-item="item" let-parentItem="parentItem">
+	<li [attr.aria-haspopup]="true"
+		[attr.data-ktmenu-submenu-toggle]="getItemAttrSubmenuToggle(item)"
+		[attr.data-ktmenu-submenu-mode]="item.mode"
+		[attr.data-ktmenu-dropdown-toggle-class]="item['dropdown-toggle-class']" [ngClass]="getItemCssClasses(item)"
+		[ngbTooltip]="item.tooltip" data-placement="right">
+
+		<!-- if menu item hasn't submenu -->
+		<a *ngIf="!item.submenu" [routerLink]="item.page" class="kt-menu__link kt-menu__toggle">
+			<ng-container [ngTemplateOutlet]="menuItemTextTemplate"
+				[ngTemplateOutletContext]="{ item: item, parentItem: parentItem }"></ng-container>
+		</a>
+		<!-- if menu item has sumnenu child  -->
+		<a *ngIf="item.submenu" class="kt-menu__link kt-menu__toggle">
+			<ng-container [ngTemplateOutlet]="menuItemTextTemplate"
+				[ngTemplateOutletContext]="{ item: item, parentItem: parentItem }"></ng-container>
+		</a>
+
+		<!-- if menu item has submenu child then recursively call new menu item component -->
+		<div *ngIf="item.submenu" class="kt-menu__submenu">
+			<span class="kt-menu__arrow"></span>
+			<div *ngIf="item['custom-class'] === 'kt-menu__item--submenu-fullheight'" class="kt-menu__wrapper">
+				<!-- wrap submenu to full height -->
+				<ng-container [ngTemplateOutlet]="menuSubmenuTemplate" [ngTemplateOutletContext]="{ item: item, parentItem: parentItem }"></ng-container>
+			</div>
+			<!-- normal submenu -->
+			<ng-container *ngIf="item['custom-class'] !== 'kt-menu__item--submenu-fullheight'"
+				[ngTemplateOutlet]="menuSubmenuTemplate"
+				[ngTemplateOutletContext]="{ item: item, parentItem: parentItem }">
+			</ng-container>
+		</div>
+	</li>
+
+</ng-template>
+
+<ng-template #menuSubmenuTemplate let-item="item" let-parentItem="parentItem">
+	<ul class="kt-menu__subnav">
+		<ng-container *ngFor="let child of item.submenu">
+			<ng-container *ngIf="child.section" [ngTemplateOutlet]="menuItemSectionTemplate"
+				[ngTemplateOutletContext]="{ item: child, parentItem: item }"></ng-container>
+			<ng-container *ngIf="child.separator" [ngTemplateOutlet]="menuItemSeparatorTemplate"
+				[ngTemplateOutletContext]="{ item: child, parentItem: item }"></ng-container>
+			<ng-container *ngIf="child.title" [ngTemplateOutlet]="menuItemTemplate"
+				[ngTemplateOutletContext]="{ item: child, parentItem: item }"></ng-container>
+		</ng-container>
+	</ul>
+</ng-template>
+
+<ng-template #menuItemTextTemplate let-item="item" let-parentItem="parentItem">
+	<!-- if menu item has icon -->
+	<i *ngIf="item.icon" class="kt-menu__link-icon" [ngClass]="item.icon"></i>
+
+	<!-- if menu item using bullet -->
+	<i *ngIf="parentItem && parentItem.bullet === 'dot'" class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+		<span></span>
+	</i>
+	<i *ngIf="parentItem && parentItem.bullet === 'line'" class="kt-menu__link-bullet kt-menu__link-bullet--line">
+		<span></span>
+	</i>
+
+	<!-- menu item title text -->
+	<span class="kt-menu__link-text" [translate]="item.translate">{{item.title}}</span>
+	<!-- menu item with badge -->
+	<span *ngIf="item.badge" class="kt-menu__link-badge">
+		<span class="kt-badge" [ngClass]="item.badge.type">{{item.badge.value}}</span>
+	</span>
+
+	<!-- if menu item has submenu child then put arrow icon -->
+	<i *ngIf="item.submenu" class="kt-menu__ver-arrow la la-angle-right"></i>
+</ng-template>
+
+<ng-template #menuItemSeparatorTemplate let-item="item" let-parentItem="parentItem">
+	<li class="kt-menu__separator"><span></span></li>
+</ng-template>
+
+<ng-template #menuItemSectionTemplate let-item="item" let-parentItem="parentItem">
+	<li class="kt-menu__section">
+		<h4 class="kt-menu__section-text">{{item.section}}</h4>
+		<i class="kt-menu__section-icon flaticon-more-v2"></i>
+	</li>
+</ng-template>

@@ -1,0 +1,13 @@
+<div class="kt-confirmed_cases">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="kt-confirmed_cases__content">
+          <span style="white-space: pre-line"  [translate]="'DASHBOARD.OBITOS'" class="kt-confirmed_cases__number"></span>
+          <span  style="white-space: pre-line" [translate]="'DASHBOARD.DESC_CASOSCONFIRMADOS'" [translateParams]="{value: '30'}" class="kt-confirmed_cases__desc"></span>
+        </div>
+      </div>
+  
+  </div>
+<plotly-plot [data]="graph.data" [layout]="graph.layout" [useResizeHandler]="true" [style]="{position: 'relative', width: '100%', height: '100%'}">
+
+</plotly-plot>

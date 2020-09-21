@@ -1,0 +1,10 @@
+:host {
+	::ng-deep {
+		.mat-table-sticky {
+			z-index: 0 !important;
+		}
+
+		.mat-header-cell { z-index: 2 !important;}
+
+	}
+}

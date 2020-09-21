@@ -1,0 +1,28 @@
+<span class="kt-confirmed_cases__number">{{'cases' | translate}}</span>
+<!-- <angular-file-uploader
+      [config]="afuConfig">
+</angular-file-uploader> -->
+<br/>
+<mat-form-field>
+      <ngx-mat-file-input [formControl]="fileControl_Cas" [accept]="'.csv'" (change)="onFileControl_Cas()" placeholder="{{'DASHBOARD.SELECIONEFILE' | translate}}">
+            <!-- <mat-icon ngxMatFileInputIcon>folder</mat-icon> -->
+      </ngx-mat-file-input>
+</mat-form-field>
+
+<br/>
+<span class="kt-confirmed_cases__number">{{'invoices' | translate}}</span>
+<br/>
+<mat-form-field>
+      <ngx-mat-file-input [formControl]="fileControl_Inv" [accept]="'.csv'" (change)="onFileControl_Inv()" placeholder="{{'DASHBOARD.SELECIONEFILE' | translate}}">
+            <!-- <mat-icon ngxMatFileInputIcon>folder</mat-icon> -->
+      </ngx-mat-file-input>
+</mat-form-field>
+
+<!-- <br/>
+<span class="kt-confirmed_cases__number">{{'mobility' | translate}}</span>
+<br/>
+<mat-form-field>
+      <ngx-mat-file-input [formControl]="fileControl_Mob" [accept]="'.csv'" (change)="onFileControl_Mob()" placeholder="{{'DASHBOARD.SELECIONEFILE' | translate}}">
+            <mat-icon ngxMatFileInputIcon>folder</mat-icon>
+      </ngx-mat-file-input>
+</mat-form-field> -->

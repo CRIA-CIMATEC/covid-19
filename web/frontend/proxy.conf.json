@@ -1,0 +1,8 @@
+{
+    "/api/diagnosis/dicom":{
+        "target": "https://covid19.fieb.org.br:9050/api/diagnosis/dicom",
+        "secure": true,
+        "logLevel": "debug",
+        "changeOrigin": true
+    }
+}

@@ -1,0 +1,24 @@
+.header{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    .header__content {
+        display: flex;           
+        padding-bottom: 1rem;      
+        flex-grow: 1;     
+        flex-direction: column;
+    
+        .header__desc {
+            
+            font-size: 1.8rem;
+        } 
+    
+        .header__number {
+            color: kt-base-color(label, 2);
+            font-size: 1.1rem;
+            font-weight: 400;
+            margin-top: 0.55rem;
+        }                           
+    }
+}

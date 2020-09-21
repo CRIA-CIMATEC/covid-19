@@ -1,0 +1,61 @@
+// Dialog
+.kt-mat-dialog-container__wrapper {
+	.mat-dialog-container {
+	   	padding: 0;
+	   	overflow-x: hidden;
+
+	   	.kt-portlet {
+	       	margin-bottom: 0;
+	    	
+	       	.kt-portlet__body {
+	       		overflow: auto;
+	       		max-height: 60vh;
+	       	}
+	   	}
+	}
+}
+
+.kt-mat-dialog-container__wrapper .mat-dialog-container {
+	padding: 0;
+	overflow-x: hidden;
+
+	.kt-portlet {
+		margin-bottom: 0;
+	}
+
+	.alert {
+		border-radius: 0 !important;
+		width: 1032px;
+	}
+}
+
+.mat-dialog-actions {
+	margin-bottom: 0 !important;
+}
+
+@include kt-tablet-and-mobile {
+	// Dialog
+	.kt-mat-dialog-container__wrapper {
+		max-width: 90%;
+		
+		.mat-dialog-container {
+		   	.kt-portlet {
+		       	.kt-portlet__body {
+		       		overflow: auto;
+		       		max-height: 60vh; 
+		       	}
+		   	}
+		}
+	}
+}
+
+
+.kt-modal2__container {
+	padding-top: 24px;
+	padding-bottom: 24px;
+}
+
+.kt-modal3__container {
+	padding-top: 24px;
+	padding-bottom: 24px;
+}

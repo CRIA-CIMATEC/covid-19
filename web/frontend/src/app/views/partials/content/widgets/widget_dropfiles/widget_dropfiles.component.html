@@ -1,0 +1,19 @@
+
+    
+<div class="kt-widget14__header">
+    <div class="col-md-12">
+        <div class="row justify-content-between">
+            <h3 class="kt-widget14__title" translate >{{ Title }}</h3>
+            <button mat-flat-button [disabled]="files.length==0 ? true : false" color="primary" (click)="onClick()" class="ml-auto">
+                <span [translate]="'DASHBOARD.BTNANALISE'"></span>
+            </button>
+        </div>
+    </div>
+</div>
+
+<ngx-dropzone [accept]="'.jpg,.jpeg,.png,.dicom,.nii.gz'" (change)="onSelect($event)">
+    <ngx-dropzone-label translate>{{ Desc }}</ngx-dropzone-label>
+    <ngx-dropzone-preview *ngFor="let f of files" [removable]="true" (removed)="onRemove(f)">
+        <ngx-dropzone-label>{{ f.data.name }} ({{ f.data.type }})</ngx-dropzone-label>
+    </ngx-dropzone-preview>
+</ngx-dropzone>

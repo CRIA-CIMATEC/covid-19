@@ -1,0 +1,26 @@
+<div class="kt-widget4">
+	<ng-container *ngFor="let item of data">
+		<ng-container [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{item: item}"></ng-container>
+	</ng-container>
+</div>
+
+<ng-template #itemTemplate let-item="item">
+	<div class="kt-widget4__item">
+		<div class="kt-widget4__pic kt-widget4__pic--pic" *ngIf="item.pic">
+			<img [attr.src]="item.pic" alt="">
+		</div>
+		<span class="kt-widget4__icon" *ngIf="item.icon">
+			<i [ngClass]="item.icon"></i>
+		</span>
+
+		<a href="javascript:;" [attr.href]="item.url" class="kt-widget4__title" *ngIf="item.title && !item.desc">{{item.title}}</a>
+
+		<div class="kt-widget4__info" *ngIf="item.desc">
+			<a href="javascript:;" [attr.href]="item.url" class="kt-widget4__username">{{item.username}}</a>
+			<a href="javascript:;" [attr.href]="item.url" class="kt-widget4__title">{{item.title}}</a>
+			<p class="kt-widget4__text" *ngIf="item.desc">{{item.desc}}</p>
+		</div>
+
+		<ng-container [ngTemplateOutlet]="actionTemplate" [ngTemplateOutletContext]="{item: item}"></ng-container>
+	</div>
+</ng-template>

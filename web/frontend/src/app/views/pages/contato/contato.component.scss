@@ -1,0 +1,10 @@
+@import "sass/pages/wizard/wizard-3";
+
+/deep/ .mat-slide-toggle-bar {
+    height: 1.5rem !important;
+    width: 3rem !important;
+  }
+  /deep/ .mat-slide-toggle-thumb {
+    height: 2rem !important;
+    width: 2rem !important;
+  }

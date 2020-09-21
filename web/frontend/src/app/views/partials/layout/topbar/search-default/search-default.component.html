@@ -1,0 +1,29 @@
+<!--begin: Search -->
+<div class="kt-header__topbar-item kt-header__topbar-item--search">
+	<div class="kt-header__topbar-wrapper">
+		<div class="kt-header-toolbar">
+			<div ngbDropdown placement="bottom" autoClose="outside" [ngClass]="{'kt-quick-search--has-result': data?.length}" class="kt-quick-search kt-quick-search--inline kt-quick-search--result-compact" id="kt_quick_search_default">
+				<form method="get" class="kt-quick-search__form">
+					<div ngbDropdownToggle class="input-group" [ngClass]="{'kt-spinner kt-spinner--input kt-spinner--sm kt-spinner--brand kt-spinner--right': loading}">
+						<div class="input-group-prepend">
+							<span class="input-group-text">
+								<i *ngIf="!useSVG" [ngClass]="icon"></i>
+								<span class="kt-svg-icon" *ngIf="useSVG" [inlineSVG]="icon"></span>
+							</span>
+						</div>
+						<input #searchInput (keyup)="search($event)" type="text" class="form-control kt-quick-search__input" placeholder="Search..." />
+						<div class="input-group-append">
+							<span class="input-group-text"><i (click)="clear($event)" [ngStyle]="{'display': 'flex'}" [hidden]="!data || !data?.length" class="la la-close kt-quick-search__close"></i></span>
+						</div>
+					</div>
+				</form>
+				<div ngbDropdownMenu *ngIf="data?.length" class="dropdown-menu dropdown-menu-fit dropdown-menu-right dropdown-menu-anim dropdown-menu-lg">
+					<div [perfectScrollbar]="{wheelPropagation: false}" [ngStyle]="{'max-height': '40vh', 'position': 'relative'}" class="kt-quick-search__wrapper">
+						<kt-search-result [data]="data"></kt-search-result>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--end: Search -->

@@ -1,0 +1,59 @@
+<kt-notice [icon]="'flaticon-warning kt-font-primary'">
+	For more info please check the components's official demos & documentation 
+	<a class="kt-link" href="https://material.angular.io/components/snack-bar/overview" target="_blank">demos & documentation</a>
+</kt-notice>
+
+<div class="row">
+	<div class="col-xl-6">
+		<kt-material-preview [viewItem]="exampleBasic">
+			<div class="kt-section">
+				<span class="kt-section__sub">
+					<mark>MatSnackBar</mark> is a service for displaying snack-bar notifications.
+				</span>
+				<div class="kt-separator kt-separator--dashed"></div>
+				<div class="kt-section__content">
+					<mat-form-field>
+						<input matInput value="Disco party!" placeholder="Message" #message>
+					</mat-form-field>
+
+					<mat-form-field>
+						<input matInput value="Dance" placeholder="Action" #action>
+					</mat-form-field>
+
+					<button mat-button (click)="openSnackBar(message.value, action.value)">Show snack-bar</button>
+				</div>
+			</div>
+		</kt-material-preview>
+		<kt-material-preview [viewItem]="exampleCustom">
+			<div class="kt-section">
+				<div class="kt-section__content">
+					<button mat-button (click)="openSnackBar2()" aria-label="Show an example snack-bar">
+						Pizza party
+					</button>
+				</div>
+			</div>
+		</kt-material-preview>
+	</div>
+	<div class="col-xl-6">
+		<kt-material-preview [viewItem]="exampleDismissal">
+			<div class="kt-section">
+				<span class="kt-section__sub">
+					<mark>Dismissal</mark> example with 6 seconds duration
+				</span>
+				<div class="kt-separator kt-separator--dashed"></div>
+				<div class="kt-section__content">
+					<mat-form-field>
+						<input matInput value="Disco party!" placeholder="Message" #message>
+					</mat-form-field>
+
+					<mat-form-field>
+						<input matInput value="Dance" placeholder="Action" #action>
+					</mat-form-field>
+
+					<button mat-button (click)="openSnackBar3(message.value, action.value)">Show snack-bar</button>
+
+				</div>
+			</div>
+		</kt-material-preview>
+	</div>
+</div>

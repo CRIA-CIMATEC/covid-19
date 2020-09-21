@@ -1,0 +1,14 @@
+//
+// Aside
+//
+
+
+
+
+.kt-aside {
+	width: kt-get($kt-aside-config, base, default, width);
+	background-color: kt-get($kt-aside-config, base, default, bg-color);
+	box-shadow: kt-get($kt-aside-config, base, default, shadow);
+}
+
+@include kt-offcanvas-build(kt-aside, tablet-and-mobile, kt-get($kt-aside-config, base, offcanvas-mobile));

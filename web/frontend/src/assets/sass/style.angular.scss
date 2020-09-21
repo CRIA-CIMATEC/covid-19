@@ -1,0 +1,54 @@
+//
+// Main Stylesheet
+//
+
+
+
+
+////////////////////////////////////////////////////////////////
+///////////// DO NOT MODIFY BELOW INCLUDE ORDER ////////////////
+////////////////////////////////////////////////////////////////
+
+// 1: Include global config
+@import "config";
+
+// 2: Bootstrap framework includes
+@import "global/integration/frameworks/bootstrap/variables";
+@import "~bootstrap/scss/bootstrap";
+@import "global/integration/frameworks/bootstrap/bootstrap.scss";
+
+// Material Angular
+@import "~@angular/material/theming";
+@import "global/integration/frameworks/angular/material/angular-material";
+@import "global/integration/frameworks/angular/material/include";
+
+// 3: Components include
+@import "global/include.angular";
+
+////////////////////////////////////////////////////////////////
+///////////// DO NOT MODIFY ABOVE INCLUDE ORDER ////////////////
+////////////////////////////////////////////////////////////////
+
+// 4: Layout config
+@import "global/layout/config";
+@import "global/layout/header/config";
+@import "global/layout/aside/config";
+@import "global/layout/footer/config";
+
+
+// 5: Layout includes
+@import "global/layout/base/base";
+
+@import "global/layout/header/header";
+@import "global/layout/header/brand";
+@import "global/layout/header/topbar";
+@import "global/layout/header/menu";
+
+@import "global/layout/header/base-mobile";
+
+@import "global/layout/aside/aside";
+@import "global/layout/aside/menu";
+
+@import "global/layout/content/content";
+
+@import "global/layout/footer/footer";

@@ -1,0 +1,46 @@
+.example-h2 {
+    margin: 10px;
+  }
+  .example-section {
+    display: flex;
+    align-content: center;
+    align-items: center;
+    height: 60px;
+  }
+  .example-margin {
+    margin: 10px;
+  }
+  .mat-slider-horizontal {
+    width: auto;
+  }
+  .mat-slider-vertical {
+    height: 300px;
+  }
+
+  .mat-form-field-wrapper{
+    width: 80%; //SOBREPÕE O INTERNO
+  }
+
+  .kt-widget26 {
+    display: flex;
+    flex-direction: column;
+    width: auto;
+
+    .kt-widget26__content {
+        display: flex;             
+        flex-grow: 1;     
+        display: flex;
+        flex-direction: column;
+
+        .kt-widget26__desc {
+            color: kt-base-color(label, 2);
+            font-size: 1.1rem;
+            font-weight: 400;
+            margin-top: 0.55rem;
+        }                           
+    }   
+}  
+
+.mat-column-select {
+  overflow: initial;
+}
