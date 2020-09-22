@@ -1,0 +1,251 @@
+<!-- <div class="kt-subheader kt-grid__item" [ngClass]="{'kt-container--clear': clear}">
+	<div class="kt-container" [ngClass]="{'kt-container--fluid': fluid}">
+		
+	</div>
+</div>
+<div class="row">
+<div class="col-xl-12">
+    <kt-portlet [class]="'kt-portlet--height-fit-half kt-portlet--border-bottom-brand'">
+        <kt-portlet-body [class]="'kt-portlet__body--fit'">
+            <div class="row row-no-padding row-col-separator-xl">
+                <div class="col-xl-12">
+                    <kt-portlet-body>
+<div class="row">
+                        <div class="col-md-6">
+                            <dropdown_location [Type]="'cenario'"></dropdown_location>
+                        </div>
+                         <div class="col-md-6">
+                            
+                                <div class="kt-confirmed_cases__content mt-4">
+                                    <span class="kt-confirmed_cases__number">
+                                        {{'SELECIONE'|translate}}
+                                    </span>
+                                </div>
+                                <div class="mt-4"> 
+                                    <kt-widget-csvupload></kt-widget-csvupload>
+                                </div>
+                            </div> -->
+<!-- </div> -->
+                            <!-- <div class="float-right">
+                                <button mat-raised-button color="primary" class="float-right" (click)="submit(cenario)">{{'DASHBOARD.PROCESSAR_BTN' | translate}}</button>
+                            </div> -->
+                            
+                    <!-- </kt-portlet-body>
+                </div>
+            </div>
+        </kt-portlet-body>
+    </kt-portlet>
+</div>
+</div> -->
+
+<div class="row">
+    <div class="col-xl-12">
+        <div class="row row-full-height">
+            <div class="col-sm-12 col-md-4 col-lg-4">
+                <kt-portlet [class]="'kt-portlet--height-fit-half kt-portlet--border-bottom-brand'">
+                    <kt-portlet-body [class]="'kt-portlet__body--fluid'">
+                         <dropdown_location_cenario [Type]="'cenario'"></dropdown_location_cenario>
+                    </kt-portlet-body>
+                </kt-portlet>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <kt-portlet [class]="'kt-portlet--height-fit-half kt-portlet--border-bottom-brand'">
+    <kt-portlet-body [class]="'kt-portlet__body--fit'">
+                        <div class="kt-portlet__head">
+                            <div class="kt-portlet__head-label">
+                                <h3 class="kt-confirmed_cases__number">{{'CENARIO.MELHOR1'|translate}}</h3>
+                            </div>
+                        </div>
+                            <div class="row">
+
+                                <div class="col-md-12">
+                                    <kt-portlet [class]="'kt-portlet--height-fit-half'">
+                                        <kt-portlet-body [class]="'kt-portlet__body--fit'">
+                                            <div class="row row-no-padding row-col-separator-xl">
+                                                <div class="col-xl-12">
+                                                    <kt-portlet-body>
+                                                    <plotly-total-cases-cenario></plotly-total-cases-cenario>
+                                                    CASOS CONFIRMADO ACUMULADOS
+                                                    </kt-portlet-body>
+                                                </div>
+                                            </div>
+                                        </kt-portlet-body>
+                                    </kt-portlet>
+                                </div> 
+                            </div>
+                        </kt-portlet-body>
+</kt-portlet>          
+
+<kt-portlet [class]="'kt-portlet--height-fit-half kt-portlet--border-bottom-brand'">
+    <kt-portlet-body [class]="'kt-portlet__body--fit'">
+                        <div class="kt-portlet__head">
+                            <div class="kt-portlet__head-label">
+                                <h3 class="kt-confirmed_cases__number">{{'CENARIO.MELHOR4'|translate}}</h3>
+                            </div>
+                        </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <kt-portlet [class]="'kt-portlet--height-fit-half'">
+                                        <kt-portlet-body [class]="'kt-portlet__body--fit'">
+                                            <div class="row row-no-padding row-col-separator-xl">
+                                                <div class="col-xl-12">
+                                                    <kt-portlet-body>
+                                                        <plotly-total-deaths-cenario></plotly-total-deaths-cenario>
+                                                         ÓBITOS ACUMULADOS
+                                                    </kt-portlet-body>
+                                                </div>
+                                            </div>
+                                        </kt-portlet-body>
+                                    </kt-portlet>
+                                </div>    
+                            </div>
+                        </kt-portlet-body>
+</kt-portlet>          
+
+
+<kt-portlet [class]="'kt-portlet--height-fit-half kt-portlet--border-bottom-brand'">
+    <kt-portlet-body [class]="'kt-portlet__body--fit'">
+                        <div class="kt-portlet__head">
+                            <div class="kt-portlet__head-label">
+                                <h3 class="kt-confirmed_cases__number">{{'CENARIO.MELHOR2'|translate}}</h3>
+                            </div>
+                        </div>
+                            <div class="row">
+
+                                <div class="col-md-12">
+                                    <kt-portlet [class]="'kt-portlet--height-fit-half'">
+                                        <kt-portlet-body [class]="'kt-portlet__body--fit'">
+                                            <div class="row row-no-padding row-col-separator-xl">
+                                                <div class="col-xl-12">
+                                                    <kt-portlet-body>
+                                                        <plotly-amount-recovery></plotly-amount-recovery>
+                                                         NOTAS FISCAIS - QUANTIDADE
+                                                    </kt-portlet-body>
+                                                </div>
+                                            </div>
+                                        </kt-portlet-body>
+                                    </kt-portlet>
+                                </div> 
+                            </div>
+                        </kt-portlet-body>
+</kt-portlet>     
+
+
+<kt-portlet [class]="'kt-portlet--height-fit-half kt-portlet--border-bottom-brand'">
+    <kt-portlet-body [class]="'kt-portlet__body--fit'">
+                        <div class="kt-portlet__head">
+                            <div class="kt-portlet__head-label">
+                                <h3 class="kt-confirmed_cases__number">{{'CENARIO.MELHOR5'|translate}}</h3>
+                            </div>
+                        </div>
+                            <div class="row">
+                                
+                                <div class="col-md-12">
+                                    <kt-portlet [class]="'kt-portlet--height-fit-half'">
+                                        <kt-portlet-body [class]="'kt-portlet__body--fit'">
+                                            <div class="row row-no-padding row-col-separator-xl">
+                                                <div class="col-xl-12">
+                                                    <kt-portlet-body>
+                                                        <plotly-value-recovery></plotly-value-recovery> 
+                                                        NOTAS FISCAIS - VALOR
+                                                    </kt-portlet-body>
+                                                </div>
+                                            </div>
+                                        </kt-portlet-body>
+                                    </kt-portlet>
+                                </div>    
+                            </div>
+                        </kt-portlet-body>
+</kt-portlet>        -->
+
+
+<kt-portlet [class]="'kt-portlet--height-fit-half kt-portlet--border-bottom-brand'">
+    <kt-portlet-body [class]="'kt-portlet__body--fit'">
+                        <div class="kt-portlet__head">
+                            <div class="kt-portlet__head-label">
+                                <h3 class="kt-confirmed_cases__number">{{'CENARIO.MELHOR3'|translate}}</h3>
+                            </div>
+                        </div>
+                        <kt-portlet [class]="'kt-portlet--height-fit'">
+                            <kt-portlet-body [class]="'kt-portlet__body--fluid'">
+                                <div class="row">
+                                    <div class="col-xl-12">
+                                        <!-- <div class="kt-portlet__head-title">
+                                            <span class="kt-confirmed_cases__number" >{{'CENARIO.MITIGACAO'|translate}}</span>
+                                        </div> -->
+                                        <metigation_recovery></metigation_recovery>
+                                    </div>
+                                </div>
+                            </kt-portlet-body>
+                        </kt-portlet>
+                        
+
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <kt-portlet [class]="'kt-portlet--height-fit-half'">
+                                        <kt-portlet-body [class]="'kt-portlet__body--fit'">
+                                            <div class="row row-no-padding row-col-separator-xl">
+                                                <div class="col-xl-12">
+                                                    <kt-portlet-body>
+                                                    <plotly-total-cases-recovery></plotly-total-cases-recovery>
+                                                    <!-- CASOS CONFIRMADO ACUMULADO -->
+                                                    </kt-portlet-body>
+                                                </div>
+                                            </div>
+                                        </kt-portlet-body>
+                                    </kt-portlet>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <kt-portlet [class]="'kt-portlet--height-fit-half'">
+                                        <kt-portlet-body [class]="'kt-portlet__body--fit'">
+                                            <div class="row row-no-padding row-col-separator-xl">
+                                                <div class="col-xl-12">
+                                                    <kt-portlet-body>
+                                                         <plotly-total-deaths-recovery></plotly-total-deaths-recovery> 
+                                                            <!-- ÓBITOS ACUMULADOS  -->
+                                                    </kt-portlet-body>
+                                                </div>
+                                            </div>
+                                        </kt-portlet-body>
+                                    </kt-portlet>
+                                </div>    
+                            </div>
+                            <div class="row">
+
+                                <div class="col-md-6">
+                                    <kt-portlet [class]="'kt-portlet--height-fit-half'">
+                                        <kt-portlet-body [class]="'kt-portlet__body--fit'">
+                                            <div class="row row-no-padding row-col-separator-xl">
+                                                <div class="col-xl-12">
+                                                    <kt-portlet-body>
+                                                        <plotly-amount-invoices-recovery></plotly-amount-invoices-recovery> 
+                                                        <!-- NOTAS FISCAIS - QUANTIDADE -->
+                                                    </kt-portlet-body>
+                                                </div>
+                                            </div>
+                                        </kt-portlet-body>
+                                    </kt-portlet>
+                                </div>
+                                
+                                <div class="col-md-6">
+                                    <kt-portlet [class]="'kt-portlet--height-fit-half'">
+                                        <kt-portlet-body [class]="'kt-portlet__body--fit'">
+                                            <div class="row row-no-padding row-col-separator-xl">
+                                                <div class="col-xl-12">
+                                                    <kt-portlet-body>
+                                                        <plotly-invoices-value-recovery></plotly-invoices-value-recovery> 
+                                                        <!--NOTAS FISCAIS - VALOR -->
+                                                    </kt-portlet-body>
+                                                </div>
+                                            </div>
+                                        </kt-portlet-body>
+                                    </kt-portlet>
+                                </div>    
+                            </div>
+                        </kt-portlet-body>
+</kt-portlet>          

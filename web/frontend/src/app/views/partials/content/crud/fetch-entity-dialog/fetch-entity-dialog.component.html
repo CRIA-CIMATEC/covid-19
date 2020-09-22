@@ -1,0 +1,30 @@
+<div class="kt-portlet">
+	<div class="kt-portlet__head kt-portlet__head__custom">
+		<div class="kt-portlet__head-label">
+			<h3 class="kt-portlet__head-title">Fetch selected elements</h3>
+			<span class="kt-portlet__head-icon kt-hide">
+				<i class="la la-gear"></i>
+			</span>
+		</div>
+	</div>
+	<div class="kt-form kt-form--label-align-right kt-form--group-seperator-dashed">
+		<div class="kt-portlet__body kt-padding-0">
+			<div class="kt-list-timeline kt-list-timeline--skin-light kt-padding-30">
+				<div class="kt-list-timeline__items">
+					<div class="kt-list-timeline__item" *ngFor="let message of data">
+						<span class="kt-list-timeline__badge kt-list-timeline__badge--{{getItemCssClassByStatus(message.status)}}"></span>
+						<span class="kt-list-timeline__text">{{message.text}}
+							<span class="kt-badge kt-badge--{{getItemCssClassByStatus(message.status)}} kt-badge--wide">ID: {{message.id}}</span>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="kt-portlet__foot kt-portlet__no-border kt-portlet__foot--fit text-right">
+			<div class="kt-form__actions kt-form__actions--solid">
+				<button mat-button mat-raised-button (click)="onNoClick()">Cancel</button>&nbsp;
+				<button mat-button mat-raised-button color="primary" [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button>&nbsp;
+			</div>
+		</div>
+	</div>
+</div>

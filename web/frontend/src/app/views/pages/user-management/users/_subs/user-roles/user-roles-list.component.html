@@ -1,0 +1,40 @@
+<div>
+	<div class="form-group kt-form__group row" *ngIf="unassignedRoles.length > 0">
+		<div class="col-lg-4 kt-margin-bottom-20-mobile">
+			<mat-form-field class="mat-form-field-fluid">
+				<mat-select placeholder="Select Role" [(ngModel)]="roleIdForAdding">
+					<mat-option *ngFor="let role of unassignedRoles" value="{{ role.id }}">{{role.title}}</mat-option>
+				</mat-select>
+				<mat-hint align="start">
+					<strong>Select Role</strong>
+				</mat-hint>
+			</mat-form-field>
+		</div>
+		<div class="col-lg-4 kt-margin-bottom-20-mobile">
+			<button type="button" mat-raised-button matTooltip="Assign role" (click)="assignRole()" color="accent">
+				Assign
+			</button>
+		</div>
+	</div>
+	<div class="kt-separator kt-separator--dashed"></div>
+	<h6 class="kt-section__heading" *ngIf="assignedRoles.length > 0">
+		Assigned roles:
+	</h6>
+	<div class="form-group kt-form__group row" *ngIf="assignedRoles.length > 0">
+		<div class="col-lg-8 kt-margin-bottom-20-mobile">
+			<div class="kt-list-timeline kt-list-timeline--user-role">
+				<div class="kt-list-timeline__items">
+					<div class="kt-list-timeline__item m-0 p-0" *ngFor="let _role of assignedRoles">
+						<span class="kt-list-timeline__badge kt-list-timeline__badge--primary"></span>
+						<span class="kt-list-timeline__text">{{ _role.title }}</span>
+						<span class="kt-list-timeline__time">
+							<button mat-icon-button color="warn" matTooltip="Remove role" type="button" (click)="unassingRole(_role)">
+								<mat-icon>delete</mat-icon>
+							</button>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

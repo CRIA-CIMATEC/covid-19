@@ -1,0 +1,45 @@
+<div class="kt-portlet" [ngClass]="{ 'kt-portlet--body-progress' : viewLoading, 'kt-portlet--body-progress-overlay' : loadingAfterSubmit }">
+	<div class="kt-portlet__head kt-portlet__head__custom">
+		<div class="kt-portlet__head-label">
+			<h3 class="kt-portlet__head-title">
+				{{ data.isNew ? 'Create' : 'Update'}} specification
+			</h3>
+		</div>
+	</div>
+	<!--begin::Form-->
+	<form class="kt-form" [formGroup]="specificationEditForm" autocomplete="off">
+		<div class="kt-portlet__body">
+			<div class="kt-portlet__body-progress">
+				<mat-spinner [diameter]="20"></mat-spinner>
+			</div>
+
+			<div class="kt-form__section kt-form__section--first">
+				<div class="form-group kt-form__group">
+					<mat-form-field class="mat-form-field-fluid">
+						<mat-select placeholder="Enter Specification Type" formControlName="name">
+							<mat-option value="{{sp}}" *ngFor="let sp of specificationsDictionary;">{{sp}}</mat-option>
+						</mat-select>
+						<mat-error *ngIf="isControlHasError('name','required')">
+							<strong>Specification Type is required</strong>
+						</mat-error>
+					</mat-form-field>
+				</div>
+				<div class="form-group kt-form__group">
+					<mat-form-field class="mat-form-field-fluid">
+						<input matInput placeholder="Enter Value" formControlName="text" />
+						<mat-error *ngIf="isControlHasError('text','required')">
+							<strong>Value is required</strong>
+						</mat-error>
+					</mat-form-field>
+				</div>
+			</div>
+		</div>
+		<div class="kt-portlet__foot kt-portlet__foot--fit text-right">
+			<div class="kt-form__actions kt-form__actions kt-form__actions--solid">
+				<button type="button" mat-raised-button cdkFocusInitial (click)="onNoClick()" matTooltip="Cancel changes">Cancel</button>&nbsp;
+				<button type="submit" mat-raised-button color="primary" (click)="save()" [disabled]="viewLoading" matTooltip="Save changes">Save</button>
+			</div>
+		</div>
+	</form>
+	<!--end::Form-->
+</div>

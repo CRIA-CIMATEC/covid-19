@@ -1,0 +1,46 @@
+<div class="kt-portlet" [ngClass]="{'kt-portlet--body-progress' : viewLoading, 'kt-portlet--body-progress-overlay' : loadingAfterSubmit }">
+	<div class="kt-portlet__head kt-portlet__head__custom">
+		<div class="kt-portlet__head-label">
+			<h3 class="kt-portlet__head-title">{{data.title}}</h3>
+			<span class="kt-portlet__head-icon kt-hide">
+				<i class="la la-gear"></i>
+			</span>
+		</div>
+	</div>
+	<div class="kt-form kt-form--label-align-right kt-form--group-seperator-dashed">
+		<div class="kt-portlet__body">
+			<div class="kt-portlet__body-progress">
+				<mat-spinner [diameter]="20"></mat-spinner>
+			</div>
+			<div class="kt-list-timeline kt-list-timeline--skin-light kt-padding-30">
+				<div class="kt-list-timeline__items">
+					<div class="kt-list-timeline__item" *ngFor="let message of data.messages">
+						<span class="kt-list-timeline__badge kt-list-timeline__badge--{{message.statusCssClass}}"></span>
+						<span class="kt-list-timeline__text">{{message.text}}
+							<span class="kt-badge kt-badge--{{message.statusCssClass}} kt-badge--wide">{{message.statusTitle}}</span>
+						</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="kt-portlet__foot kt-portlet__no-border kt-portlet__foot--fit text-right">
+			<div class="kt-form__actions kt-form__actions--solid">
+				<div class="row">
+					<div class="col-lg-12">
+						<mat-form-field>
+							<mat-select placeholder="Status" [formControl]="selectedStatusForUpdate">
+								<mat-option *ngFor="let status of data.statuses" value="{{ status.value }}">{{status.text}}</mat-option>
+							</mat-select>
+							<mat-hint align="start">Select
+								<strong>Status</strong> for rows updating</mat-hint>
+						</mat-form-field>
+						&nbsp;
+						<button type="button" mat-raised-button color="primary" (click)="updateStatus()" [disabled]="selectedStatusForUpdate.value.length == 0">Update status</button>&nbsp;
+						<button type="button" mat-raised-button (click)="onNoClick()">Cancel</button>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,27 @@
+<div class="kt-subheader kt-grid__item" [ngClass]="{'kt-container--clear': clear}">
+
+</div>
+
+<ng-container *ngFor="let membro of membros">
+    <ng-container [ngTemplateOutlet]="membroTemplate" [ngTemplateOutletContext]="{membro: membro}"></ng-container>
+</ng-container>
+
+<ng-template #membroTemplate let-membro="membro">
+
+	<kt-portlet [class]="'kt-portlet--height-fluid-half kt-portlet--border-bottom-brand'">
+		<kt-portlet-body>
+			<!-- <kt-widget-load-results class="ml-auto mr-auto"></kt-widget-load-results> -->
+			<div class="row row-full-height">
+				<div class="col-md-3 mx-auto">
+					<p>{{membro.nome}}</p>
+				</div>
+			</div>
+			
+			<div class="row row-full-height">
+				<div class="col-md-3 mx-auto">
+					<img [attr.src]="membro.foto" alt="" class="ml-auto mr-auto" style="max-width: 250px;">
+				</div>
+			</div>
+		</kt-portlet-body>
+	</kt-portlet>
+</ng-template>

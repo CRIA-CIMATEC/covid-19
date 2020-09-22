@@ -1,0 +1,60 @@
+<div class="kt-subheader kt-grid__item" [ngClass]="{'kt-container--clear': clear}">
+
+</div>
+<kt-portlet>
+	<kt-portlet-body>
+    <!--begin: Form Wizard Form-->
+        <form [formGroup]="form" (ngSubmit)="submit()" class="kt-form">
+            <div class="kt-heading kt-heading--md" [translate]="'CONTATO.TITLE'"></div>
+
+            <kt-alert *ngIf="hasFormErrors" 
+                type="warn" [showCloseButton]="true" [duration]="3000" (close)="onAlertClose($event)">
+                <span>{{ submitMsg }}</span>
+            </kt-alert>
+            <kt-alert *ngIf="submitSuccess" 
+            type="primary" [showCloseButton]="true" [duration]="3000" (close)="onAlertClose($event)">
+                <span>{{ submitMsg }}</span>
+            </kt-alert>
+            
+            <div class="kt-form__section kt-form__section--first">
+                <div>
+                    <div class="form-group">
+                        <label [translate]="'FORM.LABEL.NAME'"></label>
+                        <input formControlName="nome" type="text" class="form-control" name="nome" [ngClass]="{'is-invalid': formErrors.nome}">
+                    </div>
+                    <div class="form-group">
+                        <label [translate]="'FORM.LABEL.EMAIL'"></label>
+                        <input formControlName="email" type="email" class="form-control" name="email" [ngClass]="{'is-invalid': formErrors.email}">
+                    </div>
+                    <div class="form-group mb-1">
+                        <label [translate]="'FORM.LABEL.MESSAGE'"></label>
+                        <textarea formControlName="mensagem" class="form-control" name="mensagem" [ngClass]="{'is-invalid': formErrors.mensagem}"></textarea>
+                    </div>
+                    <!-- <div class="form-group">
+                        <label class="checkbox">
+                            
+                            <input formControlName="sugestao" type="checkbox" class="form-control"/>
+                        </label>
+                    </div> -->
+                    <!-- <div class="form-group">
+                        <label [translate]="'FORM.LABEL.IS_IT_SUGGESTION'"></label><br/>
+                        <mat-slide-toggle></mat-slide-toggle>
+                    </div> -->
+                    <br>
+                    <div class="form-group">
+                        <label [translate]="'FORM.LABEL.OPTION'"></label>
+                        <select class="form-control" formControlName="sugestao">
+                            <option value=true [translate]="'FORM.SELECT.SUGGESTION'"></option>
+                            <option value=false [translate]="'FORM.SELECT.CONTACT'"></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div style="text-align-last:right;">
+                <button class="btn btn-info btn-md btn-tall btn-wide kt-font-bold kt-font-transform-u" type="submit" [translate]="'FORM.BUTTON.SUBMIT'"></button>
+            </div>
+
+        </form>
+    </kt-portlet-body>
+</kt-portlet>

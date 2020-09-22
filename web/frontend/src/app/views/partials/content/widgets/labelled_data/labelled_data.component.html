@@ -1,0 +1,21 @@
+
+
+<div class="kt-widget26">
+	<div class="kt-widget26__content">
+		<span *ngIf="(desc=='Confirmados')"class="kt-widget26__number">{{_confirmados | number:'':lang}}</span>
+		<span *ngIf="(desc=='Óbitos')"class="kt-widget26__number">{{_mortes | number:'':lang}}</span>
+		<span *ngIf="(desc=='Letalidade')" class="kt-widget26__number">{{_letalidade  | number:'':lang}}%</span>
+		<span *ngIf="(desc=='Inflexup')" class="kt-widget26__number">{{_inflexup}}</span>
+		<span *ngIf="(desc=='Inflexdown')" class="kt-widget26__number">{{_inflexdown}}</span>
+		<span *ngIf="(desc=='Peak')" class="kt-widget26__number">{{_peak}}</span>
+		<!-- <span class="kt-widget26__desc">{{desc}}</span> -->
+		<span *ngIf="(desc=='Confirmados')" class="kt-widget26__desc" [translate]="'DASHBOARD.CONFIRMADOSTOTALSUMMARY'"></span>
+		<span *ngIf="(desc=='Óbitos')" class="kt-widget26__desc" [translate]="'DASHBOARD.OBITOSTOTALSUMMARY'"></span>
+		<span *ngIf="(desc=='Letalidade')" class="kt-widget26__desc" [translate]="'DASHBOARD.LETALIDADE'"></span>
+		<span *ngIf="(desc=='Inflexup')" class="kt-widget26__desc" [translate]="'DASHBOARD.INFLEXUP'"></span>
+		<span *ngIf="(desc=='Inflexdown')" class="kt-widget26__desc" [translate]="'DASHBOARD.INFLEXDOWN'"></span>
+		<span *ngIf="(desc=='Peak')" class="kt-widget26__desc" [translate]="'DASHBOARD.PEAK'"></span>
+	</div>
+</div>
+
+

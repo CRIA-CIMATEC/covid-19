@@ -1,0 +1,34 @@
+<kt-notice [icon]="'flaticon-warning kt-font-primary'">
+	For more info please check the components's official demos & documentation 
+	<a class="kt-link" href="https://material.angular.io/components/grid-list" target="_blank">demos & documentation</a>
+</kt-notice>
+<kt-material-preview [viewItem]="exampleBasicGrid">
+	<div class="kt-section">
+		<span class="kt-section__sub">
+			<code>&lt;mat-grid-list&gt;</code> is a two-dimensional list view that arranges cells into grid-based layout. See Material Design spec here.
+		</span>
+		<div class="kt-separator kt-separator--dashed"></div>
+		<div class="kt-section__content">
+			<mat-grid-list cols="2" rowHeight="2:1">
+				<mat-grid-tile>1</mat-grid-tile>
+				<mat-grid-tile>2</mat-grid-tile>
+				<mat-grid-tile>3</mat-grid-tile>
+				<mat-grid-tile>4</mat-grid-tile>
+			</mat-grid-list>
+
+		</div>
+	</div>
+</kt-material-preview>
+
+
+<kt-material-preview [viewItem]="exampleDynamicGrid">
+	<div class="kt-section">
+		<div class="kt-section__content">
+			<mat-grid-list cols="4" rowHeight="100px">
+				<mat-grid-tile *ngFor="let tile of tiles" [colspan]="tile.cols" [rowspan]="tile.rows" [style.background]="tile.color">
+					{{tile.text}}
+				</mat-grid-tile>
+			</mat-grid-list>
+		</div>
+	</div>
+</kt-material-preview>

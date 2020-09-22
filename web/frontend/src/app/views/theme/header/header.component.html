@@ -1,0 +1,22 @@
+<!-- begin: Header -->
+<div ktHeader #ktHeader class="kt-header kt-grid__item" [ngClass]="htmlClassService.getClasses('header', true)" id="kt_header">
+	<ngb-progressbar class="kt-loading-bar" *ngIf="(loader.progress$|async) > 0" [value]="loader.progress$|async" height="3px"></ngb-progressbar>
+	<div class="kt-header__top">
+		<div class="kt-container" [ngClass]="{'kt-container--fluid': fluid}">
+			<!-- begin:: Brand -->
+			<kt-brand></kt-brand>
+			<!-- end:: Brand -->
+			<!-- begin:: Header Topbar -->
+			<kt-topbar></kt-topbar>
+			<!-- end:: Header Topbar -->
+		</div>
+	</div>
+	<div class="kt-header__bottom">
+		<div class="kt-container" [ngClass]="{'kt-container--fluid': fluid}">
+			<!-- begin: Header Menu -->
+			<kt-menu-horizontal *ngIf="menuHeaderDisplay"></kt-menu-horizontal>
+			<!-- end: Header Menu -->
+		</div>
+	</div>
+</div>
+<!-- end: Header -->

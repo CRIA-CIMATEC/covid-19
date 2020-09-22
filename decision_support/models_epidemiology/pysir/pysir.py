@@ -957,7 +957,7 @@ def fit_model(model, data, bounds, **kwargs):
         manager = mp.Manager()
         eval_queue = manager.Queue()
         history_queue = manager.Queue()
-        history_logger_process = mp.Process(target=_history_logger, args=(eval_queue, history_queue), daemon=True)
+        history_logger_process = mp.Process(target=_history_logger, args=(eval_queue, history_queue), daemon=False)
         history_logger_process.start()
 
         loss_func_args = [optim_params_names, fixed_params_dict,
@@ -986,6 +986,10 @@ def fit_model(model, data, bounds, **kwargs):
                 history_queue.join()
                 
                 history_logger_process.join()
+                history_logger_process.terminate()
+                history_logger_process.close()
+                
+                manager.shutdown()
                 
                 break
                 
@@ -1060,8 +1064,8 @@ def _history_logger(eval_queue=None, history_queue=None):
         eval_result = info[1]
                 
         if pid == 'STOP':
-            history_queue.put(['RESULT', history])
             eval_queue.task_done()
+            history_queue.put(['RESULT', history])
             break
         else:
             history = pd.concat([history, eval_result], ignore_index=True)

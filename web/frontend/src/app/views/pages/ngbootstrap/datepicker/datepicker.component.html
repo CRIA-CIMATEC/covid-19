@@ -1,0 +1,252 @@
+<kt-notice [icon]="'flaticon-warning kt-font-primary'">
+	For more info please check the components's official demos & documentation 
+	<a class="kt-link" href="https://ng-bootstrap.github.io/#/components/datepicker/examples" target="_blank">demos & documentation</a>
+</kt-notice>
+
+<div class="row">
+	<div class="col-xl-6">
+
+		<kt-material-preview [viewItem]="exampleBasicDatepicker">
+			<div class="kt-section">
+				<div class="kt-section__sub">Simple datepicker</div>
+				<div class="kt-section__content">
+					<ngb-datepicker #dp [(ngModel)]="model" (navigate)="date = $event.next"></ngb-datepicker>
+				</div>
+			</div>
+
+			<div class="kt-separator kt-separator--dashed"></div>
+			<div class="kt-section">
+				<div class="kt-section__heading">
+					<button class="btn btn-sm btn-primary" (click)="selectToday()">Select Today</button>&nbsp;
+					<button class="btn btn-sm btn-info" (click)="dp.navigateTo()">To current month</button>&nbsp;
+					<button class="btn btn-sm btn-danger" (click)="dp.navigateTo({year: 2013, month: 2})">To Feb 2013</button>
+
+				</div>
+				<div class="kt-section__content">
+					<pre>Month: {{ date.month }}.{{ date.year }}</pre>
+					<pre>Model: {{ model | json }}</pre>
+
+				</div>
+			</div>
+		</kt-material-preview>
+
+		<kt-material-preview [viewItem]="exampleDatepickerInAPopup">
+			<div class="kt-section">
+				<div class="kt-section__heading">
+					<pre>Model: {{ secondModel | json }}</pre>
+				</div>
+				<div class="kt-section__content">
+					<form class="form-inline">
+						<div class="form-group">
+							<div class="input-group">
+								<input class="form-control" placeholder="yyyy-mm-dd" 
+									name="dp" 
+									[(ngModel)]="secondModel" 
+									ngbDatepicker 
+									#dd="ngbDatepicker">
+								<div class="input-group-append">
+									<button class="btn btn-primary" (click)="dd.toggle()" type="button">
+										<i class="la la-calendar"></i>
+									</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</kt-material-preview>
+
+		<kt-material-preview [viewItem]="exampleMultipleMonths">
+			<div class="kt-section">
+				<div class="kt-section__content">
+					<ngb-datepicker [displayMonths]="displayMonths" [navigation]="navigation" [showWeekNumbers]="showWeekNumbers"></ngb-datepicker>
+				</div>
+			</div>
+			<div class="kt-separator kt-separator--dashed"></div>
+			<div class="kt-section">
+				<div class="kt-section__content">
+					<form class="form-inline">
+						<div class="form-group kt-form__group">
+							<div class="input-group">
+								<input class="form-control" placeholder="yyyy-mm-dd" name="dp" [displayMonths]="displayMonths" [navigation]="navigation" [showWeekNumbers]="showWeekNumbers" ngbDatepicker #d="ngbDatepicker">
+								<div class="input-group-append">
+									<button class="btn btn-primary" (click)="d.toggle()" type="button">
+										<i class="la la-calendar"></i>
+									</button>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+
+			<div class="kt-separator kt-separator--dashed"></div>
+
+			<div class="kt-section kt-form__group">
+				<div class="kt-section__content">
+
+					<select class="custom-select kt-input" [(ngModel)]="displayMonths">
+						<option [ngValue]="1">One month</option>
+						<option [ngValue]="2">Two months</option>
+						<option [ngValue]="3">Three months</option>
+					</select>
+
+					<select class="custom-select kt-input" [(ngModel)]="navigation">
+						<option value="none">Without navigation</option>
+						<option value="select">With select boxes</option>
+						<option value="arrows">Without select boxes</option>
+					</select>
+
+					<select class="custom-select kt-input" [(ngModel)]="showWeekNumbers">
+						<option [ngValue]="true">Week numbers</option>
+						<option [ngValue]="false">No week numbers</option>
+					</select>
+
+				</div>
+			</div>
+
+		</kt-material-preview>
+
+		<kt-material-preview [viewItem]="exampleRangeSelection">
+			<div class="kt-section">
+				<div class="kt-section__sub">Example of the range selection</div>
+				<div class="kt-section__content">
+					<ngb-datepicker #dp ngModel (ngModelChange)="onDateChange($event)" [displayMonths]="2" [dayTemplate]="t">
+					</ngb-datepicker>
+
+					<ng-template #t let-date="date" let-focused="focused">
+						<span class="custom-day" [class.focused]="focused" 
+							[class.range]="isFrom(date) || isTo(date) || isInside(date) || isHovered(date)" 
+							[class.faded]="isHovered(date) || isInside(date)" 
+							(mouseenter)="hoveredDate = date" 
+							(mouseleave)="hoveredDate = null">
+							{{ date.day }}
+						</span>
+					</ng-template>
+				</div>
+			</div>
+			<div class="kt-separator kt-separator--dashed"></div>
+			<div class="kt-section">
+				<div class="kt-section__content">
+					<pre>From: {{ fromDate | json }} </pre>
+					<pre>To: {{ toDate | json }} </pre>
+				</div>
+			</div>
+		</kt-material-preview>
+
+		<kt-material-preview [viewItem]="exampleDisabledDatepicker">
+			<div class="kt-section">
+				<div class="kt-section__content">
+					<ngb-datepicker [(ngModel)]="thirdModel" [disabled]="disabled"></ngb-datepicker>
+				</div>
+			</div>
+			<div class="kt-separator kt-separator--dashed"></div>
+			<div class="kt-section">
+				<div class="kt-section__content">
+					<button class="btn btn-sm btn-{{disabled ? 'danger' : 'success'}}" (click)="disabled = !disabled">
+						{{ disabled ? "disabled" : "enabled"}}
+					</button>
+				</div>
+			</div>
+		</kt-material-preview>
+	</div>
+	<div class="col-xl-6">
+		<kt-material-preview [viewItem]="exampleCustomDateAdapter">
+			<div class="kt-section">
+				<span class="kt-section__sub">
+					These datepickers use custom Date adapter that lets you use your own model implementation. In this example we are converting from and to a JS native Date object
+				</span>
+				<div class="kt-section__content">
+					<ngb-datepicker #d1 [(ngModel)]="model1" #c1="ngModel"></ngb-datepicker>
+					<div class="kt-separator kt-separator--dashed"></div>
+					<button class="btn btn-sm btn-primary" (click)="model1 = today">Select Today</button>
+					<div class="kt-separator kt-separator--dashed"></div>
+					<pre>Model: {{ model1 | json }}</pre>
+					<pre>State: {{ c1.status }}</pre>
+				</div>
+			</div>
+			<div class="kt-separator kt-separator--dashed"></div>
+
+			<div class="kt-section">
+				<span class="kt-section__sub">
+					These datepickers use custom Date adapter that lets you use your own model implementation. In this example we are converting from and to a JS native Date object
+				</span>
+
+				<div class="kt-section__content">
+					<form class="form-inline">
+						<div class="form-group">
+							<div class="input-group">
+								<input class="form-control" placeholder="yyyy-mm-dd" name="d22" #c2="ngModel" [(ngModel)]="model2" ngbDatepicker #d22="ngbDatepicker">
+								<div class="input-group-append">
+									<button class="btn btn-primary" (click)="d22.toggle()" type="button">
+										<i class="la la-calendar"></i>
+									</button>
+								</div>
+							</div>
+						</div>
+					</form>
+
+					<div class="kt-separator kt-separator--dashed"></div>
+					<button class="btn btn-sm btn-info" (click)="model2 = today">Select Today</button>
+					<div class="kt-separator kt-separator--dashed"></div>
+
+					<pre>Model: {{ model2 | json }}</pre>
+					<pre>State: {{ c2.status }}</pre>
+				</div>
+			</div>
+		</kt-material-preview>
+
+
+		<kt-material-preview [viewItem]="exampleInternationalizationOfDatepickers">
+			<div class="kt-section">
+				<span class="kt-section__sub">
+					Datepicker in French
+				</span>
+				<div class="kt-section__content">
+					<ngb-datepicker [(ngModel)]="fourthModel"></ngb-datepicker>
+				</div>
+			</div>
+		</kt-material-preview>
+
+		<kt-material-preview [viewItem]="exampleCustomDayView">
+			<div class="kt-section">
+				<span class="kt-section__sub">
+					This datepicker uses a custom template to display days. All week-ends are displayed with an orange background.
+				</span>
+				<div class="kt-section__content">
+					<form class="form-inline">
+						<div class="form-group">
+							<div class="input-group">
+								<input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="fifthModel" ngbDatepicker [dayTemplate]="customDay" [markDisabled]="isDisabled" #d="ngbDatepicker">
+								<div class="input-group-append">
+									<button class="btn btn-primary" (click)="d.toggle()" type="button">
+										<i class="la la-calendar"></i>
+									</button>
+								</div>
+							</div>
+						</div>
+					</form>
+
+					<ng-template #customDay let-date="date" let-currentMonth="currentMonth" let-selected="selected" let-disabled="disabled" let-focused="focused">
+						<span class="custom-day" [class.weekend]="isWeekend(date)" [class.focused]="focused" [class.bg-primary]="selected" [class.hidden]="date.month !== currentMonth" [class.text-muted]="disabled">
+							{{ date.day }}
+						</span>
+					</ng-template>
+
+				</div>
+			</div>
+		</kt-material-preview>
+
+
+		<kt-material-preview [viewItem]="exampleGlobalConfigurationOfDatepickers">
+			<div class="kt-section">
+				<span class="kt-section__sub">
+					This datepicker uses customized default values.
+				</span>
+				<div class="kt-section__content">
+					<ngb-datepicker [(ngModel)]="sixModel"></ngb-datepicker>
+				</div>
+			</div>
+		</kt-material-preview>
+	</div>
+</div>

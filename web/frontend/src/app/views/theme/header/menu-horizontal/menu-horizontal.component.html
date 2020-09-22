@@ -1,0 +1,127 @@
+<!-- BEGIN: Horizontal Menu -->
+<button class="kt-header-menu-wrapper-close" id="kt_header_menu_mobile_close_btn"><i class="la la-close"></i></button>
+<div ktOffcanvas [options]="offcanvasOptions" class="kt-header-menu-wrapper" id="kt_header_menu_wrapper">
+	<div ktMenu [options]="menuOptions" id="kt_header_menu" class="kt-header-menu kt-header-menu-mobile" [ngClass]="htmlClassService.getClasses('header_menu', true)">
+		<ul class="kt-menu__nav" [ngClass]="htmlClassService.getClasses('header_menu_nav', true)">
+			<ng-container *ngFor="let item of menuHorService.menuList$ | async">
+				<ng-container *ngIf="item.title" [ngTemplateOutlet]="menuTemplate" [ngTemplateOutletContext]="{ item: item }"></ng-container>
+			</ng-container>
+		</ul>
+	</div>
+	<!-- <kt-search-default></kt-search-default> -->
+</div>
+<!-- END: Horizontal Menu -->
+
+
+<ng-template #menuTemplate let-item="item" let-parentItem="parentItem">
+	<li [attr.aria-haspopup]="true"
+		[attr.data-ktmenu-submenu-toggle]="getItemAttrSubmenuToggle(item)"
+		[ngClass]="getItemCssClasses(item)">
+
+		<!-- if item has submenu -->
+		<ng-container *ngIf="item.submenu">
+			<a href="javascript:;" class="kt-menu__link kt-menu__toggle">
+
+				<ng-container [ngTemplateOutlet]="menuItemInnerTemplate" [ngTemplateOutletContext]="{ item: item, parentItem: parentItem }"></ng-container>
+
+				<ng-container *ngIf="rootArrowEnabled">
+					<!-- arrow icons -->
+					<i *ngIf="item.submenu && item.root" class="kt-menu__hor-arrow la la-angle-down"></i>
+					<i *ngIf="item.submenu && item.root" class="kt-menu__ver-arrow la la-angle-right"></i>
+				</ng-container>
+				<!-- else arrow icons -->
+				<i *ngIf="item.submenu && !item.root" class="kt-menu__hor-arrow la la-angle-right"></i>
+				<i *ngIf="item.submenu && !item.root" class="kt-menu__ver-arrow la la-angle-right"></i>
+			</a>
+		</ng-container>
+
+		<!-- if item hasn't sumbenu -->
+		<ng-container *ngIf="!item.submenu">
+			<a [routerLink]="item.page" class="kt-menu__link kt-menu__toggle">
+				<ng-container [ngTemplateOutlet]="menuItemInnerTemplate" [ngTemplateOutletContext]="{ item: item, parentItem: parentItem }"></ng-container>
+			</a>
+		</ng-container>
+
+		<!-- if menu item has submenu child then recursively call new menu item component -->
+		<ng-container *ngIf="item.submenu">
+			<div class="kt-menu__submenu" [ngClass]="getItemMenuSubmenuClass(item)" [ngStyle]="{ 'width': item.submenu.width }">
+				<span class="kt-menu__arrow" [ngClass]="{ 'kt-menu__arrow--adjust': item.root }"></span>
+
+				<ul *ngIf="item.submenu?.length" class="kt-menu__subnav">
+					<ng-container *ngFor="let child of item.submenu">
+						<ng-container [ngTemplateOutlet]="menuTemplate" [ngTemplateOutletContext]="{ item: child, parentItem: item }">
+						</ng-container>
+					</ng-container>
+				</ul>
+
+				<ul *ngIf="item.submenu.items?.length" class="kt-menu__subnav">
+					<ng-container *ngFor="let child of item.submenu.items">
+						<ng-container [ngTemplateOutlet]="menuTemplate" [ngTemplateOutletContext]="{ item: child, parentItem: item }">
+						</ng-container>
+					</ng-container>
+				</ul>
+
+				<div *ngIf="item.submenu.type === 'mega' && item.submenu.columns?.length" class="kt-menu__subnav">
+					<ul class="kt-menu__content">
+						<ng-container *ngFor="let child of item.submenu.columns">
+							<ng-container [ngTemplateOutlet]="menuColumnTemplate" [ngTemplateOutletContext]="{ item: child }"></ng-container>
+						</ng-container>
+					</ul>
+				</div>
+
+			</div>
+		</ng-container>
+	</li>
+</ng-template>
+
+<!-- item inner -->
+<ng-template #menuItemInnerTemplate let-item="item" let-parentItem="parentItem">
+	<!-- if menu item has icon -->
+	<i *ngIf="item.icon" class="kt-menu__link-icon" [ngClass]="item.icon"></i>
+
+	<ng-container *ngIf="!item.icon">
+		<!-- if menu item using bullet -->
+		<i *ngIf="parentItem && parentItem.bullet === 'dot' || item.bullet === 'dot'" class="kt-menu__link-bullet kt-menu__link-bullet--dot">
+			<span></span>
+		</i>
+		<i *ngIf="parentItem && parentItem.bullet === 'line' || item.bullet === 'line'" class="kt-menu__link-bullet kt-menu__link-bullet--line">
+			<span></span>
+		</i>
+	</ng-container>
+
+	<ng-container *ngIf="!item.badge; else menuLinkBadge">
+		<span class="kt-menu__item-here"></span>
+		<!-- menu item title text -->
+		<span class="kt-menu__link-text" [translate]="item.translate">
+			{{item.title}}
+		</span>
+	</ng-container>
+
+	<ng-template #menuLinkBadge>
+		<!-- menu item with badge -->
+		<span class="kt-menu__link-text" [translate]="item.translate">{{item.title}}</span>
+		<span class="kt-menu__link-badge">
+			<span class="kt-badge kt-badge--brand kt-badge--inline kt-badge--pill" [ngClass]="item.badge.type" [translate]="item.badge.translate">{{item.badge.value}}</span>
+		</span>
+	</ng-template>
+</ng-template>
+
+<!-- item column -->
+<ng-template #menuColumnTemplate let-item="item">
+	<li class="kt-menu__item">
+		<h3 class="kt-menu__heading kt-menu__toggle">
+			<span class="kt-menu__link-text" [translate]="item.heading.translate">
+				{{item.heading.title}}
+			</span>
+			<i class="kt-menu__ver-arrow la la-angle-right"></i>
+		</h3>
+		<ng-container *ngIf="item.items?.length">
+			<ul class="kt-menu__inner">
+				<ng-container *ngFor="let child of item.items">
+					<ng-container [ngTemplateOutlet]="menuTemplate" [ngTemplateOutletContext]="{ item: child, parentItem: item }">
+					</ng-container>
+				</ng-container>
+			</ul>
+		</ng-container>
+	</li>
+</ng-template>

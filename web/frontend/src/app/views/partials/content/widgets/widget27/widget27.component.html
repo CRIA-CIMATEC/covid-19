@@ -1,0 +1,51 @@
+<div *ngIf="((type=='warning')) || ((type=='danger') && (percentValue > 0))">
+    <div class="header">
+        <div class="header__content">
+            
+            <!-- <div class="col-md-12">
+                <div class="row">
+                    <span 
+                        *ngIf="(type=='warning')" style="font-weight: 600;"
+                        [translate]="'DASHBOARD.NORMAL'" 
+                        class="header__number">{{leftText}}</span>
+                    <span 
+                    
+                        *ngIf="(type=='warning')" style="font-weight: 600;"
+                        [translate]="'DASHBOARD.ANORMAL'" 
+                        class="header__number ml-auto">{{rightText}}</span>
+                    <span 
+                    
+                        *ngIf="(type=='danger')" style="font-weight: 600;"
+                        [translate]="'DASHBOARD.COVID19_TRUE'" 
+                        class="header__number">{{leftText}}</span>
+                    <span 
+                        
+                        *ngIf="(type=='danger')" style="font-weight: 600;"
+                        [translate]="'DASHBOARD.COVID19_FALSE'" 
+                        class="header__number ml-auto">{{rightText}}</span>
+                </div>
+            </div> -->
+        </div>
+    </div>
+<div>
+    <!-- <ngb-progressbar [type]="type" [value]="percentValue" [striped]="false" height="2rem">{{percentValue}}%</ngb-progressbar> -->
+</div>
+
+<br/>
+
+<div *ngIf="(percentValue > 90) && (type=='warning')">
+    <div class="header">
+        <div class="header__content">
+            <div class="col-md-12">
+                <div class="row">
+                    <span [translate]="'DASHBOARD.TEXTRESULTS'" class="header__number">
+                        O exame de imagem não apresenta indícios característicos de anomalias relacionadas ao pulmão.
+                        Evite sair de casa e lave bem as mãos. Se apresentar febre, tosse ou dificuldade de respirar,
+                        evite locais com muita gente e 136 ou procure uma unidade de saúde
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

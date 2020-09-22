@@ -1,0 +1,84 @@
+//
+// deaths_chart
+//
+
+
+
+
+.kt-deaths_chart {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+
+    .kt-deaths_chart__content {
+        display: flex;                    
+        padding-top: 1.15rem; 
+        padding-bottom: 1.25rem;      
+        flex-grow: 1;     
+        display: flex;
+    
+        .kt-deaths_chart__item {
+            display: flex;
+            align-items: center;
+            flex: 1;
+            padding-left: 2rem;
+            margin-top: 1.5rem;
+    
+            .kt-deaths_chart__icon {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 40px; 
+                height: 40px; 
+                border-radius: 50%;
+
+                i {
+                    font-size: 1.4rem; 
+                }
+            }
+    
+            .kt-deaths_chart__info {
+                padding-left: 1rem; 
+                flex: 1;               
+    
+                .kt-deaths_chart__title {
+                    display: block;
+                    font-size: 1.1rem;
+                    font-weight: 500; 
+                    color: kt-base-color(label, 3);
+                }
+    
+                .kt-deaths_chart__sub {
+                    display: block;
+                    font-size: 1rem;
+                    color: kt-base-color(label, 2);
+                }
+            }
+        }          
+    }   
+
+    .kt-deaths_chart__chart {
+        position: relative;
+        
+        canvas {
+            border-bottom-left-radius: $kt-border-radius;
+            border-bottom-right-radius: $kt-border-radius;
+        }
+    }
+}  
+ 
+@include kt-mobile {
+    .kt-deaths_chart {
+        .kt-deaths_chart__content {
+            .kt-deaths_chart__item {
+                padding-left: 0;
+                margin-top: 0.5rem;               
+
+                .kt-deaths_chart__info {
+                    padding-left: 0.5rem;              
+                }
+            }
+        }    
+    }
+}

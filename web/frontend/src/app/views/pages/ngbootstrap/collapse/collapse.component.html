@@ -1,0 +1,30 @@
+<kt-notice [icon]="'flaticon-warning kt-font-primary'">
+	For more info please check the components's official demos & documentation 
+	<a class="kt-link" href="https://ng-bootstrap.github.io/#/components/collapse/examples" target="_blank">demos & documentation</a>
+</kt-notice>
+
+<div class="row">
+	<div class="col-xl-12">
+		<kt-material-preview [viewItem]="exampleDemo">
+			<div class="kt-section">
+				<div class="kt-section__content">
+					<button type="button" 
+						class="btn btn-primary" 
+						(click)="isCollapsed = !isCollapsed" 
+						[attr.aria-expanded]="!isCollapsed" 
+						aria-controls="collapseExample">
+						Toggle
+					</button>
+				</div><br />
+				<div id="collapseExample" [ngbCollapse]="isCollapsed">
+					<div class="card">
+						<div class="card-body">
+							You can collapse this card by clicking Toggle
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</kt-material-preview>
+	</div>
+</div>

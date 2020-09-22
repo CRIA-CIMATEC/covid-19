@@ -1,0 +1,575 @@
+<div class="row">
+	<div class="col-lg-6">
+		<div class="kt-portlet">
+			<div class="kt-portlet__head">
+				<div class="kt-portlet__head-caption">
+					<div class="kt-portlet__head-title">
+						<span class="kt-portlet__head-icon kt-hide">
+							<i class="la la-gear"></i>
+						</span>
+						<h3 class="kt-portlet__head-text">
+							Default Form Layout
+						</h3>
+					</div>
+				</div>
+			</div>
+			<!--begin::Form-->
+			<form class="kt-form">
+				<div class="kt-portlet__body">
+					<div class="kt-form__section kt-form__section--first">
+						<div class="form-group kt-form__group">
+							<mat-form-field class="example-full-width">
+								<input matInput placeholder="Enter full name">
+								<mat-hint align="start">Please enter your full name</mat-hint>
+							</mat-form-field>
+						</div>
+						<div class="form-group kt-form__group">
+							<mat-form-field class="example-full-width">
+								<input matInput placeholder="Enter email" type="email">
+								<mat-hint align="start">We'll never share your email with anyone else</mat-hint>
+							</mat-form-field>
+						</div>
+						<div class="form-group kt-form__group">
+							<mat-form-field class="example-full-width">
+								<input matInput placeholder="State" aria-label="State" [matAutocomplete]="auto" [formControl]="stateCtrl">
+								<mat-autocomplete #auto="matAutocomplete">
+									<mat-option *ngFor="let state of filteredStates | async" [value]="state.name">
+										<img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" />
+										<span>{{ state.name }}</span> |
+										<small>Population: {{state.population}}</small>
+									</mat-option>
+								</mat-autocomplete>
+							</mat-form-field>
+						</div>
+						<div class="form-group kt-form__group">
+							<mat-form-field class="example-full-width">
+								<input matInput placeholder="Amount" type="number" class="example-right-align" value="99.9">
+								<span matPrefix>$&nbsp;</span>
+							</mat-form-field>
+						</div>
+						<div class="kt-form__group form-group">
+							<div class="kt-checkbox-list">
+								<p>
+									<mat-checkbox>Email</mat-checkbox>
+								</p>
+								<p>
+									<mat-checkbox>SMS</mat-checkbox>
+								</p>
+								<p>
+									<mat-checkbox>Phone</mat-checkbox>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="kt-portlet__foot">
+					<div class="kt-form__actions kt-form__actions">
+						<button mat-raised-button color="primary" (click)="openSnackBar()">Submit</button>&nbsp;
+						<button mat-raised-button type="reset">Cancel</button>
+					</div>
+				</div>
+			</form>
+			<!--end::Form-->
+		</div>
+
+		<div class="kt-portlet">
+			<div class="kt-portlet__head">
+				<div class="kt-portlet__head-caption">
+					<div class="kt-portlet__head-title">
+						<span class="kt-portlet__head-icon kt-hide">
+							<i class="la la-gear"></i>
+						</span>
+						<h3 class="kt-portlet__head-text">
+							Horizontal Form Layout
+						</h3>
+					</div>
+				</div>
+			</div>
+			<!--begin::Form-->
+			<form class="kt-form">
+				<div class="kt-portlet__body">
+					<div class="kt-form__section kt-form__section--first">
+						<div class="form-group kt-form__group row">
+							<label class="col-lg-3 col-form-label">Full Name:</label>
+							<div class="col-lg-6 example-container">
+								<mat-form-field>
+									<input matInput placeholder="Enter full name">
+									<mat-hint align="start">Please enter your full name</mat-hint>
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="form-group kt-form__group row">
+							<label class="col-lg-3 col-form-label">Email address:</label>
+							<div class="col-lg-6 example-container">
+								<mat-form-field>
+									<input matInput type="email" placeholder="Enter email">
+									<mat-hint align="start">Please enter your full name</mat-hint>
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="form-group kt-form__group row">
+							<label class="col-lg-3 col-form-label">State:</label>
+							<div class="col-lg-6 example-container">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="State" aria-label="State" [matAutocomplete]="auto" [formControl]="stateCtrl">
+									<mat-autocomplete #auto="matAutocomplete">
+										<mat-option *ngFor="let state of filteredStates | async" [value]="state.name">
+											<img style="vertical-align:middle;" aria-hidden src="{{state.flag}}" height="25" />
+											<span>{{ state.name }}</span> |
+											<small>Population: {{state.population}}</small>
+										</mat-option>
+									</mat-autocomplete>
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="form-group kt-form__group row">
+							<label class="col-lg-3 col-form-label">Progress:</label>
+							<div class="col-lg-6 example-container example-full-width">
+								<mat-slider></mat-slider>
+							</div>
+						</div>
+						<div class="form-group kt-form__group row">
+							<label class="col-lg-3 col-form-label">Contact</label>
+							<div class="col-lg-6 example-container">
+								<mat-form-field>
+									<mat-icon matPrefix>local_phone</mat-icon>
+									<input type="tel" matInput placeholder="Phone number">
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="kt-form__group form-group row">
+							<label class="col-lg-3 col-form-label">Communication:</label>
+							<div class="col-lg-6 example-container">
+								<div class="kt-checkbox-inline">
+									<mat-checkbox>Email</mat-checkbox>
+									<mat-checkbox>SMS</mat-checkbox>
+									<mat-checkbox>Phone</mat-checkbox>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="kt-portlet__foot">
+					<div class="kt-form__actions kt-form__actions">
+						<div class="row">
+							<div class="col-lg-3"></div>
+							<div class="col-lg-6">
+								<button mat-raised-button color="accent">Submit</button>&nbsp;
+								<button mat-raised-button type="reset">Cancel</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+			<!--end::Form-->
+		</div>
+	</div>
+	<div class="col-lg-6">
+		<div class="kt-portlet">
+			<div class="kt-portlet__head">
+				<div class="kt-portlet__head-caption">
+					<div class="kt-portlet__head-title">
+						<span class="kt-portlet__head-icon kt-hide">
+							<i class="la la-gear"></i>
+						</span>
+						<h3 class="kt-portlet__head-text">
+							Form Sections
+						</h3>
+					</div>
+				</div>
+			</div>
+			<!--begin::Form-->
+			<form class="kt-form">
+				<div class="kt-portlet__body">
+					<div class="kt-form__section kt-form__section--first">
+						<div class="kt-form__heading">
+							<h3 class="kt-form__heading-title">1. Customer Info:</h3>
+						</div>
+						<div class="form-group kt-form__group">
+							<mat-form-field class="example-full-width">
+								<input matInput placeholder="Enter full name">
+								<mat-hint align="start">Please enter your full name</mat-hint>
+							</mat-form-field>
+						</div>
+						<div class="form-group kt-form__group">
+							<mat-form-field class="example-full-width">
+								<input matInput placeholder="Enter email" type="email">
+								<mat-hint align="start">We'll never share your email with anyone else</mat-hint>
+							</mat-form-field>
+						</div>
+						<div class="form-group kt-form__group">
+							<mat-form-field class="example-full-width">
+								<mat-select placeholder="Favorite food">
+									<mat-option *ngFor="let food of foods" [value]="food.value">
+										{{ food.viewValue }}
+									</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</div>
+						<div class="form-group kt-form__group">
+							<label>Contact:</label>
+							<div class="kt-input-icon kt-input-icon--left">
+								<mat-form-field class="example-full-width">
+									<mat-icon matPrefix>local_phone</mat-icon>
+									<input type="tel" matInput placeholder="Phone number">
+									<mat-hint align="start">We'll never share your phone number with anyone else</mat-hint>
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="kt-form__group form-group">
+							<label for="">Communication:</label>
+							<div class="kt-checkbox-list">
+								<p>
+									<mat-checkbox>Email</mat-checkbox>
+								</p>
+								<p>
+									<mat-checkbox>SMS</mat-checkbox>
+								</p>
+								<p>
+									<mat-checkbox>Phone</mat-checkbox>
+								</p>
+							</div>
+						</div>
+					</div>
+
+					<div class="kt-form__seperator kt-form__seperator--dashed"></div>
+
+					<div class="kt-form__section kt-form__section--last">
+						<div class="kt-form__heading">
+							<h3 class="kt-form__heading-title">2. Payment Info:</h3>
+						</div>
+						<div class="kt-form__group form-group">
+							<label for="">Payment Method:</label>
+							<div class="kt-radio-list">
+								<mat-radio-group>
+									<p>
+										<mat-radio-button value="1">Credit Card</mat-radio-button>
+									</p>
+									<p>
+										<mat-radio-button value="2">Bitcoin</mat-radio-button>
+									</p>
+									<p>
+										<mat-radio-button value="3">Cash</mat-radio-button>
+									</p>
+								</mat-radio-group>
+							</div>
+							<mat-hint align="start">Please select payment method:</mat-hint>
+						</div>
+						<div class="form-group kt-form__group kt-form__group--last">
+							<mat-form-field class="example-full-width">
+								<input matInput placeholder="Amount" type="number">
+								<mat-hint align="start">Please enter amount</mat-hint>
+							</mat-form-field>
+						</div>
+					</div>
+				</div>
+				<div class="kt-portlet__foot kt-portlet__no-border">
+					<div class="kt-form__actions kt-form__actions--solid">
+						<button mat-raised-button color="accent">Submit</button>&nbsp;
+						<button mat-raised-button type="reset">Cancel</button>
+					</div>
+				</div>
+			</form>
+			<!--end::Form-->
+		</div>
+
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-lg-12">
+		<div class="kt-portlet">
+			<div class="kt-portlet__head">
+				<div class="kt-portlet__head-caption">
+					<div class="kt-portlet__head-title">
+						<span class="kt-portlet__head-icon kt-hide">
+							<i class="la la-gear"></i>
+						</span>
+						<h3 class="kt-portlet__head-text">
+							Horizontal Form Sections
+						</h3>
+					</div>
+				</div>
+			</div>
+			<!--begin::Form-->
+			<form class="kt-form kt-form--label-align-right">
+				<div class="kt-portlet__body">
+					<div class="kt-form__section kt-form__section--first">
+						<div class="kt-form__heading">
+							<h3 class="kt-form__heading-title">Customer Info:</h3>
+						</div>
+						<div class="form-group kt-form__group row">
+							<label class="col-lg-2 col-form-label">Full Name:</label>
+							<div class="col-lg-6">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Enter full name">
+									<mat-hint align="start">Please enter your full name</mat-hint>
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="form-group kt-form__group row">
+							<label class="col-lg-2 col-form-label">Email address:</label>
+							<div class="col-lg-6">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Enter email" type="email">
+									<mat-hint align="start">We'll never share your email with anyone else</mat-hint>
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="form-group kt-form__group row">
+							<label class="col-lg-2 col-form-label">Date of birth:</label>
+							<div class="col-lg-6">
+								<mat-form-field class="example-full-width">
+									<input matInput [matDatepicker]="picker" placeholder="Choose a date">
+									<mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+									<mat-datepicker #picker></mat-datepicker>
+								</mat-form-field>
+							</div>
+						</div>
+						<div class="kt-form__group form-group row">
+							<label class="col-lg-2 col-form-label">Communication:</label>
+							<div class="col-lg-6">
+								<div class="kt-checkbox-list">
+									<p>
+										<mat-checkbox>Email</mat-checkbox>
+									</p>
+									<p>
+										<mat-checkbox>SMS</mat-checkbox>
+									</p>
+									<p>
+										<mat-checkbox>Phone</mat-checkbox>
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="kt-form__seperator kt-form__seperator--dashed"></div>
+
+					<div class="kt-form__section kt-form__section--last">
+						<div class="kt-form__heading">
+							<h3 class="kt-form__heading-title">Payment Info:</h3>
+						</div>
+						<div class="kt-form__group form-group row">
+							<label class="col-lg-2 col-form-label">Payment Method:</label>
+							<div class="col-lg-6">
+								<div class="kt-radio-list">
+									<mat-radio-group>
+										<p>
+											<mat-radio-button value="1">Credit Card</mat-radio-button>
+										</p>
+										<p>
+											<mat-radio-button value="2">Bitcoin</mat-radio-button>
+										</p>
+										<p>
+											<mat-radio-button value="3">Cash</mat-radio-button>
+										</p>
+									</mat-radio-group>
+								</div>
+								<span class="kt-form__help">Please select payment method</span>
+							</div>
+						</div>
+						<div class="form-group kt-form__group row">
+							<label class="col-lg-2 col-form-label">Amount:</label>
+							<div class="col-lg-6">
+								<mat-form-field class="example-full-width">
+									<input matInput placeholder="Amount" type="number">
+									<mat-hint align="start">Please enter amount</mat-hint>
+								</mat-form-field>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="kt-portlet__foot">
+					<div class="kt-form__actions kt-form__actions">
+						<div class="row">
+							<div class="col-lg-2">
+								<mat-slide-toggle [(ngModel)]="isHuman" (change)="onChange($event)" name="human1"	>I am not a robot</mat-slide-toggle>
+							</div>
+							<div class="col-lg-6">
+								<button mat-raised-button color="primary" disabled="{{!isHuman}}">Submit</button>&nbsp;
+								<button mat-raised-button type="reset">Cancel</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+			<!--end::Form-->
+		</div>
+
+		<div class="kt-portlet">
+			<div class="kt-portlet__head">
+				<div class="kt-portlet__head-caption">
+					<div class="kt-portlet__head-title">
+						<span class="kt-portlet__head-icon kt-hide">
+							<i class="la la-gear"></i>
+						</span>
+						<h3 class="kt-portlet__head-text">
+							Border Seperator Form Groups
+						</h3>
+					</div>
+				</div>
+			</div>
+			<!--begin::Form-->
+			<form class="kt-form kt-form--label-align-right kt-form--group-seperator">
+				<div class="kt-portlet__body">
+					<div class="form-group kt-form__group row">
+						<label class="col-lg-2 col-form-label">Full Name:</label>
+						<div class="col-lg-6">
+							<mat-form-field class="example-full-width">
+								<input matInput placeholder="Enter full name">
+								<mat-hint align="start">Please enter your full name</mat-hint>
+							</mat-form-field>
+						</div>
+					</div>
+					<div class="form-group kt-form__group row">
+						<label class="col-lg-2 col-form-label">Email address:</label>
+						<div class="col-lg-6">
+							<mat-form-field class="example-full-width">
+								<input matInput placeholder="Enter email" type="email">
+								<mat-hint align="start">We'll never share your email with anyone else</mat-hint>
+							</mat-form-field>
+						</div>
+					</div>
+					<div class="form-group kt-form__group row">
+						<label class="col-lg-2 col-form-label">Date of birth:</label>
+						<div class="col-lg-6">
+							<mat-form-field class="example-full-width">
+								<input matInput [matDatepicker]="dp3" placeholder="Input disabled" disabled>
+								<mat-datepicker-toggle matSuffix [for]="dp3"></mat-datepicker-toggle>
+								<mat-datepicker #dp3 disabled="false"></mat-datepicker>
+							</mat-form-field>
+						</div>
+					</div>
+					<div class="form-group kt-form__group row">
+						<label class="col-lg-2 col-form-label">Favorite foods:</label>
+						<div class="col-lg-6 example-container">
+							<mat-form-field class="dexample-full-width">
+								<mat-chip-list #chipList>
+									<mat-chip *ngFor="let fruit of fruits"
+										[selectable]="selectable"
+										[removable]="removable"
+										(removed)="remove(fruit)">
+											{{fruit.name}}
+										<mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+									</mat-chip>
+									<input placeholder="New food..." [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)" />
+								</mat-chip-list>
+							</mat-form-field>
+						</div>
+					</div>
+					<div class="kt-form__group kt-form__group--last form-group row">
+						<label class="col-lg-2 col-form-label">Communication:</label>
+						<div class="col-lg-6">
+							<div class="kt-checkbox-list">
+								<p>
+									<mat-checkbox>Email</mat-checkbox>
+								</p>
+								<p>
+									<mat-checkbox>SMS</mat-checkbox>
+								</p>
+								<p>
+									<mat-checkbox>Phone</mat-checkbox>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="kt-portlet__foot kt-portlet__no-border">
+					<div class="kt-form__actions kt-form__actions--solid">
+						<div class="row">
+							<div class="col-lg-2">
+								<mat-slide-toggle [(ngModel)]="isHuman2" (change)="onChange2($event)" name="human2">I am not a robot</mat-slide-toggle>
+							</div>
+							<div class="col-lg-6">
+								<button mat-raised-button color="accent" disabled="{{!isHuman2}}">Submit</button>&nbsp;
+								<button mat-raised-button type="reset">Cancel</button>
+							</div>
+
+
+						</div>
+					</div>
+				</div>
+			</form>
+			<!--end::Form-->
+		</div>
+
+		<div class="kt-portlet">
+			<div class="kt-portlet__head">
+				<div class="kt-portlet__head-caption">
+					<div class="kt-portlet__head-title">
+						<span class="kt-portlet__head-icon kt-hide">
+							<i class="la la-gear"></i>
+						</span>
+						<h3 class="kt-portlet__head-text">
+							Dashed Seperator Form Groups
+						</h3>
+					</div>
+				</div>
+			</div>
+			<!--begin::Form-->
+			<form class="kt-form kt-form--label-align-right kt-form--group-seperator-dashed">
+				<div class="kt-portlet__body">
+					<div class="form-group kt-form__group row">
+						<label class="col-lg-2 col-form-label">Full Name:</label>
+						<div class="col-lg-6">
+							<mat-form-field class="example-full-width">
+								<input matInput placeholder="Enter full name">
+								<mat-hint align="start">Please enter your full name</mat-hint>
+							</mat-form-field>
+						</div>
+					</div>
+					<div class="form-group kt-form__group row">
+						<label class="col-lg-2 col-form-label">Email address:</label>
+						<div class="col-lg-6">
+							<mat-form-field class="example-full-width">
+								<input matInput placeholder="Enter email" type="email">
+								<mat-hint align="start">We'll never share your email with anyone else</mat-hint>
+							</mat-form-field>
+						</div>
+					</div>
+					<div class="form-group kt-form__group row">
+						<label class="col-lg-2 col-form-label">Favorite food:</label>
+						<div class="col-lg-6">
+							<mat-form-field class="example-full-width">
+								<mat-select placeholder="Favorite food">
+									<mat-option *ngFor="let food of foods" [value]="food.value">
+										{{ food.viewValue }}
+									</mat-option>
+								</mat-select>
+							</mat-form-field>
+						</div>
+					</div>
+					<div class="kt-form__group kt-form__group--last form-group row">
+						<label class="col-lg-2 col-form-label">Communication:</label>
+						<div class="col-lg-6">
+							<div class="kt-checkbox-list">
+								<p>
+									<mat-checkbox>Email</mat-checkbox>
+								</p>
+								<p>
+									<mat-checkbox>SMS</mat-checkbox>
+								</p>
+								<p>
+									<mat-checkbox>Phone</mat-checkbox>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="kt-portlet__foot kt-portlet__no-border">
+					<div class="kt-form__actions kt-form__actions--solid">
+						<div class="row">
+							<div class="col-lg-2"></div>
+							<div class="col-lg-6">
+								<button mat-raised-button color="primary">Submit</button>&nbsp;
+								<button mat-raised-button type="reset">Cancel</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</form>
+			<!--end::Form-->
+		</div>
+	</div>
+</div>

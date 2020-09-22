@@ -1,0 +1,22 @@
+<div class="kt-widget5">
+	<ng-container *ngFor="let item of data">
+		<ng-container [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{item: item}"></ng-container>
+	</ng-container>
+</div>
+
+<ng-template #itemTemplate let-item="item">
+	<div class="kt-widget5__item">
+		<div class="kt-widget5__content">
+			<div class="kt-widget5__pic">
+				<img class="kt-widget7__img" [attr.src]="item.pic" alt="">
+			</div>
+			<div class="kt-widget5__section">
+				<a href="javascript:;" [attr.href]="item.url" class="kt-widget5__title">{{item.title}}</a>
+				<p class="kt-widget5__desc">{{item.desc}}</p>
+				<div class="kt-widget5__info" [innerHTML]="item.info"></div>
+			</div>
+		</div>
+
+		<div class="kt-widget5__content" [innerHTML]="item.largeInfo"></div>
+	</div>
+</ng-template>

@@ -1,0 +1,31 @@
+<div class="kt-quick-search__result">
+	<ng-container *ngFor="let item of data">
+		<ng-container *ngIf="item.type ===  0" [ngTemplateOutlet]="separatorTemplate" [ngTemplateOutletContext]="{item: item}"></ng-container>
+		<ng-container *ngIf="item.type ===  1" [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{item: item}"></ng-container>
+	</ng-container>
+</div>
+
+<ng-template #itemTemplate let-item="item">
+	<div class="kt-quick-search__item">
+		<div class="" [innerHTML]="item.icon ? item.icon : item.img" [ngClass]="{'kt-quick-search__item-img': item.img, 'kt-quick-search__item-icon': item.icon}">
+		</div>
+		<div class="kt-quick-search__item-wrapper">
+			<a href="#" class="kt-quick-search__item-title">
+				{{item.text}}
+			</a>
+			<div class="kt-quick-search__item-desc">
+				{{item.text}}
+			</div>
+		</div>
+	</div>
+</ng-template>
+
+<ng-template #separatorTemplate let-item="item">
+	<div class="kt-quick-search__category">{{item.text}}</div>
+</ng-template>
+
+<ng-template #emptyResultTemplate>
+	<div class="kt-quick-search__message kt-hidden">
+		{{noRecordText||'No record found'}}
+	</div>
+</ng-template>

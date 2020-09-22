@@ -1,0 +1,278 @@
+
+            <!-- TESTE DROPDOWN -->
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="row row-full-height">
+						<div class="col-sm-12 col-md-4 col-lg-4">
+                            <kt-portlet [class]="'kt-portlet--height-fit-half kt-portlet--border-bottom-brand'">
+                                <kt-portlet-body [class]="'kt-portlet__body--fluid'">
+                                     <dropdown_location [Type]="'dashboard'"></dropdown_location>
+                                </kt-portlet-body>
+                            </kt-portlet>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+<div class="row">
+	<div class="col-xl-12">
+		<div class="row row-full-height">
+			<div class="col-sm-12 col-md-4 col-lg-4">
+				<kt-portlet [class]="'kt-portlet--height-fit-half kt-portlet--border-bottom-brand'">
+					<kt-portlet-body [class]="'kt-portlet__body--fluid'">
+						<kt-labelled_data [value]="_confirmados" [desc]="'Confirmados'"></kt-labelled_data>
+                        <!-- <apex_confirmed_spark  width="500" ></apex_confirmed_spark>  -->
+                        <!--SPARK CONFIRMADOS TOTAL-->
+					    </kt-portlet-body>						
+				</kt-portlet>
+				<div class="kt-space-20"></div>
+			</div>
+
+
+			<div class="col-sm-12 col-md-4 col-lg-4">
+				<kt-portlet [class]="'kt-portlet--height-fit-half kt-portlet--border-bottom-danger'">
+					<kt-portlet-body [class]="'kt-portlet__body--fluid'">
+						<kt-labelled_data [value]="_letalidade" [desc]="'Óbitos'"></kt-labelled_data>
+                        <!-- <apex_total_deaths_spark  width="500" ></apex_total_deaths_spark> -->
+                         <!--SPARK  ÓBITOS TOTAL-->
+					</kt-portlet-body>
+				</kt-portlet>
+				<div class="kt-space-20"></div>
+            </div>
+            
+            
+			<div class="col-sm-12 col-md-4 col-lg-4">
+				<kt-portlet [class]="'kt-portlet--height-fit-half kt-portlet--border-bottom-warning'">
+					<kt-portlet-body [class]="'kt-portlet__body--fluid'">
+						<kt-labelled_data [value]="_mortes" [desc]="'Letalidade'"></kt-labelled_data>
+                        <!-- <apex_letality_spark  width="500" ></apex_letality_spark>  -->
+                        <!--SPARK LETALIDADE-->
+					</kt-portlet-body>
+				</kt-portlet>
+				<div class="kt-space-20"></div>
+            </div>
+		</div>
+	</div>
+	
+</div>
+<div class="row">
+	<div class="col-xl-12">
+		<div class="row row-full-height">
+            <div class="col-sm-12 col-md-4 col-lg-4">
+				<kt-portlet [class]="'kt-portlet--height-fit-half kt-portlet--border-bottom'">
+					<kt-portlet-body [class]="'kt-portlet__body--fluid'">
+                        <div class="">
+                            <kt-labelled_data [value]="_inflexup" [desc]="'Inflexup'"></kt-labelled_data>
+                        </div>
+                        <!-- <div [class]="">
+                            <kt-labelled_data [value]="_peak" [desc]="'Peak'"></kt-labelled_data>
+                        </div>
+                        <div [class]="">
+                            <kt-labelled_data aria-setsize="10" [value]="_inflexdown" [desc]="'Inflexdown'"></kt-labelled_data>
+                        </div> -->
+					</kt-portlet-body>
+				</kt-portlet>
+				<div class="kt-space-20"></div>
+            </div>
+
+
+            <div class="col-sm-12 col-md-4 col-lg-4">
+				<kt-portlet [class]="'kt-portlet--height-fit-half kt-portlet--border-bottom'">
+					<kt-portlet-body [class]="'kt-portlet__body--fluid'">
+						<div [class]="">
+                            <kt-labelled_data [value]="_peak" [desc]="'Peak'"></kt-labelled_data>
+                        </div>
+					</kt-portlet-body>
+				</kt-portlet>
+				<div class="kt-space-20"></div>
+            </div>
+
+
+            <div class="col-sm-12 col-md-4 col-lg-4">
+				<kt-portlet [class]="'kt-portlet--height-fit-half kt-portlet--border-bottom'">
+					<kt-portlet-body [class]="'kt-portlet__body--fluid'">
+						<div [class]="">
+                            <kt-labelled_data aria-setsize="10" [value]="_inflexdown" [desc]="'Inflexdown'"></kt-labelled_data>
+                        </div>
+					</kt-portlet-body>
+				</kt-portlet>
+				<div class="kt-space-20"></div>
+            </div>
+        </div>
+	</div>	
+</div>
+
+<div class="row ">
+
+    <div class="col-xl-6">
+    <kt-portlet [class]="'kt-portlet--height-fit-half kt-portlet--border-bottom-brand'">
+        <kt-portlet-body [class]="'kt-portlet__body--fit'">
+            <div class="row row-no-padding row-col-separator-xl">
+                <div class="col-xl-12">
+                    <kt-portlet-body>
+                        <!-- <apex_confirmed_cases_total></apex_confirmed_cases_total>  -->
+                        <plotly-total-cases></plotly-total-cases><!--CASOS CONFIRMADO ACUMULADO-->
+                    </kt-portlet-body>
+                </div>
+            </div>
+        </kt-portlet-body>
+    </kt-portlet>
+    </div>
+    
+    <div class="col-xl-6">
+    <kt-portlet [class]="'kt-portlet--height-fit-half kt-portlet--border-bottom-brand'">
+        <kt-portlet-body [class]="'kt-portlet__body--fit'">
+            <div class="row row-no-padding row-col-separator-xl">
+                <div class="col-xl-12">
+                    <kt-portlet-body>
+                        <!-- <apex_confirmed_cases_diary></apex_confirmed_cases_diary> -->
+                        <plotly-daily-cases></plotly-daily-cases> <!--CASO CONFIRMADO DIÁRIO-->
+                    </kt-portlet-body>
+                </div>
+            </div>
+        </kt-portlet-body>
+    </kt-portlet>
+    </div>
+    
+    </div>
+
+<div class="row ">
+
+<div class="col-xl-6">
+<kt-portlet [class]="'kt-portlet--height-fit-half kt-portlet--border-bottom-brand'">
+	<kt-portlet-body [class]="'kt-portlet__body--fit'">
+		<div class="row row-no-padding row-col-separator-xl">
+			<div class="col-xl-12">
+				<kt-portlet-body>
+                    <!-- <apex_total_deaths></apex_total_deaths>  -->
+                    <plotly-total-deaths></plotly-total-deaths> <!--ÓBITOS ACUMULADOS-->
+				</kt-portlet-body>
+			</div>
+		</div>
+	</kt-portlet-body>
+</kt-portlet>
+</div>
+
+<div class="col-xl-6">
+<kt-portlet [class]="'kt-portlet--height-fit-half kt-portlet--border-bottom-brand'">
+	<kt-portlet-body [class]="'kt-portlet__body--fit'">
+		<div class="row row-no-padding row-col-separator-xl">
+			<div class="col-xl-12">
+				<kt-portlet-body>
+                    <!-- <apex_diary_deaths></apex_diary_deaths> -->
+                    <plotly-daily-deaths></plotly-daily-deaths> <!--ÓBITOS DIÁRIOS-->
+				</kt-portlet-body>
+			</div>
+		</div>
+	</kt-portlet-body>
+</kt-portlet>
+</div>
+
+</div>
+
+<div class="row ">
+
+<div class="col-xl-6">
+<kt-portlet [class]="'kt-portlet--height-fit-half kt-portlet--border-bottom-brand'">
+	<kt-portlet-body [class]="'kt-portlet__body--fit'">
+		<div class="row row-no-padding row-col-separator-xl">
+			<div class="col-xl-12">
+				<kt-portlet-body>
+                    <!-- <apex_NF_Quantity></apex_NF_Quantity> -->
+                    <plotly-amount-invoices></plotly-amount-invoices> <!--NOTAS FISCAIS - QUANTIDADE -->
+				</kt-portlet-body>
+			</div>
+		</div>
+	</kt-portlet-body>
+</kt-portlet>
+</div>
+
+<div class="col-xl-6">
+<kt-portlet [class]="'kt-portlet--height-fit-half kt-portlet--border-bottom-brand'">
+	<kt-portlet-body [class]="'kt-portlet__body--fit'">
+		<div class="row row-no-padding row-col-separator-xl">
+			<div class="col-xl-12">
+				<kt-portlet-body>
+                    <!-- <apex_NF_Value></apex_NF_Value> -->
+                    <plotly-invoices-value></plotly-invoices-value> <!--NOTAS FISCAIS - VALOR -->
+				</kt-portlet-body>
+			</div>
+		</div>
+	</kt-portlet-body>
+</kt-portlet>
+</div>
+
+</div>
+
+<div class="row ">
+
+<div class="col-xl-12">
+<kt-portlet [class]="'kt-portlet--height-fit-half kt-portlet--border-bottom-brand'">
+	<kt-portlet-body [class]="'kt-portlet__body--fit'">
+		<div class="row row-no-padding row-col-separator-xl">
+			<div class="col-xl-12">
+				<kt-portlet-body>
+                    <!-- <apex_social_mobility></apex_social_mobility>  -->
+                    <plotly-mobility></plotly-mobility> <!--MOBILIDADE - SOCIAL-->
+				</kt-portlet-body>
+			</div>
+		</div>
+	</kt-portlet-body>
+</kt-portlet>
+</div>
+
+</div>
+
+
+
+<!-- // Multi-Gráficos
+<div class="row ">
+
+    
+
+        <div class="col-xl-6">
+            <kt-portlet [class]="'kt-portlet--height-fit-half kt-portlet--border-bottom-brand'">
+                <div  class="kt-subheader kt-grid__item" [ngClass]="{'kt-container--clear': clear}">
+                    <div class="kt-container" [ngClass]="{'kt-container--fluid': fluid}">
+                        <div class="kt-subheader__main">
+                            <h3 class="kt-subheader__title">
+                                <select id="multi_chart" name="multi_chart" class="form-control">
+                                    <option value="Primeiro Gráfico">Primeiro Gráfico</option>
+                                </select>
+                            </h3>
+                                <span class="kt-subheader__separator kt-subheader__separator--v"></span>
+                                    <span class="kt-subheader__desc">
+                                        <select id="multi_chart" name="multi_chart" class="form-control">
+                                            <option value="Segundo Gráfico">Segundo Gráfico</option>
+                                        </select>
+                                    </span>
+                        </div>
+                    </div>
+                </div>
+                    <kt-portlet-body [class]="'kt-portlet__body--fit'">
+                        <div class="row row-no-padding row-col-separator-xl">
+                            <div class="col-xl-12">
+                                <kt-portlet-body>
+                                    <apex_scatter></apex_scatter> //Multi-Chart
+                                </kt-portlet-body>
+                            </div>
+                        </div>
+                    </kt-portlet-body>
+            </kt-portlet>
+        </div>
+    
+    <div class="col-xl-6">
+    <kt-portlet [class]="'kt-portlet--height-fit-half kt-portlet--border-bottom-brand'">
+        <kt-portlet-body [class]="'kt-portlet__body--fit'">
+            <div class="row row-no-padding row-col-separator-xl">
+                <div class="col-xl-12">
+                    <kt-portlet-body>
+                        <apex_heatmap></apex_heatmap> //HEATMAP
+                    </kt-portlet-body>
+                </div>
+            </div>
+        </kt-portlet-body>
+    </kt-portlet>
+    </div>
+    
+    </div>  -->

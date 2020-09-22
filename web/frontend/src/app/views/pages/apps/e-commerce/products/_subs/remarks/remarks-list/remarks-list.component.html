@@ -1,0 +1,270 @@
+<!-- start::FILTERS & GROUP ACTIONS -->
+<div class="kt-form kt-margin-b-30">
+	<!-- start::FILTERS -->
+	<div class="kt-form__filtration">
+		<div class="row align-items-center">
+			<div class="col-md-2 kt-margin-bottom-10-mobile">
+				<mat-form-field class="mat-form-field-fluid">
+					<input matInput placeholder="Search product remark" #searchInput placeholder="Search">
+					<mat-hint align="start">Search in all fields</mat-hint>
+				</mat-form-field>
+			</div>
+			<div class="col-md-8 kt-margin-bottom-10-mobile"></div>
+			<div class="col-md-2 text-right kt-margin-bottom-10-mobile">
+				<button type="button"
+					(click)="addRemarkButtonOnClick()"
+					mat-raised-button
+					color="primary"
+					matTooltip="Create new remark"
+					[disabled]="remarkForAdd._isEditMode || isSwitchedToEditMode">New remark</button>
+			</div>
+		</div>
+	</div>
+	<!-- end::FILTERS -->
+
+	<!-- start::GROUP ACTIONS -->
+	<!-- Group actions list: 'Delete selected' | 'Fetch selected' | 'Update status for selected' -->
+	<!-- Group actions are shared for all LISTS | See '../../_shared' folder -->
+	<div class="row align-items-center collapse kt-form__group-actions kt-margin-bottom-20" [ngClass]="{'show' : selection.selected.length > 0}">
+		<div class="col-xl-12">
+			<div class="kt-form__group kt-form__group--inline">
+				<div class="kt-form__label kt-form__label-no-wrap">
+					<label class="kt--font-bold kt-font-danger-">Selected records count: {{ selection.selected.length }}</label>
+				</div>
+				<div class="kt-form__control kt-form__group--inline">
+					<div>
+						<button mat-raised-button color="accent" (click)="deleteRemarks()" matTooltip="Delete selected remarks">Delete All</button>
+						&nbsp;&nbsp;&nbsp;
+						<button mat-raised-button color="warn" (click)="fetchRemarks()" matTooltip="Fetch selected remarks">Fetch Selected Records</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	 <!-- end::GROUP ACTIONS -->
+
+</div>
+<!-- end::FILTERS & GROUP ACTIONS -->
+
+<!-- MATERIAL TABLE | Binded to datasources -->
+<!-- See off.documentations 'https://material.angular.io/components/table/overview' -->
+<div class="mat-table__wrapper">
+	<form [formGroup]="formGroup">
+		<mat-table class="lmat-elevation-z8" [dataSource]="dataSource" matSort matSortActive="text" matSortDirection="asc" matSortDisableClear>
+			<!-- Checkbox Column -->
+			<!-- Table with selection -->
+			<!-- https://run.stackblitz.com/api/angular/v1?file=app%2Ftable-selection-example.ts -->
+			<ng-container matColumnDef="add-select">
+				<mat-header-cell *matHeaderCellDef class="mat-column mat-column-checkbox">
+					<span *ngIf="remarkForAdd._isEditMode">New remark:</span>
+				</mat-header-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="add-id">
+				<mat-header-cell *matHeaderCellDef class="mat-column mat-column-id"></mat-header-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="add-text">
+				<mat-header-cell *matHeaderCellDef class="mat-column mat-column-main">
+					<mat-form-field *ngIf="remarkForAdd._isEditMode" class="mat-form-field-fluid">
+						<input matInput placeholder="Enter Remark text" formControlName="newText">
+						<mat-hint align="start">Please enter
+							<strong>Text</strong>
+						</mat-hint>
+					</mat-form-field>
+				</mat-header-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="add-type">
+				<mat-header-cell *matHeaderCellDef class="mat-column">
+					<mat-form-field *ngIf="remarkForAdd._isEditMode" class="mat-form-field-fluid">
+						<mat-select placeholder="Type" formControlName="newType">
+							<mat-option value="0">Info</mat-option>
+							<mat-option value="1">Note</mat-option>
+							<mat-option value="2">Reminder</mat-option>
+						</mat-select>
+						<mat-hint align="start">
+							<strong>Select remark type</strong>
+						</mat-hint>
+					</mat-form-field>
+				</mat-header-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="add-dueDate">
+				<mat-header-cell *matHeaderCellDef class="mat-column">
+					<mat-form-field *ngIf="remarkForAdd._isEditMode" class="mat-form-field-fluid">
+						<input matInput [matDatepicker]="addPicker" 
+							placeholder="Choose a Due Date" 
+							formControlName="newDueDate">
+						<mat-datepicker-toggle matSuffix [for]="addPicker"></mat-datepicker-toggle>
+						<mat-datepicker #addPicker></mat-datepicker>
+						<mat-hint align="start">Please enter
+							<strong>Due Date</strong> in 'mm/dd/yyyy' format
+						</mat-hint>
+					</mat-form-field>
+				</mat-header-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="add-actions">
+				<mat-header-cell *matHeaderCellDef class="mat-column mat-column-actions">
+					<span  class="mat-column-actions-wrapper" *ngIf="remarkForAdd._isEditMode">
+						<button *ngIf="!loadingAfterSubmit"
+							mat-icon-button 
+							color="{{checkAddForm() ? 'primary' : 'accent'}}" 
+							type="button" 
+							(click)="saveNewRemark()" 
+							matTooltip="Save new remark">
+							<mat-icon>done</mat-icon>
+						</button>
+						<mat-spinner *ngIf="loadingAfterSubmit" [diameter]="20"></mat-spinner>
+						&nbsp;
+						<button type="button" 
+							mat-icon-button 
+							color="wan" 
+							(click)="cancelAddButtonOnClick()" 
+							matTooltip="Cancel changes">
+							<mat-icon>clear</mat-icon>
+						</button>
+					</span>
+				</mat-header-cell>
+			</ng-container>
+			<!-- end: ADD row -->
+
+			<!-- begin: EDIT row -->
+			<!-- Checkbox Column -->
+			<!-- Table with selection -->
+			<!-- https://run.stackblitz.com/api/angular/v1?file=app%2Ftable-selection-example.ts -->
+			<ng-container matColumnDef="select">
+				<mat-header-cell *matHeaderCellDef class="mat-column mat-column-checkbox">
+					<mat-checkbox (change)="$event ? masterToggle() : null"
+						[checked]="selection.hasValue() && isAllSelected()"
+						[indeterminate]="selection.hasValue() && !isAllSelected()"
+						[color]="'primary'">
+					</mat-checkbox>
+				</mat-header-cell>
+				<mat-cell *matCellDef="let row" class="mat-column mat-column-checkbox">
+					<mat-checkbox (click)="$event.stopPropagation()"
+						(change)="$event ? selection.toggle(row) : null"
+						[checked]="selection.isSelected(row)"
+						[color]="'primary'">
+					</mat-checkbox>
+				</mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="id">
+				<mat-header-cell *matHeaderCellDef mat-sort-header class="mat-column mat-column-id">ID</mat-header-cell>
+				<mat-cell *matCellDef="let remark" class="mat-column mat-column-id">
+					<span>{{remark.id}}</span>
+				</mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="text">
+				<mat-header-cell *matHeaderCellDef mat-sort-header class="mat-column mat-column-main">Text</mat-header-cell>
+				<mat-cell *matCellDef="let remark" class="mat-column mat-column-main">
+					<mat-form-field *ngIf="remark._isEditMode" class="mat-form-field-fluid">
+						<input matInput placeholder="Enter Remark text" formControlName="editText">
+						<mat-hint align="start">Please enter
+							<strong>Text</strong>
+						</mat-hint>
+					</mat-form-field>
+					<span *ngIf="!remark._isEditMode">{{remark.text}}</span>
+				</mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="type">
+				<mat-header-cell *matHeaderCellDef mat-sort-header class="mat-column">Type</mat-header-cell>
+				<mat-cell *matCellDef="let remark" class="mat-column">
+					<span *ngIf="!remark._isEditMode">{{getTypeStr(remark)}}</span>
+					<mat-form-field class="mat-form-field-fluid" *ngIf="remark._isEditMode">
+						<mat-select placeholder="Type" formControlName="editType">
+							<mat-option value="0">Info</mat-option>
+							<mat-option value="1">Note</mat-option>
+							<mat-option value="2">Reminder</mat-option>
+						</mat-select>
+						<mat-hint align="start">
+							<strong>Select remark type</strong>
+						</mat-hint>
+					</mat-form-field>
+				</mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="dueDate">
+				<mat-header-cell *matHeaderCellDef mat-sort-header class="mat-column">Due date</mat-header-cell>
+				<mat-cell *matCellDef="let remark" class="mat-column">
+					<span *ngIf="!remark._isEditMode">{{remark.dueDate}}</span>
+					<span *ngIf="remark._isEditMode">
+						<mat-form-field class="mat-form-field-fluid">
+							<input matInput [matDatepicker]="editPicker" placeholder="Choose a Due Date" formControlName="editDueDate">
+							<mat-datepicker-toggle matSuffix [for]="editPicker"></mat-datepicker-toggle>
+							<mat-datepicker #editPicker></mat-datepicker>
+							<mat-hint align="start">Please enter
+								<strong>Due Date</strong> in 'mm/dd/yyyy' format
+							</mat-hint>
+						</mat-form-field>
+					</span>
+				</mat-cell>
+			</ng-container>
+
+			<ng-container matColumnDef="actions">
+				<mat-header-cell *matHeaderCellDef class="mat-column mat-column-actions">
+					Actions
+				</mat-header-cell>
+				<mat-cell *matCellDef="let remark" class="mat-column mat-column-actions">
+					<button *ngIf="!remark._isEditMode" 
+						[disabled]="isSwitchedToEditMode" 
+						type="button" 
+						mat-icon-button 
+						color="primary" 
+						(click)="editRemarkButtonOnClick(remark)" 
+						matTooltip="Edit remark">
+						<mat-icon>create</mat-icon>
+					</button>
+					<button *ngIf="remark._isEditMode && !loadingAfterSubmit"
+						mat-icon-button 
+						color="{{checkEditForm() ? 'primary' : 'accent'}}" 
+						type="button" 
+						(click)="saveUpdatedRemark(remark)" 
+						matTooltip="Save changes">
+						<mat-icon>done</mat-icon>
+					</button>
+					<mat-spinner *ngIf="remark._isEditMode && loadingAfterSubmit" [diameter]="20"></mat-spinner>
+					&nbsp;
+					<button *ngIf="!remark._isEditMode" 
+						[disabled]="isSwitchedToEditMode" 
+						mat-icon-button 
+						color="warn" 
+						type="button" 
+						(click)="deleteRemark(remark)" 
+						matTooltip="Delete remark">
+						<mat-icon>delete</mat-icon>
+					</button>
+					<button *ngIf="remark._isEditMode" 
+						type="button" 
+						mat-icon-button 
+						color="warn" 
+						(click)="cancelEditButtonOnClick(remark)" 
+						matTooltip="Cancel changes">
+						<mat-icon>clear</mat-icon>
+					</button>
+				</mat-cell>
+			</ng-container>
+			<!-- end: EDIT row -->
+
+			<mat-row *matRowDef="let row; columns: displayedColumns" [ngClass]="{'mat-row-editing' : row._isEditMode}"></mat-row>
+			<mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+			<mat-header-row *matHeaderRowDef="['add-select', 'add-id', 'add-text', 'add-type', 'add-dueDate', 'add-actions']" class="mat-row-editing mat-row-add" [ngClass]="{'mat-row-inactive' : !remarkForAdd._isEditMode}">
+			</mat-header-row>
+		</mat-table>
+	</form>
+
+	<div class="mat-table__message" *ngIf="!dataSource.hasItems">No records found</div>
+	<div class="mat-table__message" *ngIf="dataSource.isPreloadTextViewed$ | async">Please wait....</div>
+
+</div>
+
+<!-- start: BOTTOM -->
+<div class="mat-table__bottom">
+	<mat-spinner [diameter]="20" *ngIf="dataSource.loading$ | async"></mat-spinner>
+	<mat-paginator [pageSize]="5" [pageSizeOptions]="[3, 5, 10]" [length]="dataSource.paginatorTotal$ | async" [showFirstLastButtons]="true"></mat-paginator>
+</div>
+<!-- end: BOTTOM -->

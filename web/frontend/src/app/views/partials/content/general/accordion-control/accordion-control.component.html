@@ -1,0 +1,49 @@
+<ng-template ngFor let-panel [ngForOf]="panels">
+	<div [class]="'card card--' + (panel.type)">
+		<!-- title -->
+		<div role="tab" id="{{panel.id}}-header" 
+			[class]="'card-header ' + (panel.type ? 'bg-'+panel.type: type ? 'bg-'+type : '')" 
+			[class.collapsed]="!panel.isOpen" 
+			data-toggle="collapse" 
+			(click)="!!toggle(panel.id)" 
+			[class.text-muted]="panel.disabled" 
+			[attr.tabindex]="(panel.disabled ? '-1' : null)" 
+			[attr.aria-expanded]="panel.isOpen" 
+			[attr.aria-controls]="(panel.isOpen ? panel.id : null)" 
+			[attr.aria-disabled]="panel.disabled">
+			<div class="card-title {{panel.isOpen ? null : 'collapsed'}} ">
+				<i [class]="panel.iconClass" *ngIf="panel.iconClass"></i>
+				<span>
+					{{panel.title}}
+					<ng-template [ngTemplateOutlet]="panel.titleTpl?.templateRef"></ng-template>
+				</span>
+			</div>
+		</div>
+		<!-- end: title -->
+
+		<!-- body without animation -->
+		<div class="{{panel.hasBodyWrapper ? 'card-body-wrapper' : null}}">
+			<div *ngIf="!hasAnimation && (!destroyOnHide || panel.isOpen)" 
+				id="{{panel.id}}" 
+				role="tabpanel"
+				[attr.aria-labelledby]="panel.id + '-header'" 
+				class="card-body {{panel.isOpen ? 'show' : null}}">
+				<ng-template [ngTemplateOutlet]="panel.contentTpl?.templateRef"></ng-template>
+			</div>
+		</div>
+		<!-- end: body without animation -->
+
+		<!-- body with animation -->
+		<div *ngIf="hasAnimation" 
+			id="{{panel.id}}" 
+			role="tabpanel"
+			[attr.aria-labelledby]="panel.id + '-header'" 
+			class="card-body accordion--animation"
+			[style.height]="panel.height + 'px'">
+			<div class="kt-accordion__item-content">
+				<ng-template [ngTemplateOutlet]="panel.contentTpl?.templateRef"></ng-template>
+			</div> 
+		</div>
+		<!-- end: body with animation -->
+	</div>
+</ng-template>

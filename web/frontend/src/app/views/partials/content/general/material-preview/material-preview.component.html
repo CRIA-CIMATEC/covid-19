@@ -1,0 +1,94 @@
+<kt-portlet [ngClass]="'kt-portlet--ngviewer'" *ngIf="viewItem">
+	<kt-portlet-header [title]="viewItem.beforeCodeTitle">
+		<ng-container ktPortletTools>
+			<!-- <ul class="kt-portlet__nav">
+				<li class="kt-portlet__nav-item">
+					<a href="javascript:;" *ngIf="hasExampleSource()" (click)="changeCodeVisibility()" class="kt-portlet__nav-link kt-portlet__nav-link--icon"
+						title="View Source">
+						<i class="la la-code"></i>
+					</a>
+				</li>
+			</ul> -->
+			<div class="kt-portlet__head-group">
+				<button type="button"
+					*ngIf="hasExampleSource()"
+					(click)="changeCodeVisibility()"
+					title="View Source"
+					class="btn btn-clean btn-sm btn-icon btn-icon-md">
+					<i class="la la-code"></i>
+				</button>
+			</div>
+		</ng-container>
+	</kt-portlet-header>
+
+	<kt-portlet-body>
+		<div class="kt-portlet__preview" *ngIf="viewItem.beforeCodeDescription">
+			<div class="kt-alert kt-alert--icon kt-alert--air kt-alert--square alert alert-dismissible kt-margin-bottom-30"
+				[ngClass]="classes" role="alert">
+				<div class="kt-alert__text" [innerHTML]="viewItem.beforeCodeDescription | safe: 'html'"></div>
+			</div>
+		</div>
+		<div *ngIf="hasExampleSource()" class="kt-portlet__preview kt-portlet__code" [ngClass]="{'kt-portlet__code--show' : viewItem.isCodeVisible}">
+			<mat-tab-group *ngIf="viewItem.isCodeVisible">
+				<mat-tab label="HTML" *ngIf="viewItem.htmlCode">
+					<a href="javascript:;"
+						class="kt-portlet__code-copy"
+						title="Copy example source"
+						ngxClipboard
+						[cbContent]="viewItem.htmlCode">
+						<i class="la la-copy"></i>
+					</a>
+					<pre><code [highlight]="viewItem.htmlCode"></code></pre>
+				</mat-tab>
+				<mat-tab label="TS" *ngIf="viewItem.tsCode">
+					<a href="javascript:;"
+						class="kt-portlet__code-copy"
+						title="Copy example source"
+						ngxClipboard
+						[cbContent]="viewItem.tsCode">
+						<i class="la la-copy"></i>
+					</a>
+					<pre><code [highlight]="viewItem.tsCode"></code></pre>
+				</mat-tab>
+				<mat-tab label="CSS" *ngIf="viewItem.cssCode">
+					<a href="javascript:;"
+						class="kt-portlet__code-copy"
+						title="Copy example source"
+						ngxClipboard
+						[cbContent]="viewItem.cssCode">
+						<i class="la la-copy"></i>
+					</a>
+					<pre><code [highlight]="viewItem.cssCode"></code></pre>
+				</mat-tab>
+				<mat-tab label="SCSS" *ngIf="viewItem.scssCode">
+					<a href="javascript:;"
+						class="kt-portlet__code-copy"
+						title="Copy example source"
+						ngxClipboard
+						[cbContent]="viewItem.scssCode">
+						<i class="la la-copy"></i>
+					</a>
+					<pre><code [highlight]="viewItem.scssCode"></code></pre>
+				</mat-tab>
+			</mat-tab-group>
+		</div>
+
+		<!-- view -->
+		<div class="kt-portlet__preview">
+			<ng-content></ng-content>
+		</div>
+		<!-- / view -->
+
+		<!-- after Code Title -->
+		<div *ngIf="viewItem.afterCodeTitle" class="kt-portlet__preview" [innerHTML]="viewItem.afterCodeTitle | safe: 'html'">
+		</div>
+		<!-- / after Code Title -->
+
+		<!-- after Code Description -->
+		<div *ngIf="viewItem.afterCodeDescription" class="kt-portlet__preview" [innerHTML]="viewItem.afterCodeDescription | safe: 'html'">
+		</div>
+		<!-- / after Code Description -->
+	</kt-portlet-body>
+
+	<kt-portlet-footer></kt-portlet-footer>
+</kt-portlet>

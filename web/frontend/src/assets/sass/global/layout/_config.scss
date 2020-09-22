@@ -1,0 +1,64 @@
+//
+// Layout Config
+// Here you can set the demo level SASS variables and override the global variables for this demo.
+// Note: To override the global variables in the demo level use the variables without "!default". More info:  https://sass-lang.com/documentation/variables
+//
+
+
+
+
+// State colors
+$kt-state-colors: (
+    // Metronic states
+    brand: (
+        base: #374afb,
+        inverse: #ffffff
+    ),
+    light: (
+        base: #ffffff,
+        inverse: #282a3c
+    ),
+    dark: (
+        base: #282a3c,
+        inverse: #ffffff
+    ),
+
+    // Bootstrap states
+    primary: (
+        base: #5867dd,
+        inverse: #ffffff
+    ),
+    success: (
+        base: #1dc9b7,
+        inverse: #ffffff
+    ),
+    info: (
+        base: #5578eb,
+        inverse: #ffffff
+    ),
+    warning: (
+        base: #ffb822,
+        inverse: #111111
+    ),
+    danger: (
+        base: #fd397a,
+        inverse: #ffffff
+    )
+);
+
+// Layout
+$kt-aside-default-width: 245px;
+$kt-aside-offcanvas-width: 255px;
+
+// Page padding
+$kt-page-padding: (
+	desktop: 30px,
+	mobile: 15px
+);
+
+// Page container
+$kt-page-container-width: 1380px; //  fixed page width
+$kt-page-fluid-container-padding: 60px; // fluid page padding
+
+// Body
+$kt-page-body-bg-color: #f9f9fc;  // page body bg color

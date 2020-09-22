@@ -1,0 +1,130 @@
+<kt-notice [icon]="'flaticon-warning kt-font-primary'">
+	For more info please check the components's official demos & documentation 
+	<a class="kt-link" href="https://ng-bootstrap.github.io/#/components/pagination/examples" target="_blank">demos & documentation</a>
+</kt-notice>
+
+<div class="row">
+	<div class="col-xl-6">
+		<kt-material-preview [viewItem]="exampleBasicPagination">
+			<div class="kt-section">
+				<span class="kt-section__sub">
+					Default pagination:
+				</span>
+				<div class="kt-section__content">
+					<ngb-pagination [collectionSize]="70" [(page)]="page" aria-label="Default pagination"></ngb-pagination>
+				</div>
+			</div>
+			<div class="kt-separator kt-separator--dashed"></div>
+			<div class="kt-section">
+				<span class="kt-section__sub">
+					No direction links:
+				</span>
+				<div class="kt-section__content">
+					<ngb-pagination [collectionSize]="70" [(page)]="page" [directionLinks]="false"></ngb-pagination>
+				</div>
+			</div>
+			<div class="kt-separator kt-separator--dashed"></div>
+			<div class="kt-section">
+				<span class="kt-section__sub">
+					With boundary links:
+				</span>
+				<div class="kt-section__content">
+					<ngb-pagination [collectionSize]="70" [(page)]="page" [boundaryLinks]="true"></ngb-pagination>
+				</div>
+			</div>
+			<div class="kt-separator kt-separator--dashed"></div>
+			<div class="kt-section">
+				<div class="kt-section__content">
+					<pre>Current page: {{page}}</pre>
+				</div>
+			</div>
+		</kt-material-preview>
+		
+		<kt-material-preview [viewItem]="exampleAdvancedPagination">
+			<div class="kt-section">
+				<span class="kt-section__sub">
+					Restricted size, no rotation:
+				</span>
+				<div class="kt-section__content">
+					<ngb-pagination [collectionSize]="120" [(page)]="page2" [maxSize]="5" [boundaryLinks]="true"></ngb-pagination>
+				</div>
+			</div>
+			<div class="kt-separator kt-separator--dashed"></div>
+			<div class="kt-section">
+				<span class="kt-section__sub">
+					Restricted size with rotation:
+				</span>
+				<div class="kt-section__content">
+					<ngb-pagination [collectionSize]="120" [(page)]="page2" [maxSize]="5" [rotate]="true" [boundaryLinks]="true"></ngb-pagination>
+				</div>
+			</div>
+			<div class="kt-separator kt-separator--dashed"></div>
+			<div class="kt-section">
+				<span class="kt-section__sub">
+					Restricted size with rotation and no ellipses:
+				</span>
+				<div class="kt-section__content">
+					<ngb-pagination [collectionSize]="120" [(page)]="page2" [maxSize]="5" [rotate]="true" [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
+				</div>
+			</div>
+			<div class="kt-separator kt-separator--dashed"></div>
+			<div class="kt-section">
+				<div class="kt-section__content">
+					<pre>Current page: {{page2}}</pre>
+				</div>
+			</div>
+		</kt-material-preview>
+
+		<kt-material-preview [viewItem]="examplePaginationSize">
+			<div class="kt-section">
+				<div class="kt-section__content">
+					<ngb-pagination [collectionSize]="50" [(page)]="currentPage" size="lg"></ngb-pagination>
+					<ngb-pagination [collectionSize]="50" [(page)]="currentPage"></ngb-pagination>
+					<ngb-pagination [collectionSize]="50" [(page)]="currentPage" size="sm"></ngb-pagination>
+				</div>
+			</div>
+		</kt-material-preview>
+	</div>
+	<div class="col-xl-6">
+		<kt-material-preview [viewItem]="examplePaginationAlignment">
+			<div class="kt-section">
+				<span class="kt-section__sub">
+					Change the alignment of pagination components with flexbox utilities
+				</span>
+				<div class="kt-section__content">
+					<ngb-pagination class="d-flex justify-content-start" [collectionSize]="70" [(page)]="page3"></ngb-pagination>
+					<ngb-pagination class="d-flex justify-content-center" [collectionSize]="70" [(page)]="page3"></ngb-pagination>
+					<ngb-pagination class="d-flex justify-content-end" [collectionSize]="70" [(page)]="page3"></ngb-pagination>
+				</div>
+			</div>
+		</kt-material-preview>
+
+		<kt-material-preview [viewItem]="exampleDisabledPagination">
+			<div class="kt-section">
+				<span class="kt-section__sub">
+					Pagination control can be disabled:</span>
+				<div class="kt-section__content">
+					<ngb-pagination [collectionSize]="70" [(page)]="page4" [disabled]='isDisabled'></ngb-pagination>
+				</div>
+			</div>
+			<div class="kt-separator kt-separator--dashed"></div>
+			<div class="kt-section">
+				<div class="kt-section__content">
+					<button class="btn btn-sm btn-primary" (click)="toggleDisabled()">
+						Toggle disabled
+					</button>
+				</div>
+			</div>
+		</kt-material-preview>
+
+		<kt-material-preview [viewItem]="exampleGlobalConfiguration">
+			<div class="kt-section">
+				<span class="kt-section__sub">
+					This pagination uses custom default values</span>
+				<div class="kt-section__content">
+					<ngb-pagination [collectionSize]="70" [(page)]="page5" [size]="'sm'" [boundaryLinks]="'true'"></ngb-pagination>
+				</div>
+			</div>
+		</kt-material-preview>
+	</div>
+</div>

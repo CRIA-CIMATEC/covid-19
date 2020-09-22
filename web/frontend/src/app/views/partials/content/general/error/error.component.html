@@ -1,0 +1,71 @@
+<div [ngClass]="'kt-' + this.type" [ngStyle]="{'background-image': 'url('+image+')'}"
+	class="kt-grid__item kt-grid__item--fluid kt-grid">
+
+	<ng-container *ngIf="type === 'error-v1'">
+		<div class="kt-error-v1__container">
+			<h1 class="kt-error-v1__number">{{code}}</h1>
+			<p class="kt-error-v1__desc" [innerHTML]="desc"></p>
+		</div>
+	</ng-container>
+
+	<ng-container *ngIf="type === 'error-v2'">
+		<div class="kt-error_container">
+			<div class="kt-error_title2 kt-font-light">
+				<h1>{{title}}</h1>
+			</div>
+			<span class="kt-error_desc kt-font-light" [innerHTML]="desc"></span>
+		</div>
+	</ng-container>
+
+	<ng-container *ngIf="type === 'error-v3'">
+		<div class="kt-error_container">
+			<div class="kt-error_number">
+				<h1>{{code}}</h1>
+			</div>
+			<p class="kt-error_title kt-font-light">
+				{{title}}
+			</p>
+			<p class="kt-error_subtitle">
+				{{subtitle}}
+			</p>
+			<p class="kt-error_description" [innerHTML]="desc"></p>
+		</div>
+	</ng-container>
+
+	<ng-container *ngIf="type === 'error-v4'">
+		<div class="kt-error_container">
+			<h1 class="kt-error_number">
+				{{code}}
+			</h1>
+			<p class="kt-error_title">
+				{{title}}
+			</p>
+			<p class="kt-error_subtitle">
+				{{subtitle}}
+			</p>
+			<p class="kt-error_description" [innerHTML]="desc"></p>
+		</div>
+	</ng-container>
+
+	<ng-container *ngIf="type === 'error-v5'">
+		<div class="kt-error_container">
+			<div class="kt-error_title">
+				<h1>{{title}}</h1>
+			</div>
+			<p class="kt-error_subtitle">
+				{{subtitle}}
+			</p>
+			<p class="kt-error_description" [innerHTML]="desc"></p>
+		</div>
+	</ng-container>
+
+	<ng-container *ngIf="type === 'error-v6'">
+		<div class="kt-error_container">
+			<div class="kt-error_subtitle kt-font-light">
+				<h1>{{title}}</h1>
+			</div>
+			<p class="kt-error_description kt-font-light" [innerHTML]="desc"></p>
+		</div>
+	</ng-container>
+
+</div>

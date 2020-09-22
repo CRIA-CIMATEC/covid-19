@@ -1,0 +1,10 @@
+:host {
+	.kt-aside {
+		height: 100%;
+	}
+
+	// fixed text line break issue on minimized aside hover
+	.kt-menu__link-text {
+		white-space: nowrap;
+	}
+}

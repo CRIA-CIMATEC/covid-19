@@ -1,0 +1,107 @@
+<div class="kt-subheader kt-grid__item" [ngClass]="{'kt-container--clear': clear}">
+	<!-- <div class="kt-container" [ngClass]="{'kt-container--fluid': fluid}">
+		<div class="kt-subheader__main">
+			<h3 class="kt-subheader__title">Bahia</h3>
+			<span class="kt-subheader__separator kt-subheader__separator--v"></span>
+			<span class="kt-subheader__desc">Salvador</span>
+		</div>
+	</div> -->
+</div>
+
+<kt-portlet [class]="'kt-portlet--height-fit-half kt-portlet--border-bottom-brand'">
+	<kt-portlet-body [class]="'kt-portlet__body--fit'">
+		<div class="row-no-padding row-col-separator-xl">
+			<div class="col-xl-12">
+				<kt-portlet-body>
+					<kt-widget-dropfiles [Title]="title" 
+					[Desc]="descricao"
+					[InputType]="inputType" 
+					(hasResult)="onResult($event)"
+					(clearOldList)="clearOldList()"></kt-widget-dropfiles>
+				</kt-portlet-body>
+			</div>
+		</div>
+	</kt-portlet-body>
+</kt-portlet>
+
+<ng-container *ngFor="let item of data">
+    <ng-container [ngTemplateOutlet]="itemTemplate" [ngTemplateOutletContext]="{item: item}"></ng-container>
+</ng-container>
+
+<ng-template #itemTemplate let-item="item">
+
+	<kt-portlet [class]="'kt-portlet--height-fluid-half kt-portlet--border-bottom-brand'">
+		<kt-portlet-body>
+			<kt-widget-load-results [style.display]="hideElement?'none':'inherit'" class="ml-auto mr-auto"></kt-widget-load-results>
+			<div class="row row-full-height">
+				<div class="col-md-3 mx-auto">
+					<!-- <img src="../assets/media/imgs/OIP.jpg" style="max-width:100%;"/>
+					<div class="col-md-6 ml-auto mr-auto">{{imageName}}</div> -->
+					<kt-widget-imageWithName [pic]="item.pic" [imageUrl]="item.imageUrl" [imageName]="item.imageName"></kt-widget-imageWithName>
+				</div>
+				<div class="col-md-6" style="margin-bottom: auto;">
+					<div class="header">
+						<div class="header__content">
+							<div [translate]="'DASHBOARD.RESULTADOS'" class="header__number">
+								Resultados
+								<mat-chip-list>
+									<!-- <span *ngIf="!item.isRegular">
+										
+									</span> -->
+									<div *ngIf="!IsLamina">
+										<span *ngIf="(item.normal >= 50 && item.isRegular) " class="">
+											<mat-chip [translate]="'DASHBOARD.NORMAL'" [translateParams]="{value:item.normal}" color="primary" selected="true" style="font-weight: 300 !important;"></mat-chip>
+											<!-- <kt-widget4-todo cssClasses="card-stretch gutter-b"></kt-widget4-todo> -->
+										</span>
+									
+										<span *ngIf="!(item.normal >= 50) && item.isRegular" class="">
+											<mat-chip [translate]="'DASHBOARD.ANORMAL'" [translateParams]="{value:100 - item.normal}" class="bg-warning" selected="true" style="font-weight: 300 !important;"></mat-chip>
+										</span>
+									</div>
+									<span *ngIf="(item.covid >= 50 && item.isRegular)" class="">
+										<mat-chip [translate]="'DASHBOARD.COVID19_TRUE'" [translateParams]="{value: item.covid}" class="bg-danger" selected="true" style="font-weight: 300 !important;"></mat-chip>
+									</span>
+									<span *ngIf="!(item.normal >= 50) && !(item.covid >= 50) && item.isRegular" class="">
+										<mat-chip [translate]="'DASHBOARD.COVID19_FALSE'" [translateParams]="{value: 100-item.covid}" color="primary" selected="true" style="font-weight: 300 !important;"></mat-chip>
+									</span>
+								</mat-chip-list>
+							</div>
+							<span *ngIf="item.isRegular" [translate]="'DASHBOARD.DESCRIPTION_RESULTS'" class="header__desc"></span>
+							<span *ngIf="!item.isRegular" [translate]="'DASHBOARD.DESCRIPTION_RESULTS_FAKE'" class="header__desc"></span>
+						</div>
+					</div>
+
+					<div class="kt-section__content">
+						<kt-widget27 [percentValue]="item.normal" [leftText]="'Normal'" [rightText]="'Anormal'" [type]="'warning'"></kt-widget27>
+					</div>
+					<div class="kt-section__content">
+						<kt-widget27  *ngIf="item.normal > 90 ? false : true" [percentValue]="item.covid" [leftText]="'Com suspeita de Covid-19'" [rightText]="'Sem suspeita de Covid-19'" [type]="'danger'"></kt-widget27>
+					</div>
+				</div>
+			</div>
+		</kt-portlet-body>
+	</kt-portlet>
+</ng-template>
+
+
+<kt-portlet [style.display]="hideElement?'none':'inherit'" [class]="'kt-portlet--height-fluid-half kt-portlet--border-bottom-brand'">
+	<kt-portlet-body>
+		<kt-widget-load-results class="ml-auto mr-auto"></kt-widget-load-results>
+	</kt-portlet-body>
+</kt-portlet>
+
+
+	
+<!-- DEFAULT TEMPLATE - SE PRECISAR CRIAR CUSTOM DE PORTLETS-->
+<!--
+<kt-portlet>
+	<kt-portlet-header>
+		<ng-container ktPortletTitle>
+		</ng-container>
+		<ng-container ktPortletTools>
+		</ng-container>
+	</kt-portlet-header>
+	<kt-portlet-body></kt-portlet-body>
+	<kt-portlet-footer></kt-portlet-footer>
+</kt-portlet>
+-->

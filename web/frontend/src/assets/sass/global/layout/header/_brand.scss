@@ -1,0 +1,48 @@
+//
+// Header Brand
+//
+
+
+
+.kt-header__brand {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	align-content: flex-begin;
+	flex-direction: row;
+	padding: 0;
+	position: relative;
+
+	.kt-header__brand-logo {
+		display: flex;
+		justify-content: flex-begin;
+		align-items: flex-end;
+	}
+
+	.kt-header__brand-nav {
+		display: flex;
+		margin: 0.25rem 0 0 2.5rem;
+
+		.dropdown {
+			.btn {
+				background-color: #27283d;
+				border: 0;
+				padding: 0.75rem 1.5rem;				
+				color: #84859a;
+			}
+		}
+
+		.kt-header--minimize & {
+			margin-left: 1.75rem;		
+		}
+	}
+}
+
+// Mobile mode(1024px and below)
+@include kt-media-below(lg) {
+	.kt-header__brand {
+		.kt-header__brand-nav {
+			display: none;
+		}
+	}
+}

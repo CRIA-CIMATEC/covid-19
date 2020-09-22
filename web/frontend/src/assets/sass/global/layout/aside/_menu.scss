@@ -1,0 +1,72 @@
+//
+// Aside Menu
+//
+
+
+
+
+.kt-aside-menu {
+	.kt-menu__nav {
+		.kt-menu__item {
+			&.kt-menu__item--active {
+				> .kt-menu__link {
+					border-radius: 2rem;		
+				}				
+			}
+		}
+	}
+}
+
+// Desktop mode
+@include kt-desktop {
+	.kt-aside-menu-wrapper {
+
+		.kt-aside--fixed & {
+			transition: all 0.3s ease;
+			position: relative;
+		}
+
+		.kt-aside--fixed.kt-header--minimize & {
+			transition: all 0.3s ease;
+			position: fixed;
+			top: auto;
+			bottom: auto;
+			width: $kt-aside-default-width;
+			z-index: kt-get($kt-aside-config, base, fixed, zindex);
+		}
+
+		// Animations
+		.kt-header--minimize-all.kt-header--minimize.kt-aside--fixed & {
+			top: kt-get($kt-header-config, base, desktop, fixed, height, top) + kt-get($kt-header-config, base, desktop, fixed, height, bottom);
+		}
+
+		.kt-header--minimize-topbar.kt-header--minimize.kt-aside--fixed & {
+			top: kt-get($kt-header-config, base, desktop, fixed, height, top);
+		}
+
+		.kt-header--minimize-menu.kt-header--minimize.kt-aside--fixed & {
+			top: kt-get($kt-header-config, base, desktop, fixed, height, bottom);
+		}
+	}
+
+	.kt-aside-menu {
+		margin: 15px 0;
+
+		.kt-aside--minimize & {
+			> .kt-menu__nav  {
+				> .kt-menu__item {
+					&.kt-menu__item--active,
+					&.kt-menu__item--expanded {
+						.kt-menu__link {
+							border-radius: 6px;		
+						}				
+					}
+				}
+			}
+		}
+	}
+}
+
+// Build menu
+@include kt-menu-ver-build-layout(kt-get($kt-aside-config, menu));
+@include kt-menu-ver-build-skin(kt-get($kt-aside-config, menu), default);

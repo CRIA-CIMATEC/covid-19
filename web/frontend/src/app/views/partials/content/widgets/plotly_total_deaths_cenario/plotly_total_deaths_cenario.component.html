@@ -1,0 +1,53 @@
+<div class="row">
+  <div class="col-xl-12">
+      <div class="kt-portlet__head-title">
+          <span class="kt-confirmed_cases__number" >{{'CENARIO.MITIGACAO'|translate}}</span>
+      </div>
+      <div class="modal-body" style="display: flex;">
+          <div class="modal-body">
+            <mat-checkbox (click)="$event.preventDefault()" [checked]="school" >{{'MITIGACAO.school_closure'|translate}}</mat-checkbox>
+          </div>
+          <div class="modal-body">
+            <mat-checkbox (click)="$event.preventDefault()" [checked]="work" >{{'MITIGACAO.workplace_closure'|translate}}</mat-checkbox>
+          </div>
+          <div class="modal-body">
+              <mat-checkbox (click)="$event.preventDefault()" [checked]="public" >{{'MITIGACAO.cancellation_of_public_events'|translate}}</mat-checkbox>
+          </div>
+          <div class="modal-body">
+              <mat-checkbox (click)="$event.preventDefault()" [checked]="gather">{{'MITIGACAO.restrictions_on_gathering_size'|translate}}</mat-checkbox>
+          </div>
+      </div>
+      <div class="modal-body" style="display: flex;">
+          <div class="modal-body">
+              <mat-checkbox (click)="$event.preventDefault()" [checked]="transport" >{{'MITIGACAO.public_transport_closures'|translate}}</mat-checkbox>
+          </div>
+          <div class="modal-body">
+              <mat-checkbox (click)="$event.preventDefault()"  [checked]="stay" >{{'MITIGACAO.stay_at_home_requirements'|translate}}</mat-checkbox>
+          </div> 
+          <div class="modal-body">
+              <mat-checkbox (click)="$event.preventDefault()"  [checked]="domestic" >{{'MITIGACAO.restrictions_on_domestic_movement'|translate}}</mat-checkbox>
+          </div>
+          <div class="modal-body">
+              <mat-checkbox (click)="$event.preventDefault()"  [checked]="travel" >{{'MITIGACAO.restrictions_on_international_travel'|translate}}</mat-checkbox>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+
+
+<div class="kt-confirmed_cases">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="kt-confirmed_cases__content">
+          <span  [translate]="'DASHBOARD.OBITOS'" class="kt-confirmed_cases__number"></span>
+          <span  [translate]="'DASHBOARD.DESC_CASOSCONFIRMADOS'" [translateParams]="{value: '30'}" class="kt-confirmed_cases__desc"></span>
+        </div>
+      </div>
+  
+  </div>
+  
+<plotly-plot [data]="graph.data" [layout]="graph.layout" [useResizeHandler]="true" [style]="{position: 'relative', width: '100%', height: '100%'}">
+
+</plotly-plot>

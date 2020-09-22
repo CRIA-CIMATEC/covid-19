@@ -1,0 +1,97 @@
+<kt-notice [icon]="'flaticon-warning kt-font-primary'">
+	For more info please check the components's official demos & documentation 
+	<a class="kt-link" href="https://material.angular.io/components/tooltip/overview" target="_blank">demos & documentation</a>
+</kt-notice>
+
+<div class="row">
+	<div class="col-xl-6">
+		<kt-material-preview [viewItem]="exampleBasic">
+			<div class="kt-section">
+				<span class="kt-section__sub">
+					The Angular Material tooltip provides a text label that is displayed when the user hovers over or longpresses an element.
+				</span>
+				<div class="kt-separator kt-separator--dashed"></div>
+				<div class="kt-section__content">
+					<span matTooltip="Tooltip!">I have a tooltip</span>
+				</div>
+			</div>
+		</kt-material-preview>
+		
+		<kt-material-preview [viewItem]="exampleCustomPosition">
+			<div class="kt-section">
+				<div class="kt-section__content">
+					<div class="example-tooltip-host" matTooltip="Tooltip!" [matTooltipPosition]="position">
+						<span>Show tooltip:</span>&nbsp;&nbsp;
+						<mat-form-field>
+							<mat-select class="example-select" [(ngModel)]="position">
+								<mat-option value="before">Before</mat-option>
+								<mat-option value="after">After</mat-option>
+								<mat-option value="above">Above</mat-option>
+								<mat-option value="below">Below</mat-option>
+								<mat-option value="left">Left</mat-option>
+								<mat-option value="right">Right</mat-option>
+							</mat-select>
+						</mat-form-field>
+					</div>
+				</div>
+			</div>
+		</kt-material-preview>
+		<kt-material-preview [viewItem]="exampleShowHigh">
+			<div class="kt-section">
+				<span class="kt-section__sub">
+					<b>Show and hide delays:</b>
+					To add a delay before showing or hiding the tooltip, you can use the inputs
+					<mark>matTooltipShowDelay</mark> and
+					<mark>matTooltipHideDelay</mark> to provide a delay time in milliseconds.
+				</span>
+				<div class="kt-separator kt-separator--dashed"></div>
+				<div class="kt-section__content">
+					<button class="mr-3" color="primary" mat-raised-button matTooltip="Tooltip!" matTooltipShowDelay="1000">
+						My tooltip waits one second to show
+					</button>
+
+					<button color="accent" mat-raised-button matTooltip="Tooltip!" matTooltipHideDelay="2000">
+						My tooltip waits two seconds to hide
+					</button>
+				</div>
+			</div>
+		</kt-material-preview>
+	</div>
+
+	<div class="col-xl-6">
+
+		 <kt-material-preview [viewItem]="exampleDelay">
+			<div class="kt-section">
+				<span class="kt-section__sub">
+						<b>Changing the default delay behavior:</b>
+						You can configure your app's tooltip default show/hide delays by configuring and providing your options using the <mark>MAT_TOOLTIP_DEFAULT_OPTIONS</mark> injection token.
+				</span>
+				<div class="kt-separator kt-separator--dashed"></div>
+
+				<div class="kt-section__content">
+						<button mat-raised-button matTooltip="By default, I delay">
+								Button with delay-default tooltip
+							  </button>
+				</div>
+			</div>
+		</kt-material-preview>
+
+		<kt-material-preview [viewItem]="exampleManually">
+			<div class="kt-section">
+				<span class="kt-section__sub">
+						<b>Manually calling show() and hide():</b>
+						To manually cause the tooltip to show or hide, you can call the <mark>show</mark> and <mark>hide</mark> directive methods, which both accept a number in milliseconds to delay before applying the display change.
+				</span>
+				<div class="kt-separator kt-separator--dashed"></div>
+				<div class="kt-section__content">
+						<button class="mr-2" mat-raised-button (click)="tooltip.show()"> Show tooltip </button>
+
+						<span matTooltip="This is the tooltip message" #tooltip="matTooltip">
+						  I have a tooltip
+						</span>
+				</div>
+			</div>
+
+		</kt-material-preview>
+	</div>
+</div>
