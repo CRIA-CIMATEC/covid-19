@@ -13,6 +13,10 @@ $ cd ../xray_covid_model
 $ unzip covid_model.zip
 </pre>
 
+## Create environment to perform predictions
+
+   * Firstly, install the Anaconda https://docs.anaconda.com/anaconda/install/ 
+
 
 
 
