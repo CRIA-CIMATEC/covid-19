@@ -15,7 +15,12 @@ $ unzip covid_model.zip
 
 ## Create environment to perform predictions
 
-   * Firstly, install the Anaconda https://docs.anaconda.com/anaconda/install/ 
+   * Firstly, install the Anaconda https://docs.anaconda.com/anaconda/install/
+   * To create the environment run:
+   <pre>conda env create -f cpu_environment.yml</pre>
+
+
+
 
 
 
