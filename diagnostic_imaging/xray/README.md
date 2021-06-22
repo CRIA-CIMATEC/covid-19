@@ -17,7 +17,11 @@ $ unzip covid_model.zip
 
    * Firstly, install the Anaconda https://docs.anaconda.com/anaconda/install/
    * To create the environment run:
-   <pre>conda env create -f cpu_environment.yml</pre>
+   <pre>conda covid_env create -f cpu_environment.yml</pre>
+   * After that, we need activate the created environment. So run:
+   <pre>source activate covid_env</pre>
+   
+   
 
 
 
