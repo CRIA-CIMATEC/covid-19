@@ -9,11 +9,11 @@ import pickle
 from collections import Counter
 from callback import MultipleClassAUROC, MultiGPUModelCheckpoint
 from configparser import ConfigParser
-from generator import AugmentedImageSequence
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 from tensorflow.keras.callbacks import ModelCheckpoint, TensorBoard, ReduceLROnPlateau
 from tensorflow.keras.optimizers import Adam
 from tensorflow.keras.utils import multi_gpu_model
+from tensorflow.keras.models import load_model
 from models.keras import ModelFactory
 import matplotlib.pyplot as plt
 plt.switch_backend('agg')
@@ -111,22 +111,23 @@ def main():
     dataset_csv_dir = cp["TRAIN"].get("dataset_csv_dir")
     
     
-    df_train = pd.read_csv('./data/default_split/train.csv', dtype='str')
-    df_val = pd.read_csv('./data/default_split/dev.csv', dtype='str')
-    #df_test = pd.read_csv('./data/default_split/test.csv', dtype='str')
+    df_train = pd.read_csv('../base_completa_24fev2021_cropped_aug.csv', dtype='str')
+
+    df_val = df_train[df_train['divisao']=='validacao'] 
+
+    df_train['abnormal'] = 'X' #Cria coluna default do tensorflow
+    df_train.loc[(df_train['classe']=='covid19'), 'abnormal']=1
+    df_train.loc[(df_train['classe']=='anormal'), 'abnormal']=1
+    df_train.loc[(df_train['classe']=='normal'), 'abnormal']=0
+    df_train['abnormal'] = df_train['abnormal'].astype(str)
     
-    df_hc_usp = pd.read_csv('/scratch/v_project/diagnosticos/datasets/lista_covid_anormal_hc_usp_31jul_aug.csv', dtype='str')
-    df_hc_usp['abnormal'] = 'X' #Cria coluna default do tensorflow
-    df_hc_usp.loc[(df_hc_usp['classe']=='covid19'), 'abnormal']=1
-    df_hc_usp.loc[(df_hc_usp['classe']=='anormal'), 'abnormal']=1
-    df_hc_usp.loc[(df_hc_usp['classe']=='normal'), 'abnormal']=0
-    df_hc_usp['abnormal'] = df_hc_usp['abnormal'].astype(str)
+    df_val['abnormal'] = 'X' #Cria coluna default do tensorflow
+    df_val.loc[(df_val['classe']=='covid19'), 'abnormal']=1
+    df_val.loc[(df_val['classe']=='anormal'), 'abnormal']=1
+    df_val.loc[(df_val['classe']=='normal'), 'abnormal']=0
+    df_val['abnormal'] = df_val['abnormal'].astype(str)
     
-    df_train = df_train.append(df_hc_usp[(df_hc_usp['divisao']=='treinamento')], ignore_index=True)
-    df_train = df_train.append(df_hc_usp[(df_hc_usp['divisao']=='teste')], ignore_index=True)
-    
-    
-    df_val = df_val.append(df_hc_usp[(df_hc_usp['divisao']=='validacao')], ignore_index=True)
+   
     
     train_datagen = ImageDataGenerator(rescale = 1./255,
                                        preprocessing_function=run_equilize,
@@ -138,7 +139,7 @@ def main():
     train_generator = train_datagen.flow_from_dataframe(
     df_train,
     x_col="filename",
-    y_col="anormal",
+    y_col="abnormal",
     interpolation='nearest',
     target_size=(299, 299),
     batch_size=batch_size,
@@ -149,7 +150,7 @@ def main():
     validation_generator = valida_datagen.flow_from_dataframe(
         df_val,
         x_col="filename",
-        y_col="anormal",
+        y_col="abnormal",
         interpolation='nearest',
         target_size=(299, 299),
         batch_size=batch_size,
@@ -177,6 +178,7 @@ def main():
         # FIXME: currently (Keras 2.1.2) checkpoint doesn't work with multi_gpu_model
         checkpoint = MultiGPUModelCheckpoint(
             filepath=output_weights_path,
+            monitor="val_loss",
             base_model=model,
             save_weights_only=True,
             save_best_only=True,
@@ -186,6 +188,7 @@ def main():
         model_train = model
         checkpoint = ModelCheckpoint(
              output_weights_path,
+             monitor="val_loss",
              base_model=model,
              save_weights_only=True,
              save_best_only=True,
@@ -200,23 +203,26 @@ def main():
         checkpoint,
         TensorBoard(log_dir=os.path.join(output_dir, "logs"), batch_size=batch_size),
         ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=patience_reduce_lr,
-                          verbose=1, mode="min", min_lr=min_lr),
+                         verbose=1, mode="min", min_lr=min_lr),
         tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=True),
     ]
 
     print("** start training **")
+
     history = model_train.fit(train_generator,
-        steps_per_epoch=len(df_train)//batch_size,
-        epochs=epochs,
-        validation_data = validation_generator,
-        validation_steps=len(df_val)//batch_size,
-        callbacks=callbacks,
-        use_multiprocessing=True,
-        workers=generator_workers,
+       steps_per_epoch=len(df_train)//batch_size,
+       epochs=100,
+       validation_data = validation_generator,
+       validation_steps=len(df_val)//batch_size,
+       callbacks=callbacks,
+       use_multiprocessing=True,
+       workers=generator_workers,
         shuffle=False,
     )
+
     model_train.save("anormal_model.h5")
     model_train.save_weights("anormal_model_weights.h5")
+
     print(history.history)
     plt.figure(num=1, figsize=(20,10))
     plt.title('Loss')
@@ -236,7 +242,6 @@ def main():
     plt.ylabel('Accuracy')
     plt.legend()
     plt.savefig('acc.png')
-
 
 if __name__ == "__main__":
     main()
