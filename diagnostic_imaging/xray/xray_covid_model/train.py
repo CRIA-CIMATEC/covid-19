@@ -1,65 +1,23 @@
-import os
-import sys
-from tensorflow.keras.layers import AveragePooling2D, Dropout, Flatten, Dense, Input
-from tensorflow.keras.models import Model, load_model, save_model
-from tensorflow.keras.optimizers import Adam, SGD
-from tensorflow.keras.utils import to_categorical
-from tensorflow.keras import optimizers, models, layers
-from tensorflow.keras.applications.inception_v3 import InceptionV3
-from tensorflow.keras.callbacks import ModelCheckpoint, EarlyStopping, CSVLogger, TensorBoard, ReduceLROnPlateau
-from tensorflow.keras.preprocessing.image import ImageDataGenerator#, img_to_array, load_img
-from tensorflow.keras.utils import multi_gpu_model
-from tensorflow.keras import regularizers
-
-from sklearn.preprocessing import LabelEncoder, OneHotEncoder
-from sklearn.model_selection import train_test_split
-
-from sklearn.metrics import roc_curve, roc_auc_score, precision_recall_curve, auc
-from sklearn.metrics import classification_report, confusion_matrix, average_precision_score
-
-from itertools import cycle
-from imutils import paths
-import matplotlib.pyplot as plt
-
-import numpy as np
-from numpy import interp
+import tensorflow as tf
 import cv2
-import glob
-
-import datetime
-import shutil
-
+import numpy as np
 import pandas as pd
-
+import json
+import shutil
+import os
+import pickle
 from collections import Counter
+from callback import MultipleClassAUROC, MultiGPUModelCheckpoint
+from configparser import ConfigParser
+from tensorflow.keras.preprocessing.image import ImageDataGenerator
+from tensorflow.keras.callbacks import ModelCheckpoint, TensorBoard, ReduceLROnPlateau
+from tensorflow.keras.optimizers import Adam
+from tensorflow.keras.utils import multi_gpu_model
+from tensorflow.keras.models import load_model
+from models.keras import ModelFactory
+import matplotlib.pyplot as plt
+plt.switch_backend('agg')
 
-
-df = pd.read_csv('../datasets/2xcovid_7agosto_aug.csv', dtype='str')
-
-df.loc[(df['class']=='covid19'), 'class']=1
-df.loc[(df['class']=='anormal'), 'class']=0
-df.loc[(df['class']=='normal'), 'class']=0
-df['class'] = df['class'].astype(str)
-
-
-training_dataset = df[(df['partition']=='training')]
-training_dataset = training_dataset.append(df[(df['partition']=='test')], ignore_index=True)
-validation_dataset = df[(df['partition']=='validation')]
-
-
-prefixo = datetime.datetime.now().strftime('%d_%m_%H_%M_%S_trello_bin')
-os.makedirs('./models/'+ prefixo, exist_ok = True)
-output_folder = './models/'+prefixo+'/'
-
-
-
-width = 299
-height = width
-
-# set learning rate, epochs and batch size
-INIT_LR = 1e-3    # This value is specific to what model is chosen: Inception, VGG or ResnNet.
-EPOCHS =100
-BS = 32 #batch_size
 
 
 def get_num_colors(img):    
@@ -121,122 +79,173 @@ def run_equilize(img):
     else:
         img = img.astype(np.float32)
         return img
+
+
+def main():
+    # parser config
+    config_file = "./config.ini"
+    cp = ConfigParser()
+    cp.read(config_file)
+
+    # default config
+    output_dir = cp["DEFAULT"].get("output_dir")
+    image_source_dir = cp["DEFAULT"].get("image_source_dir")
+    base_model_name = cp["DEFAULT"].get("base_model_name")
+    class_names = cp["DEFAULT"].get("class_names").split(",")
+
+    # train config
+    use_base_model_weights = cp["TRAIN"].getboolean("use_base_model_weights")
+    use_trained_model_weights = cp["TRAIN"].getboolean("use_trained_model_weights")
+    use_best_weights = cp["TRAIN"].getboolean("use_best_weights")
+    output_weights_name = cp["TRAIN"].get("output_weights_name")
+    epochs = cp["TRAIN"].getint("epochs")
+    batch_size = cp["TRAIN"].getint("batch_size")
+    initial_learning_rate = cp["TRAIN"].getfloat("initial_learning_rate")
+    generator_workers = cp["TRAIN"].getint("generator_workers")
+    image_dimension = cp["TRAIN"].getint("image_dimension")
+    train_steps = cp["TRAIN"].get("train_steps")
+    patience_reduce_lr = cp["TRAIN"].getint("patience_reduce_lr")
+    min_lr = cp["TRAIN"].getfloat("min_lr")
+    validation_steps = cp["TRAIN"].get("validation_steps")
+    positive_weights_multiply = cp["TRAIN"].getfloat("positive_weights_multiply")
+    dataset_csv_dir = cp["TRAIN"].get("dataset_csv_dir")
     
+    
+    df_train = pd.read_csv('../base_covid_24fev2021_cropped_aug.csv', dtype='str')
 
-
-############################################
-train_datagen = ImageDataGenerator(rescale = 1./255,
-                    preprocessing_function=run_equilize,
+    
+    df_val = df_train[df_train['divisao'] == 'validacao']
+    
+    
+    df_train['covid19'] = 'X' #Cria coluna default do tensorflow
+    df_train.loc[(df_train['classe']=='covid19'), 'covid19']=1
+    df_train.loc[(df_train['classe']=='anormal'), 'covid19']=0
+    df_train.loc[(df_train['classe']=='normal'), 'covid19']=0
+    df_train['covid19'] = df_train['covid19'].astype(str)
+    
+    df_val['covid19'] = 'X' #Cria coluna default do tensorflow
+    df_val.loc[(df_val['classe']=='covid19'), 'covid19']=1
+    df_val.loc[(df_val['classe']=='anormal'), 'covid19']=0
+    df_val.loc[(df_val['classe']=='normal'), 'covid19']=0
+    df_val['covid19'] = df_val['covid19'].astype(str)
+    
+    
+  
+    #df_train = df_train[df_train['divisao'] != 'teste']
+    
+    
+    train_datagen = ImageDataGenerator(rescale = 1./255,
+                                       preprocessing_function=run_equilize,
                                   )
 
-valida_datagen = ImageDataGenerator(rescale = 1./255,
-                    preprocessing_function=run_equilize,
-                    )
-
-############################################
-train_generator = train_datagen.flow_from_dataframe(
-    training_dataset,
-    x_col='filename',
+    valida_datagen = ImageDataGenerator(rescale = 1./255,
+                                        preprocessing_function=run_equilize,
+                                   )
+    train_generator = train_datagen.flow_from_dataframe(
+    df_train,
+    x_col="filename",
+    y_col="covid19",
     interpolation='nearest',
-    target_size=(height, width),
-    batch_size=BS,
+    target_size=(299, 299),
+    batch_size=batch_size,
     class_mode='binary',
     shuffle= True,
     subset=None)
 
+    validation_generator = valida_datagen.flow_from_dataframe(
+        df_val,
+        x_col="filename",
+        y_col="covid19",
+        interpolation='nearest',
+        target_size=(299, 299),
+        batch_size=batch_size,
+        class_mode='binary',
+        shuffle= True,
+        subset=None)
+        
+    model_factory = ModelFactory()
+    model = model_factory.get_model(
+        class_names,
+        model_name=base_model_name,
+        use_base_weights=use_base_model_weights,
+        input_shape=(image_dimension, image_dimension, 3))
 
-############################################
+    print(model.summary())
+        
+    output_weights_path = os.path.join(output_dir, output_weights_name)
+    print(f"** set output weights path to: {output_weights_path} **")
+    print("** check multiple gpu availability **")
+    print("Num GPUs Available: ", len(tf.config.experimental.list_physical_devices('GPU')))
+    gpus = len(os.getenv("CUDA_VISIBLE_DEVICES", "1").split(","))
+    if gpus > 1:
+        print(f"** multi_gpu_model is used! gpus={gpus} **")
+        model_train = multi_gpu_model(model,gpus, cpu_merge=True, cpu_relocation=False)
+        # FIXME: currently (Keras 2.1.2) checkpoint doesn't work with multi_gpu_model
+        checkpoint = MultiGPUModelCheckpoint(
+            filepath=output_weights_path,
+            monitor="val_loss",
+            base_model=model,
+            save_weights_only=True,
+            save_best_only=True,
+            verbose=1,
+        )
+    else:
+        model_train = model
+        checkpoint = ModelCheckpoint(
+             output_weights_path,
+             monitor="val_loss",
+             base_model=model,
+             save_weights_only=True,
+             save_best_only=True,
+             verbose=1,
+        )
 
+    print("** compile model with class weights **")
+    optimizer = Adam(lr=initial_learning_rate)
+   
+    callbacks = [
+        checkpoint,
+        TensorBoard(log_dir=os.path.join(output_dir, "logs"), batch_size=batch_size),
+        ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=patience_reduce_lr,
+                        verbose=1, mode="min", min_lr=min_lr),
+        tf.keras.callbacks.EarlyStopping(monitor='val_loss', patience=10, restore_best_weights=True),
+    ]
 
-validation_generator = valida_datagen.flow_from_dataframe(
-    validation_dataset,
-    x_col='filename',
-    interpolation='nearest',
-    target_size=(height, width),
-    batch_size=BS,
-    class_mode='binary',
-    shuffle= True,
-    subset=None)
+    print("** start training **")
+    learning_rate = initial_learning_rate
+    model_train.compile(optimizer=optimizer, loss="binary_crossentropy", metrics=['acc'])
+    history = model_train.fit(train_generator,
+        steps_per_epoch=len(df_train)//batch_size,
+        epochs=100,
+        validation_data = validation_generator,
+        validation_steps=len(df_val)//batch_size,
+        callbacks=callbacks,
+        use_multiprocessing=True,
+        workers=generator_workers,
+        shuffle=False,
+    )
+    model_train.save("covid_model.h5")
+    model_train.save_weights("covid_model_weight.h5")
 
-baseModel = InceptionV3(weights='imagenet', include_top=False, input_tensor=Input(shape=(width, height, 3)))
+    print(history.history)
+    plt.figure(num=1, figsize=(20,10))
+    plt.title('Loss')
+    plt.plot(history.history['loss'], label='Train')
+    plt.plot(history.history['val_loss'], label='Validation')
+    plt.xlabel('Epoch')
+    plt.ylabel('Loss')
+    plt.legend()
+    plt.savefig('loss.png')
 
-#Add on a couple of custom CNN layers on top of the Inception V3 model. 
-headModel = baseModel.output
-headModel = AveragePooling2D(pool_size=(4, 4))(headModel)
-headModel = Flatten(name="flatten")(headModel)
-headModel = Dense(128, activation="relu")(headModel) 
-headModel = Dropout(0.5)(headModel)
-headModel = Dense(1, activation="sigmoid")(headModel)
+    plt.clf()
+    plt.figure(num=1, figsize=(20,10))
+    plt.title('Accuracy')
+    plt.plot(history.history['acc'], label='Train')
+    plt.plot(history.history['val_acc'], label='Validation')
+    plt.xlabel('Epoch')
+    plt.ylabel('Accuracy')
+    plt.legend()
+    plt.savefig('acc.png')
 
-# Compose the final model
-model = Model(inputs=baseModel.input, outputs=headModel)
-
-#model = multi_gpu_model(model, 2, cpu_merge=True, cpu_relocation=False)
-
-model.compile(loss="binary_crossentropy", optimizer='SGD', metrics=["accuracy"])
-
-
-csv_log = CSVLogger(output_folder +'log_rede_inception.log')
-filepath=(output_folder +'{epoch:02d}_AC{accuracy:.3f}_VAC{val_accuracy:.3f}_L{loss:.5f}_VL{val_loss:.5f}.h5')
-
-patience_reduce_lr=1
-min_lr=1e-8 
-output_dir =  './TensorBoard_log/'
-callbacks = [
-            ModelCheckpoint(filepath,
-                                  monitor='val_accuracy',
-                                  include_optimizer=False,
-                                  save_best_only=False),
-
-            ReduceLROnPlateau(monitor='val_loss', factor=0.1, patience=patience_reduce_lr,
-                              verbose=1, mode="min", min_lr=min_lr),
-            EarlyStopping(monitor='val_accuracy', patience=10, restore_best_weights=True), csv_log]
-
-H = model.fit(
-    train_generator,
-    steps_per_epoch=len(training_dataset)//BS,
-    epochs=100,
-    validation_data = validation_generator,
-    validation_steps=len(validation_dataset)//BS,
-    callbacks=callbacks,
-    use_multiprocessing=True,
-    workers=4,
-    verbose=1)
-
-
-model_train.save("anormal_model.h5")
-model_train.save_weights("anormal_model_weights.h5")
-
-
-
-training_log = pd.read_csv(output_folder + 'log_rede_inception.log')
-
-fig_acc = plt.figure(figsize=(10, 4))
-plt.plot(training_log['accuracy'], linewidth=1, label='Train_accuracy')
-plt.plot(training_log['val_accuracy'], linewidth=1, label='Val_accuracy')
-plt.tick_params(labelsize = 14)
-plt.title('Train Model Accuracy', fontsize=14)
-plt.legend(loc='best', fontsize=12, ncol=4)
-plt.ylim(0,1)
-plt.xlabel('Epochs', fontsize=14)
-plt.ylabel('Loss', fontsize=14)
-plt.tight_layout()
-plt.close()
-plt.savefig(pasta_saida +'model_loss.png', dpi=14)
-
-
-fig_loss = plt.figure(figsize=(10, 4))
-plt.plot(training_log['loss'], linewidth=1, label='Train_loss')
-plt.plot(training_log['val_loss'], linewidth=1, label='Val_loss')
-plt.tick_params(labelsize = 14)
-plt.ylim(0,1)
-plt.title('Train Model loss', fontsize=14)
-plt.legend(loc='best', fontsize=12, ncol=4)
-plt.xlabel('Epochs', fontsize=14)
-plt.ylabel('Loss', fontsize=14)
-plt.tight_layout()
-plt.close()
-plt.savefig(pasta_saida +'model_loss.png', dpi=14)
-
-
-
+if __name__ == "__main__":
+    main()
