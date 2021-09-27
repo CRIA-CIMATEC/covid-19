@@ -1,0 +1,13 @@
+The dataset has 1158 AP chest radiographs from patients from a hospital in Espírito Santo, Brazil, obtained in the period between July and September of 2020. 
+The spreadsheet presents demographic information (sex, age), an RT-PCR result, whenever available, the consensus diagnose from two radiologists issuing seven possible diagnoses:
+(1) Normal - normal examination
+(2) Viral Grave - severe viral infection
+(3) Viral Moderado - moderate viral infection
+(4) Viral Leve - mild viral infection
+(5) Bacteriana Grave - severe bacterial infection
+(6) Bacteriana Moderado - moderate bacterial infection
+(7) Bacteriana Leve - mild bacterial infection
+(8) Excluido - Lack of consensus
+
+The spreadsheet presents the outputs of the CIMATEC_XCOV19 and DEEPCOVID_XR AI algorithm for each image in the dataset.
+More details in the paper. 
